@@ -133,6 +133,7 @@ defaultproperties
      TransientSoundVolume=2.000000
      TransientSoundRadius=500.000000
      FireRate=0.300000
+     FireAnimRate=2.26 
      AmmoClass=Class'ScrnWeaponPack.ProtectaAmmo'
      KickMomentum=(X=0,Y=0,Z=0)
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=400.000000)
