@@ -14,6 +14,35 @@ exec function SwitchModes()
 	DoToggle();
 }
 
+//overridden to fix zooming in and out
+simulated exec function ToggleIronSights()
+{
+	if( bHasAimingMode )
+	{
+		if( bAimingRifle )
+		{
+			PerformZoom(false);
+			TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
+		}
+		else
+		{
+            if( Owner != none && Owner.Physics == PHYS_Falling &&
+                Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
+            {
+                return;
+            }
+
+	   		InterruptReload();
+
+			if( bIsReloading || !CanZoomNow() )
+				return;
+
+			PerformZoom(True);
+			//also blend to idle
+			TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
+		}
+	}
+}
 
 defaultproperties
 {
