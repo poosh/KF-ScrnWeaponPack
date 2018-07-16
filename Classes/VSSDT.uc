@@ -12,7 +12,7 @@ simulated function AltFire(float F)
 
 exec function SwitchModes()
 {
-	DoToggle();
+    DoToggle();
 }
 
 

@@ -2,8 +2,8 @@ class MuzzleFlash1rdSVD extends ROMuzzleFlash3rd;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
-	Emitters[0].SpawnParticle(10);
-	Emitters[1].SpawnParticle(10);
+    Emitters[0].SpawnParticle(10);
+    Emitters[1].SpawnParticle(10);
 }
 
 defaultproperties

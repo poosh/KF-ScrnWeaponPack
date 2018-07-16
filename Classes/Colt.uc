@@ -18,41 +18,41 @@ var transient float NextBulletLoadTime;
 // Reload State 3: closing drum.
 simulated function WeaponTick(float dt)
 {
-	local float LastSeenSeconds;
+    local float LastSeenSeconds;
 
-	if( bHasAimingMode ) {
+    if( bHasAimingMode ) {
         if( bForceLeaveIronsights ) {
-        	if( bAimingRifle ) {
+            if( bAimingRifle ) {
                 ZoomOut(true);
 
-            	if( Role < ROLE_Authority)
-        			ServerZoomOut(false);
+                if( Role < ROLE_Authority)
+                    ServerZoomOut(false);
             }
             bForceLeaveIronsights = false;
         }
 
         if( ForceZoomOutTime > 0 ) {
             if( bAimingRifle ) {
-        	    if( Level.TimeSeconds - ForceZoomOutTime > 0 ) {
+                if( Level.TimeSeconds - ForceZoomOutTime > 0 ) {
                     ForceZoomOutTime = 0;
-                	ZoomOut(true);
-                	if( Role < ROLE_Authority)
-            			ServerZoomOut(false);
-        		}
-    		}
-    		else {
+                    ZoomOut(true);
+                    if( Role < ROLE_Authority)
+                        ServerZoomOut(false);
+                }
+            }
+            else {
                 ForceZoomOutTime = 0;
-    		}
-    	}
-	}
+            }
+        }
+    }
     
     if ( Role < ROLE_Authority )
         return;
 
     if ( bIsReloading ) {
-		if( Level.TimeSeconds >= ReloadTimer ) {
+        if( Level.TimeSeconds >= ReloadTimer ) {
             ActuallyFinishReloading();
-		}
+        }
         else if ( !bInterruptedReload && Level.TimeSeconds >= NextBulletLoadTime ) {
             if ( MagAmmoRemaining >= MagCapacity || MagAmmoRemaining >= AmmoAmount(0) )
                 NextBulletLoadTime += 1000; // don't load bullets anymore
@@ -66,7 +66,7 @@ simulated function WeaponTick(float dt)
         LastSeenSeconds = Level.TimeSeconds - Instigator.Controller.LastSeenTime;
         if(MagAmmoRemaining == 0 || ((LastSeenSeconds >= 5 || LastSeenSeconds > MagAmmoRemaining) && MagAmmoRemaining < MagCapacity))
             ReloadMeNow();
-	}
+    }
 
     // Turn it off on death  / battery expenditure
     if (FlashLight != none)
@@ -91,12 +91,12 @@ simulated function bool AllowReload()
     if ( bIsReloading || MagAmmoRemaining >= AmmoAmount(0) )
         return false;
         
-	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
     if ( MagAmmoRemaining >= MagCapacity )
         return false;
 
-	if( KFInvasionBot(Instigator.Controller) != none || KFFriendlyAI(Instigator.Controller) != none )
-		return true;
+    if( KFInvasionBot(Instigator.Controller) != none || KFFriendlyAI(Instigator.Controller) != none )
+        return true;
 
     return !FireMode[0].IsFiring() && !FireMode[1].IsFiring() 
         && Level.TimeSeconds > (FireMode[0].NextFireTime - 0.1);
@@ -108,20 +108,20 @@ simulated function bool AllowReload()
 // -- PooSH
 simulated function DoReload()
 {
-	if ( bHasAimingMode && bAimingRifle ) {
-		FireMode[1].bIsFiring = False;
-		ZoomOut(false);
+    if ( bHasAimingMode && bAimingRifle ) {
+        FireMode[1].bIsFiring = False;
+        ZoomOut(false);
         // ZoomOut() just a moment ago was executed on server side - why to force it again?  -- PooSH
-		// if( Role < ROLE_Authority)
-			// ServerZoomOut(false);
-	}
+        // if( Role < ROLE_Authority)
+            // ServerZoomOut(false);
+    }
 
-	if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
-		ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
-	else
-		ReloadMulti = 1.0;
+    if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
+        ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
+    else
+        ReloadMulti = 1.0;
 
-	bIsReloading = true;
+    bIsReloading = true;
     bInterruptedReload = false;
     
     BulletUnloadRate = default.BulletUnloadRate / ReloadMulti; 
@@ -130,9 +130,9 @@ simulated function DoReload()
     // more bullets left = less time to reload
     ReloadRate = default.ReloadRate / ReloadMulti;
     ReloadRate -= MagAmmoRemaining * BulletLoadRate;
-	ReloadTimer = Level.TimeSeconds + ReloadRate;
+    ReloadTimer = Level.TimeSeconds + ReloadRate;
 
-	Instigator.SetAnimAction(WeaponReloadAnim);
+    Instigator.SetAnimAction(WeaponReloadAnim);
 }
 
 // This function is triggered by client, replicated to server and NOT EXECUTED on client, 
@@ -148,17 +148,17 @@ exec function ReloadMeNow()
     ClientReload();
     
     PC = KFPlayerController(Instigator.Controller);
-	if ( PC != none && Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress 
+    if ( PC != none && Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress 
             && Level.TimeSeconds - PC.LastReloadMessageTime > PC.ReloadMessageDelay )
-	{
-		KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
-		KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
-	}    
+    {
+        KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
+        KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
+    }    
 }
 
 function ServerRequestAutoReload()
 {
-	ReloadMeNow();
+    ReloadMeNow();
 }
 
 // This function now is triggered by ReloadMeNow() and executed on local side only
@@ -193,19 +193,19 @@ simulated function AltFire(float F)
 // Anyway, why server would want to interrupt reload by its own?..
 simulated function bool InterruptReload()
 {
-	if( bIsReloading && !bInterruptedReload && (ReloadTimer - Level.TimeSeconds)*ReloadMulti > 0.5 )
-	{
+    if( bIsReloading && !bInterruptedReload && (ReloadTimer - Level.TimeSeconds)*ReloadMulti > 0.5 )
+    {
         // that's very lame how to do stuff like that - don't repeat it at home ;)
         // in theory client should send server a request to interrupt the reload,
         // and the server send back accept to client.
         // But in such case we have a double chance of screwing the shit up, so let's just 
         // do it lazy way.
-		ServerInterruptReload();
+        ServerInterruptReload();
         ClientInterruptReload();
-		return true;
-	}
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 function ServerInterruptReload()
@@ -228,129 +228,129 @@ simulated function ClientInterruptReload()
 
 simulated exec function ToggleIronSights()
 {
-	if( bHasAimingMode ) {
-		if( bAimingRifle )
-			PerformZoom(false);
-		else
+    if( bHasAimingMode ) {
+        if( bAimingRifle )
+            PerformZoom(false);
+        else
             IronSightZoomIn();
-	}
+    }
 }
 
 simulated exec function IronSightZoomIn()
 {
-	if( bHasAimingMode ) {
+    if( bHasAimingMode ) {
         if( Owner != none && Owner.Physics == PHYS_Falling 
                 && Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
             return;
             
-		if( bIsReloading )
+        if( bIsReloading )
             InterruptReload(); // finish reloading while zooming in  -- PooSH
-		PerformZoom(True);
-	}
+        PerformZoom(True);
+    }
 }
 
 simulated function bool PutDown()
 {
-	local int Mode;
+    local int Mode;
 
     // continue here, because there is nothing to stop us from interrupting the reload  -- PooSH
-	if ( bIsReloading )
-		InterruptReload(); 
+    if ( bIsReloading )
+        InterruptReload(); 
 
-	if( bAimingRifle )
-		ZoomOut(False);
+    if( bAimingRifle )
+        ZoomOut(False);
 
-	// From Weapon.uc
-	if (ClientState == WS_BringUp || ClientState == WS_ReadyToFire)
-	{
-		if ( (Instigator.PendingWeapon != None) && !Instigator.PendingWeapon.bForceSwitch )
-		{
-			for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
-			{
-		    	// if _RO_
-				if( FireMode[Mode] == none )
-					continue;
-				// End _RO_
+    // From Weapon.uc
+    if (ClientState == WS_BringUp || ClientState == WS_ReadyToFire)
+    {
+        if ( (Instigator.PendingWeapon != None) && !Instigator.PendingWeapon.bForceSwitch )
+        {
+            for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
+            {
+                // if _RO_
+                if( FireMode[Mode] == none )
+                    continue;
+                // End _RO_
 
-				if ( FireMode[Mode].bFireOnRelease && FireMode[Mode].bIsFiring )
-					return false;
-				if ( FireMode[Mode].NextFireTime > Level.TimeSeconds + FireMode[Mode].FireRate*(1.f - MinReloadPct))
-					DownDelay = FMax(DownDelay, FireMode[Mode].NextFireTime - Level.TimeSeconds - FireMode[Mode].FireRate*(1.f - MinReloadPct));
-			}
-		}
+                if ( FireMode[Mode].bFireOnRelease && FireMode[Mode].bIsFiring )
+                    return false;
+                if ( FireMode[Mode].NextFireTime > Level.TimeSeconds + FireMode[Mode].FireRate*(1.f - MinReloadPct))
+                    DownDelay = FMax(DownDelay, FireMode[Mode].NextFireTime - Level.TimeSeconds - FireMode[Mode].FireRate*(1.f - MinReloadPct));
+            }
+        }
 
-		if (Instigator.IsLocallyControlled())
-		{
-			for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
-			{
-		    	// if _RO_
-				if( FireMode[Mode] == none )
-					continue;
-				// End _RO_
+        if (Instigator.IsLocallyControlled())
+        {
+            for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
+            {
+                // if _RO_
+                if( FireMode[Mode] == none )
+                    continue;
+                // End _RO_
 
-				if ( FireMode[Mode].bIsFiring )
-					ClientStopFire(Mode);
-			}
+                if ( FireMode[Mode].bIsFiring )
+                    ClientStopFire(Mode);
+            }
 
             if (  DownDelay <= 0  || KFPawn(Instigator).bIsQuickHealing > 0)
             {
-				if ( ClientState == WS_BringUp || KFPawn(Instigator).bIsQuickHealing > 0 )
-					TweenAnim(SelectAnim,PutDownTime);
-				else if ( HasAnim(PutDownAnim) )
-				{
-					if( ClientGrenadeState == GN_TempDown || KFPawn(Instigator).bIsQuickHealing > 0)
+                if ( ClientState == WS_BringUp || KFPawn(Instigator).bIsQuickHealing > 0 )
+                    TweenAnim(SelectAnim,PutDownTime);
+                else if ( HasAnim(PutDownAnim) )
+                {
+                    if( ClientGrenadeState == GN_TempDown || KFPawn(Instigator).bIsQuickHealing > 0)
                     {
                        PlayAnim(PutDownAnim, PutDownAnimRate * (PutDownTime/QuickPutDownTime), 0.0);
-                	}
-                	else
-                	{
-                	   PlayAnim(PutDownAnim, PutDownAnimRate, 0.0);
-                	}
+                    }
+                    else
+                    {
+                       PlayAnim(PutDownAnim, PutDownAnimRate, 0.0);
+                    }
 
-				}
-			}
+                }
+            }
         }
-		ClientState = WS_PutDown;
-		if ( Level.GRI.bFastWeaponSwitching )
-			DownDelay = 0;
-		if ( DownDelay > 0 )
-		{
-			SetTimer(DownDelay, false);
-		}
-		else
-		{
-			if( ClientGrenadeState == GN_TempDown )
-			{
-			   SetTimer(QuickPutDownTime, false);
-			}
-			else
-			{
-			   SetTimer(PutDownTime, false);
-			}
-		}
-	}
-	for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
-	{
-		// if _RO_
-		if( FireMode[Mode] == none )
-			continue;
-		// End _RO_
+        ClientState = WS_PutDown;
+        if ( Level.GRI.bFastWeaponSwitching )
+            DownDelay = 0;
+        if ( DownDelay > 0 )
+        {
+            SetTimer(DownDelay, false);
+        }
+        else
+        {
+            if( ClientGrenadeState == GN_TempDown )
+            {
+               SetTimer(QuickPutDownTime, false);
+            }
+            else
+            {
+               SetTimer(PutDownTime, false);
+            }
+        }
+    }
+    for (Mode = 0; Mode < NUM_FIRE_MODES; Mode++)
+    {
+        // if _RO_
+        if( FireMode[Mode] == none )
+            continue;
+        // End _RO_
 
-		FireMode[Mode].bServerDelayStartFire = false;
-		FireMode[Mode].bServerDelayStopFire = false;
-	}
-	Instigator.AmbientSound = None;
-	OldWeapon = None;
-	return true; // return false if preventing weapon switch
+        FireMode[Mode].bServerDelayStartFire = false;
+        FireMode[Mode].bServerDelayStopFire = false;
+    }
+    Instigator.AmbientSound = None;
+    OldWeapon = None;
+    return true; // return false if preventing weapon switch
 }
 
 
 simulated function Notify_DropBullets()
-{	
+{    
     if ( !Instigator.IsLocallyControlled() )
         return ;
     // bullets are reloaded in this order: 2,1,5,4,6,3
-	switch ( MagAmmoRemaining ) {
+    switch ( MagAmmoRemaining ) {
         case 5:
            SetBoneScale(1, 0.0, 'b1');
            SetBoneScale(2, 0.0, 'b2');

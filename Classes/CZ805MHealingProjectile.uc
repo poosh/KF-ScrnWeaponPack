@@ -2,5 +2,5 @@ class CZ805MHealingProjectile extends ScrnHealingProjectile;
 
 defaultproperties
 {
-	HealBoostAmount=10
+    HealBoostAmount=10
 }

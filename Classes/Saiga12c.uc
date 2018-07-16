@@ -8,8 +8,8 @@ defaultproperties
     MagCapacity=8
     ReloadRate=3.133000
     ReloadAnim="Reload"
-	ReloadShortAnim="Reload"
-	ReloadShortRate=2.15      
+    ReloadShortAnim="Reload"
+    ReloadShortRate=2.15      
     
     ReloadAnimRate=1.000000
     WeaponReloadAnim="Reload_AK47"

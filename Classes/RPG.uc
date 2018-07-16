@@ -12,16 +12,16 @@ function ServerStopFire(byte Mode)
 
 simulated function BringUp(optional Weapon PrevWeapon)
 {
-	Super.BringUp(PrevWeapon);
+    Super.BringUp(PrevWeapon);
     UpdateRocket();
 }
 
 simulated function UpdateRocket()
 {
-	if ( MagAmmoRemaining >= 1)
-		SetBoneScale (0, 1.0, 'Rocket');
-	else 
-		SetBoneScale (0, 0.0, 'Rocket');
+    if ( MagAmmoRemaining >= 1)
+        SetBoneScale (0, 1.0, 'Rocket');
+    else 
+        SetBoneScale (0, 0.0, 'Rocket');
 }
 
 simulated function ClientWeaponSet(bool bPossiblySwitch)
@@ -32,20 +32,20 @@ simulated function ClientWeaponSet(bool bPossiblySwitch)
 
 function Notify_EGpHideRocket ()
 {
-	if (AmmoAmount(0) <= 0)
-		SetBoneScale (0, 0.0, 'Rocket');
+    if (AmmoAmount(0) <= 0)
+        SetBoneScale (0, 0.0, 'Rocket');
 }
 
 simulated function bool PutDown()
 {
-	if (Super.PutDown())
-	{
-     	if (MagAmmoRemaining < 1)
-			SetBoneScale (0, 0.0, 'Rocket');
+    if (Super.PutDown())
+    {
+         if (MagAmmoRemaining < 1)
+            SetBoneScale (0, 0.0, 'Rocket');
 
-		return true;
-	}
-	return false;
+        return true;
+    }
+    return false;
 }
 
 

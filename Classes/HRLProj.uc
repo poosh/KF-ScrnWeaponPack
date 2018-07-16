@@ -5,22 +5,22 @@ class HRLProj extends LAWProj;
 // never explode in arm distance
 function TakeDamage( int Damage, Pawn InstigatedBy, Vector Hitlocation, Vector Momentum, class<DamageType> damageType, optional int HitIndex)
 {
-	if( damageType == class'SirenScreamDamage')
+    if( damageType == class'SirenScreamDamage')
         Disintegrate(HitLocation, vect(0,0,1));
-	else if ( !bDud && Damage >= 200 ) {
-		
+    else if ( !bDud && Damage >= 200 ) {
+        
         if ( (VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0))  
             Disintegrate(HitLocation, vect(0,0,1));
         else
             Explode(HitLocation, vect(0,0,0));
-	}
+    }
 }
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation)
 {
-	// Don't let it hit this player, or blow up on another player
-	if ( Other == none || Other == Instigator || Other.Base == Instigator )
-		return;
+    // Don't let it hit this player, or blow up on another player
+    if ( Other == none || Other == Instigator || Other.Base == Instigator )
+        return;
 
     // Don't collide with bullet whip attachments
     if( KFBulletWhipAttachment(Other) != none )
@@ -35,35 +35,35 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation)
         return;
     }
 
-	// Use the instigator's location if it exists. This fixes issues with
-	// the original location of the projectile being really far away from
-	// the real Origloc due to it taking a couple of milliseconds to
-	// replicate the location to the client and the first replicated location has
-	// already moved quite a bit.
-	if( Instigator != none )
-	{
-		OrigLoc = Instigator.Location;
-	}
+    // Use the instigator's location if it exists. This fixes issues with
+    // the original location of the projectile being really far away from
+    // the real Origloc due to it taking a couple of milliseconds to
+    // replicate the location to the client and the first replicated location has
+    // already moved quite a bit.
+    if( Instigator != none )
+    {
+        OrigLoc = Instigator.Location;
+    }
 
-	if( !bDud && ((VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0)) )
-	{
-		if( Role == ROLE_Authority )
-		{
-			AmbientSound=none;
-			PlaySound(Sound'ProjectileSounds.PTRD_deflect04',,2.0);
-			Other.TakeDamage( ImpactDamage, Instigator, HitLocation, Normal(Velocity), ImpactDamageType );
-		}
+    if( !bDud && ((VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0)) )
+    {
+        if( Role == ROLE_Authority )
+        {
+            AmbientSound=none;
+            PlaySound(Sound'ProjectileSounds.PTRD_deflect04',,2.0);
+            Other.TakeDamage( ImpactDamage, Instigator, HitLocation, Normal(Velocity), ImpactDamageType );
+        }
 
-		bDud = true;
-		Velocity = vect(0,0,0);
-		LifeSpan=1.0;
-		SetPhysics(PHYS_Falling);
-	}
+        bDud = true;
+        Velocity = vect(0,0,0);
+        LifeSpan=1.0;
+        SetPhysics(PHYS_Falling);
+    }
 
-	if( !bDud )
-	{
-	   Explode(HitLocation,Normal(HitLocation-Other.Location));
-	}
+    if( !bDud )
+    {
+       Explode(HitLocation,Normal(HitLocation-Other.Location));
+    }
 }
 
 defaultproperties

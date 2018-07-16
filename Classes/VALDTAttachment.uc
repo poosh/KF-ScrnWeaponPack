@@ -2,90 +2,90 @@ class VALDTAttachment extends KFWeaponAttachment;
 
 simulated event ThirdPersonEffects()
 {
-	local PlayerController PC;
+    local PlayerController PC;
 
-	if ( (Level.NetMode == NM_DedicatedServer) || (Instigator == None) )
-		return;
+    if ( (Level.NetMode == NM_DedicatedServer) || (Instigator == None) )
+        return;
 
-	// new Trace FX - Ramm
-	if (FiringMode == 0)
-	{
-		if ( OldSpawnHitCount != SpawnHitCount )
-		{
-			OldSpawnHitCount = SpawnHitCount;
-			GetHitInfo();
-			PC = Level.GetLocalPlayerController();
-			if ( ((Instigator != None) && (Instigator.Controller == PC)) || (VSize(PC.ViewTarget.Location - mHitLocation) < 4000) )
-			{
-				if( mHitActor!=None )
-					Spawn(class'ROBulletHitEffect',,, mHitLocation, Rotator(-mHitNormal));
-				CheckForSplash();
-				SpawnTracer();
-			}
-		}
-	}
+    // new Trace FX - Ramm
+    if (FiringMode == 0)
+    {
+        if ( OldSpawnHitCount != SpawnHitCount )
+        {
+            OldSpawnHitCount = SpawnHitCount;
+            GetHitInfo();
+            PC = Level.GetLocalPlayerController();
+            if ( ((Instigator != None) && (Instigator.Controller == PC)) || (VSize(PC.ViewTarget.Location - mHitLocation) < 4000) )
+            {
+                if( mHitActor!=None )
+                    Spawn(class'ROBulletHitEffect',,, mHitLocation, Rotator(-mHitNormal));
+                CheckForSplash();
+                SpawnTracer();
+            }
+        }
+    }
 
-  	if ( FlashCount>0 )
-	{
-		if( KFPawn(Instigator)!=None )
-		{
-			if (FiringMode == 0)
-			{
-				KFPawn(Instigator).StartFiringX(false,bRapidFire);
-			}
-			else
+      if ( FlashCount>0 )
+    {
+        if( KFPawn(Instigator)!=None )
+        {
+            if (FiringMode == 0)
+            {
+                KFPawn(Instigator).StartFiringX(false,bRapidFire);
+            }
+            else
             {
                 KFPawn(Instigator).StartFiringX(true,bRapidFire);
             }
-		}
+        }
 
-		if( bDoFiringEffects )
-		{
-    		PC = Level.GetLocalPlayerController();
+        if( bDoFiringEffects )
+        {
+            PC = Level.GetLocalPlayerController();
 
-    		if ( (Level.TimeSeconds - LastRenderTime > 0.2) && (Instigator.Controller != PC) )
-    			return;
+            if ( (Level.TimeSeconds - LastRenderTime > 0.2) && (Instigator.Controller != PC) )
+                return;
 
-    		// WeaponLight();
+            // WeaponLight();
 
-    		DoFlashEmitter();
+            DoFlashEmitter();
 
-    		if ( (mShellCaseEmitter == None) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
-    		{
-    			mShellCaseEmitter = Spawn(mShellCaseEmitterClass);
-    			if ( mShellCaseEmitter != None )
-    			    AttachToBone(mShellCaseEmitter, ShellEjectBoneName);
-    		}
-    		if (mShellCaseEmitter != None)
-    			mShellCaseEmitter.mStartParticles++;
-		}
-	}
-	else
-	{
-		GotoState('');
-		if( KFPawn(Instigator)!=None )
-			KFPawn(Instigator).StopFiring();
-	}
+            if ( (mShellCaseEmitter == None) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
+            {
+                mShellCaseEmitter = Spawn(mShellCaseEmitterClass);
+                if ( mShellCaseEmitter != None )
+                    AttachToBone(mShellCaseEmitter, ShellEjectBoneName);
+            }
+            if (mShellCaseEmitter != None)
+                mShellCaseEmitter.mStartParticles++;
+        }
+    }
+    else
+    {
+        GotoState('');
+        if( KFPawn(Instigator)!=None )
+            KFPawn(Instigator).StopFiring();
+    }
 }
 /*
 simulated function WeaponLight()
 {
 
     if ( (FlashCount > 0) && !Level.bDropDetail && (Instigator != None)
-		&& ((Level.TimeSeconds - LastRenderTime < 0.2) || (PlayerController(Instigator.Controller) != None)) )
+        && ((Level.TimeSeconds - LastRenderTime < 0.2) || (PlayerController(Instigator.Controller) != None)) )
     {
-		if ( Instigator.IsFirstPerson() )
-		{
-			LitWeapon = Instigator.Weapon;
-			LitWeapon.bDynamicLight = true;
-		}
-		else
-			bDynamicLight = true;
+        if ( Instigator.IsFirstPerson() )
+        {
+            LitWeapon = Instigator.Weapon;
+            LitWeapon.bDynamicLight = true;
+        }
+        else
+            bDynamicLight = true;
         SetTimer(0.15, false);
     }
     else
-		Timer();
-		
+        Timer();
+        
 }
 */
 

@@ -3,16 +3,16 @@ class SVDFireB extends KFMeleeFire;
 
 simulated function bool AllowFire()
 {
-	if(KFWeapon(Weapon).bIsReloading)
-		return false;
-	if(KFPawn(Instigator).SecondaryItem!=none)
-		return false;
-	if(KFPawn(Instigator).bThrowingNade)
-		return false;
-	if ( KFWeapon(Weapon).bAimingRifle )
-		return false;
+    if(KFWeapon(Weapon).bIsReloading)
+        return false;
+    if(KFPawn(Instigator).SecondaryItem!=none)
+        return false;
+    if(KFPawn(Instigator).bThrowingNade)
+        return false;
+    if ( KFWeapon(Weapon).bAimingRifle )
+        return false;
 
-	return Super.AllowFire();
+    return Super.AllowFire();
 }
 
 

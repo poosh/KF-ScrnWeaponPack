@@ -1,29 +1,29 @@
 Class HopMineLight extends Effects
-	transient;
+    transient;
 
 var byte ModeIndex;
 var() Material Dots[3];
 
 simulated final function SetMode( bool bA, bool bB )
 {
-	local byte i;
+    local byte i;
 
-	if( bB )
-		i = 2;
-	else if( bA )
-		i = 1;
-	else i = 0;
+    if( bB )
+        i = 2;
+    else if( bA )
+        i = 1;
+    else i = 0;
 
-	if( i==ModeIndex )
-		return;
-	Texture = Dots[i];
-	ModeIndex = i;
-	if( ModeIndex==0 )
-	{
-		PlaySound(Sound'ScrnWeaponPack_SND.mine.combine_mine_deactivate1');
-		AmbientSound = None;
-	}
-	else AmbientSound = Sound'ScrnWeaponPack_SND.mine.combine_mine_active_loop1';
+    if( i==ModeIndex )
+        return;
+    Texture = Dots[i];
+    ModeIndex = i;
+    if( ModeIndex==0 )
+    {
+        PlaySound(Sound'ScrnWeaponPack_SND.mine.combine_mine_deactivate1');
+        AmbientSound = None;
+    }
+    else AmbientSound = Sound'ScrnWeaponPack_SND.mine.combine_mine_active_loop1';
 }
 
 defaultproperties

@@ -5,8 +5,8 @@ abstract;
 #exec OBJ LOAD FILE=KillingFloorHUD.utx
 #exec OBJ LOAD FILE=Inf_Weapons_Foley.uax
 
-var 		name 			ReloadShortAnim;
-var 		float 			ReloadShortRate;
+var         name             ReloadShortAnim;
+var         float             ReloadShortRate;
 
 var transient KFWeaponPickup  PendingPickup;
 var transient bool  bShortReload;
@@ -15,7 +15,7 @@ var const int OriginalMaxAmmo;
 var const bool bSharedAmmoPool;
 
 var transient class<KFVeterancyTypes> LastClientVeteranSkill;
-var	transient int					  LastClientVeteranSkillLevel;
+var    transient int                      LastClientVeteranSkillLevel;
 
 var KFPlayerReplicationInfo OwnerPRI; // don't access it directly! Use GetOwnerPRI() instead.
 
@@ -29,92 +29,92 @@ simulated function AltFire(float F)
 
 exec function SwitchModes()
 {
-	DoToggle();
+    DoToggle();
 }
 
 function byte BestMode()
 {
-	return 0;
+    return 0;
 }
 
 simulated function int MaxAmmo(int mode)
 {
     if ( Ammo[mode] != none )   
         return Ammo[mode].MaxAmmo;
-	if ( AmmoClass[mode] != None )
-		return AmmoClass[mode].default.MaxAmmo * GetAmmoMulti();
-	return 0;
+    if ( AmmoClass[mode] != None )
+        return AmmoClass[mode].default.MaxAmmo * GetAmmoMulti();
+    return 0;
 }
 
 function GiveAmmo(int m, WeaponPickup WP, bool bJustSpawned)
 {
-	local bool bJustSpawnedAmmo;
-	local int addAmount, InitialAmount;
+    local bool bJustSpawnedAmmo;
+    local int addAmount, InitialAmount;
 
-	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
-	if ( FireMode[m] != None && FireMode[m].AmmoClass != None )
-	{
-		Ammo[m] = Ammunition(Instigator.FindInventoryType(FireMode[m].AmmoClass));
-		bJustSpawnedAmmo = false;
+    if ( FireMode[m] != None && FireMode[m].AmmoClass != None )
+    {
+        Ammo[m] = Ammunition(Instigator.FindInventoryType(FireMode[m].AmmoClass));
+        bJustSpawnedAmmo = false;
 
-		if ( bNoAmmoInstances )
-		{
-			if ( (FireMode[m].AmmoClass == None) || ((m != 0) && (FireMode[m].AmmoClass == FireMode[0].AmmoClass)) )
-				return;
+        if ( bNoAmmoInstances )
+        {
+            if ( (FireMode[m].AmmoClass == None) || ((m != 0) && (FireMode[m].AmmoClass == FireMode[0].AmmoClass)) )
+                return;
 
-			InitialAmount = FireMode[m].AmmoClass.Default.InitialAmount;
+            InitialAmount = FireMode[m].AmmoClass.Default.InitialAmount;
 
-			if(WP!=none && WP.bThrown==true)
-				InitialAmount = WP.AmmoAmount[m];
-			else
-			{
-				// Other change - if not thrown, give the gun a full clip
-				MagAmmoRemaining = MagCapacity;
-			}
+            if(WP!=none && WP.bThrown==true)
+                InitialAmount = WP.AmmoAmount[m];
+            else
+            {
+                // Other change - if not thrown, give the gun a full clip
+                MagAmmoRemaining = MagCapacity;
+            }
 
-			if ( Ammo[m] != None )
-			{
-				addamount = InitialAmount + Ammo[m].AmmoAmount;
-				Ammo[m].Destroy();
-			}
-			else
-				addAmount = InitialAmount;
+            if ( Ammo[m] != None )
+            {
+                addamount = InitialAmount + Ammo[m].AmmoAmount;
+                Ammo[m].Destroy();
+            }
+            else
+                addAmount = InitialAmount;
 
-			AddAmmo(addAmount,m);
-		}
-		else
-		{
-			if ( (Ammo[m] == None) && (FireMode[m].AmmoClass != None) )
-			{
-				Ammo[m] = Spawn(FireMode[m].AmmoClass, Instigator);
-				Instigator.AddInventory(Ammo[m]);
-				bJustSpawnedAmmo = true;
-			}
-			else if ( (m == 0) || (FireMode[m].AmmoClass != FireMode[0].AmmoClass) )
-				bJustSpawnedAmmo = ( bJustSpawned || ((WP != None) && !WP.bWeaponStay) );
+            AddAmmo(addAmount,m);
+        }
+        else
+        {
+            if ( (Ammo[m] == None) && (FireMode[m].AmmoClass != None) )
+            {
+                Ammo[m] = Spawn(FireMode[m].AmmoClass, Instigator);
+                Instigator.AddInventory(Ammo[m]);
+                bJustSpawnedAmmo = true;
+            }
+            else if ( (m == 0) || (FireMode[m].AmmoClass != FireMode[0].AmmoClass) )
+                bJustSpawnedAmmo = ( bJustSpawned || ((WP != None) && !WP.bWeaponStay) );
 
-	  	      // and here is the modification for instanced ammo actors
+                // and here is the modification for instanced ammo actors
 
             SetMaxAmmo();
 
-			if(WP!=none && WP.bThrown==true)
-				addAmount = WP.AmmoAmount[m];
-			else if ( bJustSpawnedAmmo ) {
-				if (default.MagCapacity == 0)
-					addAmount = 0;  // prevent division by zero.
-				else
-					addAmount = Ammo[m].InitialAmount * (float(MagCapacity) / float(default.MagCapacity));
-			}
+            if(WP!=none && WP.bThrown==true)
+                addAmount = WP.AmmoAmount[m];
+            else if ( bJustSpawnedAmmo ) {
+                if (default.MagCapacity == 0)
+                    addAmount = 0;  // prevent division by zero.
+                else
+                    addAmount = Ammo[m].InitialAmount * (float(MagCapacity) / float(default.MagCapacity));
+            }
 
-			// Don't double add ammo if primary and secondary fire modes share the same ammo class
+            // Don't double add ammo if primary and secondary fire modes share the same ammo class
             if ( WP != none && m > 0 && (FireMode[m].AmmoClass == FireMode[0].AmmoClass) )
-				return;
+                return;
 
-			Ammo[m].AddAmmo(addAmount);
-			Ammo[m].GotoState('');
-		}
-	}
+            Ammo[m].AddAmmo(addAmount);
+            Ammo[m].GotoState('');
+        }
+    }
 }
 
 simulated function ClientWeaponSet(bool bPossiblySwitch)
@@ -246,7 +246,7 @@ simulated function CheckSharedMags()
 
 simulated function GetAmmoCount(out float MaxAmmoPrimary, out float CurAmmoPrimary)
 {
-	if ( Ammo[0] != None ) {
+    if ( Ammo[0] != None ) {
         MaxAmmoPrimary = Ammo[0].MaxAmmo;
         CurAmmoPrimary = Ammo[0].AmmoAmount;
     }
@@ -258,42 +258,42 @@ simulated function GetAmmoCount(out float MaxAmmoPrimary, out float CurAmmoPrima
 
 function DropFrom(vector StartLocation)
 {
-	local int m;
-	local Pickup Pickup;
-	local vector Direction;
+    local int m;
+    local Pickup Pickup;
+    local vector Direction;
 
-	if (!bCanThrow)
-		return;
+    if (!bCanThrow)
+        return;
 
-	ClientWeaponThrown();
+    ClientWeaponThrown();
 
-	for (m = 0; m < NUM_FIRE_MODES; m++)
-	{
-		if (FireMode[m].bIsFiring)
-			StopFire(m);
-	}
+    for (m = 0; m < NUM_FIRE_MODES; m++)
+    {
+        if (FireMode[m].bIsFiring)
+            StopFire(m);
+    }
 
-	if ( Instigator != None )
-	{
-		DetachFromPawn(Instigator);
-		Direction = vector(Instigator.Rotation);
-	}
-	else if ( Owner != none )
-	{
-		Direction = vector(Owner.Rotation);
-	}
+    if ( Instigator != None )
+    {
+        DetachFromPawn(Instigator);
+        Direction = vector(Instigator.Rotation);
+    }
+    else if ( Owner != none )
+    {
+        Direction = vector(Owner.Rotation);
+    }
 
-	Pickup = Spawn(PickupClass,,, StartLocation);
-	if ( Pickup != None )
-	{
-		Pickup.InitDroppedPickupFor(self);
-		Pickup.Velocity = Velocity + (Direction * 100);
-		if (Instigator.Health > 0)
-			WeaponPickup(Pickup).bThrown = true;
-	}
+    Pickup = Spawn(PickupClass,,, StartLocation);
+    if ( Pickup != None )
+    {
+        Pickup.InitDroppedPickupFor(self);
+        Pickup.Velocity = Velocity + (Direction * 100);
+        if (Instigator.Health > 0)
+            WeaponPickup(Pickup).bThrown = true;
+    }
     PendingPickup = KFWeaponPickup(Pickup);
 
-	Destroy();
+    Destroy();
 }
 
 
@@ -301,149 +301,149 @@ function DropFrom(vector StartLocation)
 
 simulated function SetZoomBlendColor(Canvas c)
 {
-	local Byte    val;
-	local Color   clr;
-	local Color   fog;
-	clr.R = 255;
-	clr.G = 255;
-	clr.B = 255;
-	clr.A = 255;
-	if( Instigator.Region.Zone.bDistanceFog )
-	{
-		fog = Instigator.Region.Zone.DistanceFogColor;
-		val = 0;
-		val = Max( val, fog.R);
-		val = Max( val, fog.G);
-		val = Max( val, fog.B);
-		if( val > 128 )
-		{
-			val -= 128;
-			clr.R -= val;
-			clr.G -= val;
-			clr.B -= val;
-		}
-	}
-	c.DrawColor = clr;
+    local Byte    val;
+    local Color   clr;
+    local Color   fog;
+    clr.R = 255;
+    clr.G = 255;
+    clr.B = 255;
+    clr.A = 255;
+    if( Instigator.Region.Zone.bDistanceFog )
+    {
+        fog = Instigator.Region.Zone.DistanceFogColor;
+        val = 0;
+        val = Max( val, fog.R);
+        val = Max( val, fog.G);
+        val = Max( val, fog.B);
+        if( val > 128 )
+        {
+            val -= 128;
+            clr.R -= val;
+            clr.G -= val;
+            clr.B -= val;
+        }
+    }
+    c.DrawColor = clr;
 }
 
 // copy-pasted to add (MagCapacity+1)
 simulated function bool AllowReload()
 {
-	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
-	if ( KFInvasionBot(Instigator.Controller) != none && !bIsReloading &&
-		MagAmmoRemaining < MagCapacity && AmmoAmount(0) > MagAmmoRemaining )
-		return true;
+    if ( KFInvasionBot(Instigator.Controller) != none && !bIsReloading &&
+        MagAmmoRemaining < MagCapacity && AmmoAmount(0) > MagAmmoRemaining )
+        return true;
 
-	if ( KFFriendlyAI(Instigator.Controller) != none && !bIsReloading &&
-		MagAmmoRemaining < MagCapacity && AmmoAmount(0) > MagAmmoRemaining )
-		return true;
+    if ( KFFriendlyAI(Instigator.Controller) != none && !bIsReloading &&
+        MagAmmoRemaining < MagCapacity && AmmoAmount(0) > MagAmmoRemaining )
+        return true;
 
 
-	if( FireMode[0].IsFiring() || FireMode[1].IsFiring() ||
-		   bIsReloading || MagAmmoRemaining >= MagCapacity ||
-		   ClientState == WS_BringUp ||
-		   AmmoAmount(0) <= MagAmmoRemaining ||
-				   (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 )
-		return false;
-	return true;
+    if( FireMode[0].IsFiring() || FireMode[1].IsFiring() ||
+           bIsReloading || MagAmmoRemaining >= MagCapacity ||
+           ClientState == WS_BringUp ||
+           AmmoAmount(0) <= MagAmmoRemaining ||
+                   (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 )
+        return false;
+    return true;
 }
 
 exec function ReloadMeNow()
 {
-	local float ReloadMulti;
+    local float ReloadMulti;
     
-	if(!AllowReload())
-		return;
-	if ( bHasAimingMode && bAimingRifle )
-	{
-		FireMode[1].bIsFiring = False;
+    if(!AllowReload())
+        return;
+    if ( bHasAimingMode && bAimingRifle )
+    {
+        FireMode[1].bIsFiring = False;
 
-		ZoomOut(false);
-		if( Role < ROLE_Authority)
-			ServerZoomOut(false);
-	}
-	if ( GetOwnerPRI() != none && OwnerPRI.ClientVeteranSkill != none )
-	{
-		ReloadMulti = OwnerPRI.ClientVeteranSkill.Static.GetReloadSpeedModifier(OwnerPRI, self);
-	}
-	else
-	{
-		ReloadMulti = 1.0;
-	}
-	bIsReloading = true;
-	ReloadTimer = Level.TimeSeconds;
-    bShortReload = MagAmmoRemaining > 0;
-	if ( bShortReload )
-		ReloadRate = Default.ReloadShortRate / ReloadMulti;
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+            ServerZoomOut(false);
+    }
+    if ( GetOwnerPRI() != none && OwnerPRI.ClientVeteranSkill != none )
+    {
+        ReloadMulti = OwnerPRI.ClientVeteranSkill.Static.GetReloadSpeedModifier(OwnerPRI, self);
+    }
     else
-		ReloadRate = Default.ReloadRate / ReloadMulti;
+    {
+        ReloadMulti = 1.0;
+    }
+    bIsReloading = true;
+    ReloadTimer = Level.TimeSeconds;
+    bShortReload = MagAmmoRemaining > 0;
+    if ( bShortReload )
+        ReloadRate = Default.ReloadShortRate / ReloadMulti;
+    else
+        ReloadRate = Default.ReloadRate / ReloadMulti;
         
-	if( bHoldToReload )
-	{
-		NumLoadedThisReload = 0;
-	}
-	ClientReload();
-	Instigator.SetAnimAction(WeaponReloadAnim);
-	if ( Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress && KFPlayerController(Instigator.Controller) != none &&
-		Level.TimeSeconds - KFPlayerController(Instigator.Controller).LastReloadMessageTime > KFPlayerController(Instigator.Controller).ReloadMessageDelay )
-	{
-		KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
-		KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
-	}
+    if( bHoldToReload )
+    {
+        NumLoadedThisReload = 0;
+    }
+    ClientReload();
+    Instigator.SetAnimAction(WeaponReloadAnim);
+    if ( Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress && KFPlayerController(Instigator.Controller) != none &&
+        Level.TimeSeconds - KFPlayerController(Instigator.Controller).LastReloadMessageTime > KFPlayerController(Instigator.Controller).ReloadMessageDelay )
+    {
+        KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
+        KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
+    }
 }
 
 simulated function ClientReload()
 {
-	local float ReloadMulti;
-	if ( bHasAimingMode && bAimingRifle )
-	{
-		FireMode[1].bIsFiring = False;
+    local float ReloadMulti;
+    if ( bHasAimingMode && bAimingRifle )
+    {
+        FireMode[1].bIsFiring = False;
 
-		ZoomOut(false);
-		if( Role < ROLE_Authority)
-			ServerZoomOut(false);
-	}
-	if ( GetOwnerPRI() != none && OwnerPRI.ClientVeteranSkill != none )
-		ReloadMulti = OwnerPRI.ClientVeteranSkill.Static.GetReloadSpeedModifier(OwnerPRI, self);
-	else
-		ReloadMulti = 1.0;
-	bIsReloading = true;
-	if (MagAmmoRemaining <= 0)
-	{
-		PlayAnim(ReloadAnim, ReloadAnimRate*ReloadMulti, 0.1);
-	}
-	else if (MagAmmoRemaining >= 1)
-	{
-		PlayAnim(ReloadShortAnim, ReloadAnimRate*ReloadMulti, 0.1);
-	}
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+            ServerZoomOut(false);
+    }
+    if ( GetOwnerPRI() != none && OwnerPRI.ClientVeteranSkill != none )
+        ReloadMulti = OwnerPRI.ClientVeteranSkill.Static.GetReloadSpeedModifier(OwnerPRI, self);
+    else
+        ReloadMulti = 1.0;
+    bIsReloading = true;
+    if (MagAmmoRemaining <= 0)
+    {
+        PlayAnim(ReloadAnim, ReloadAnimRate*ReloadMulti, 0.1);
+    }
+    else if (MagAmmoRemaining >= 1)
+    {
+        PlayAnim(ReloadShortAnim, ReloadAnimRate*ReloadMulti, 0.1);
+    }
 }
 
 function AddReloadedAmmo()
 {
     local int a;
     
-	UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
     a = MagCapacity;
     if ( bShortReload )
         a++; // 1 bullet already bolted
     
-	if ( AmmoAmount(0) >= a )
-		MagAmmoRemaining = a;
+    if ( AmmoAmount(0) >= a )
+        MagAmmoRemaining = a;
     else
         MagAmmoRemaining = AmmoAmount(0);
 
     // this seems redudant -- PooSH
-	// if( !bHoldToReload )
-	// {
-		// ClientForceKFAmmoUpdate(MagAmmoRemaining,AmmoAmount(0));
-	// }
+    // if( !bHoldToReload )
+    // {
+        // ClientForceKFAmmoUpdate(MagAmmoRemaining,AmmoAmount(0));
+    // }
 
-	if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
-	{
-		KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
-	}
+    if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
+    {
+        KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
+    }
 }
 
 simulated function ActuallyFinishReloading()
@@ -457,6 +457,6 @@ defaultproperties
 {
     OriginalMaxAmmo=300
     bSharedAmmoPool=True
-	ReloadShortAnim="Reload"
-	ReloadShortRate=3.0      
+    ReloadShortAnim="Reload"
+    ReloadShortRate=3.0      
 }

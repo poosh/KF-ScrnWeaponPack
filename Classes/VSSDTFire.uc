@@ -11,7 +11,7 @@ simulated function InitEffects()
 
     // don't even spawn on server
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
-		return;
+        return;
     if ( (ShellEjectClass != None) && ((ShellEjectEmitter == None) || ShellEjectEmitter.bDeleteMe) )
     {
         ShellEjectEmitter = Weapon.Spawn(ShellEjectClass);
@@ -50,26 +50,26 @@ simulated function DestroyEffects()
 
 simulated function bool AllowFire()
 {
-	if(KFWeapon(Weapon).bIsReloading)
-		return false;
-	if(KFPawn(Instigator).SecondaryItem!=none)
-		return false;
-	if(KFPawn(Instigator).bThrowingNade)
-		return false;
+    if(KFWeapon(Weapon).bIsReloading)
+        return false;
+    if(KFPawn(Instigator).SecondaryItem!=none)
+        return false;
+    if(KFPawn(Instigator).bThrowingNade)
+        return false;
 
-	if(KFWeapon(Weapon).MagAmmoRemaining < 1)
-	{
-    	if( Level.TimeSeconds - LastClickTime>FireRate )
-    	{
-    		LastClickTime = Level.TimeSeconds;
-    	}
+    if(KFWeapon(Weapon).MagAmmoRemaining < 1)
+    {
+        if( Level.TimeSeconds - LastClickTime>FireRate )
+        {
+            LastClickTime = Level.TimeSeconds;
+        }
 
-		if( AIController(Instigator.Controller)!=None )
-			KFWeapon(Weapon).ReloadMeNow();
-		return false;
-	}
+        if( AIController(Instigator.Controller)!=None )
+            KFWeapon(Weapon).ReloadMeNow();
+        return false;
+    }
 
-	return super(WeaponFire).AllowFire();
+    return super(WeaponFire).AllowFire();
 }
 
 function float MaxRange()
