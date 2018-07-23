@@ -72,4 +72,5 @@ defaultproperties
      MaxSpeed=4500.000000
      Damage=625.000000
      DamageRadius=450.000000
+     DrawScale=0.35 //50% sized projectile compared to LAW
 }
