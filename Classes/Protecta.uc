@@ -11,37 +11,37 @@ simulated function AltFire(float F)
 
 exec function SwitchModes()
 {
-	DoToggle();
+    DoToggle();
 }
 
 //overridden to fix zooming in and out
 simulated exec function ToggleIronSights()
 {
-	if( bHasAimingMode )
-	{
-		if( bAimingRifle )
-		{
-			PerformZoom(false);
-			TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
-		}
-		else
-		{
+    if( bHasAimingMode )
+    {
+        if( bAimingRifle )
+        {
+            PerformZoom(false);
+            TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
+        }
+        else
+        {
             if( Owner != none && Owner.Physics == PHYS_Falling &&
                 Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
             {
                 return;
             }
 
-	   		InterruptReload();
+               InterruptReload();
 
-			if( bIsReloading || !CanZoomNow() )
-				return;
+            if( bIsReloading || !CanZoomNow() )
+                return;
 
-			PerformZoom(True);
-			//also blend to idle
-			TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
-		}
-	}
+            PerformZoom(True);
+            //also blend to idle
+            TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
+        }
+    }
 }
 
 defaultproperties

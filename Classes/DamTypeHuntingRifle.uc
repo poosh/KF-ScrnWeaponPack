@@ -2,7 +2,7 @@
 //
 //-----------------------------------------------------------
 class DamTypeHuntingRifle extends DamTypeKFSnipe
-	abstract;
+    abstract;
 
 defaultproperties
 {

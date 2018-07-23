@@ -2,9 +2,9 @@ class KFShellEjectAK12AR extends KFShellEject;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
-	Emitters[0].SpawnParticle(1);
-	Emitters[1].SpawnParticle(1);
-	Emitters[2].SpawnParticle(5);
+    Emitters[0].SpawnParticle(1);
+    Emitters[1].SpawnParticle(1);
+    Emitters[2].SpawnParticle(5);
 }
 
 defaultproperties
@@ -62,9 +62,9 @@ defaultproperties
          LifetimeRange=(Min=1.500000,Max=1.500000)
          StartVelocityRange=(X=(Min=-100.000000,Max=100.000000),Y=(Min=50.000000,Max=100.000000),Z=(Min=50.000000,Max=100.000000))
      End Object
-	 Emitters(1)=SpriteEmitter'ScrnWeaponPack.KFShellEjectAK12AR.SpriteEmitter0'
-	 
-	Begin Object Class=SpriteEmitter Name=SpriteEmitter4
+     Emitters(1)=SpriteEmitter'ScrnWeaponPack.KFShellEjectAK12AR.SpriteEmitter0'
+     
+    Begin Object Class=SpriteEmitter Name=SpriteEmitter4
          FadeOut=True
          FadeIn=True
          RespawnDeadParticles=False

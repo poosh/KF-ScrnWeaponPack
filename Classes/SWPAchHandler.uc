@@ -114,8 +114,8 @@ function GameWon(string MapName)
     local bool bAKOnly;
     local int i, PlayerCount;
 
-	if (bBossFlareOnly)
-		Ach2All('FlarryMen', 1);
+    if (bBossFlareOnly)
+        Ach2All('FlarryMen', 1);
 
     for ( SPI=GameRules.PlayerInfo; SPI!=none; SPI=SPI.NextPlayerInfo ) {
         if ( SPI.PlayerOwner != none && SPI.PlayerOwner.PlayerReplicationInfo != none ) {
@@ -143,21 +143,21 @@ function GameWon(string MapName)
 
 function BossSpawned(KFMonster EndGameBoss)
 {
-	bBossFlareOnly = true; // avaliable for other bosses as well, e.g. Doom3 bosses
+    bBossFlareOnly = true; // avaliable for other bosses as well, e.g. Doom3 bosses
 }
 
 function int WInstantHeadhots(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KFWeaponDamageType> DamType, int Count)
 {
-	if ( ClassIsChildOf(DamType, class'DamTypeVSSDT') ) {
+    if ( ClassIsChildOf(DamType, class'DamTypeVSSDT') ) {
         if ( Count == 5 )
             SPI.ProgressAchievement('VSS_FA', 1);
         return 5;
-	}
-	else if ( ClassIsChildOf(DamType, class'DamTypeVALDT') ) {
+    }
+    else if ( ClassIsChildOf(DamType, class'DamTypeVALDT') ) {
         if ( Count >= 5 )
             SPI.ProgressAchievement('VAL_FA', 1);
         return 5;
-	}
+    }
     return IGNORE_STAT;
 }
 
@@ -203,13 +203,13 @@ function int WKillsPerMagazine(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KFWeap
 
 function int WDamagePerShot(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KFWeaponDamageType> DamType, int Damage, float DeltaTime)
 {
-	if ( HopMineLchr(Weapon) != none ) {
+    if ( HopMineLchr(Weapon) != none ) {
         if ( !bAnyDamageThisWave && Damage >= 5000 ) {
             SPI.ProgressAchievement('HopMines5k', 1);
             return IGNORE_STAT; // once achieved, no need to track it anymore
         }
         return 5000;
-	}
+    }
     else if ( Spas(Weapon) != none ) {
         if ( Damage >= 5000 ) {
             SPI.ProgressAchievement('SPAS_Auto', 1);

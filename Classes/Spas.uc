@@ -6,16 +6,16 @@ class Spas extends KFWeaponShotgun;
 // Allow this weapon to auto reload on alt fire
 simulated function AltFire(float F)
 {
-	if( MagAmmoRemaining < FireMode[1].AmmoPerFire && !bIsReloading &&
-		 FireMode[1].NextFireTime <= Level.TimeSeconds )
-	{
-		// We're dry, ask the server to autoreload
-		ServerRequestAutoReload();
+    if( MagAmmoRemaining < FireMode[1].AmmoPerFire && !bIsReloading &&
+         FireMode[1].NextFireTime <= Level.TimeSeconds )
+    {
+        // We're dry, ask the server to autoreload
+        ServerRequestAutoReload();
 
-		PlayOwnedSound(FireMode[1].NoAmmoSound,SLOT_None,2.0,,,,false);
-	}
+        PlayOwnedSound(FireMode[1].NoAmmoSound,SLOT_None,2.0,,,,false);
+    }
 
-	super.AltFire(F);
+    super.AltFire(F);
 }
 
 defaultproperties

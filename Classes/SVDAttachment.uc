@@ -2,19 +2,19 @@ class SVDAttachment extends KFWeaponAttachment;
 
 simulated function vector GetTracerStart()
 {
-	local Pawn p;
+    local Pawn p;
 
-	p = Pawn(Owner);
+    p = Pawn(Owner);
 
-	if ( (p != None) && p.IsFirstPerson() && p.Weapon != None )
-		return p.Weapon.GetEffectStart();
+    if ( (p != None) && p.IsFirstPerson() && p.Weapon != None )
+        return p.Weapon.GetEffectStart();
 
-	if( Instigator!=None && (Level.TimeSeconds-LastRenderTime)>2 )
-		Return Instigator.Location;
-	// 3rd person
-	if ( mMuzFlash3rd != None )
-		return mMuzFlash3rd.Location;
-	else return Location;
+    if( Instigator!=None && (Level.TimeSeconds-LastRenderTime)>2 )
+        Return Instigator.Location;
+    // 3rd person
+    if ( mMuzFlash3rd != None )
+        return mMuzFlash3rd.Location;
+    else return Location;
 }
 
 simulated function DoFlashEmitter()
@@ -29,95 +29,95 @@ simulated function DoFlashEmitter()
 }
 simulated event ThirdPersonEffects()
 {
-	local PlayerController PC;
+    local PlayerController PC;
 
-	if ( (Level.NetMode == NM_DedicatedServer) || (Instigator == None) )
-		return;
+    if ( (Level.NetMode == NM_DedicatedServer) || (Instigator == None) )
+        return;
 
-	if (FiringMode == 0)
-	{
-		if ( OldSpawnHitCount != SpawnHitCount )
-		{
-			OldSpawnHitCount = SpawnHitCount;
-			GetHitInfo();
-			PC = Level.GetLocalPlayerController();
-			if ( ((Instigator != None) && (Instigator.Controller == PC)) || (VSize(PC.ViewTarget.Location - mHitLocation) < 4000) )
-			{
-				if( mHitActor!=None )
-					Spawn(class'ROBulletHitEffect',,, mHitLocation, Rotator(-mHitNormal));
-				CheckForSplash();
-				SpawnTracer();
-			}
-		}
-	}
+    if (FiringMode == 0)
+    {
+        if ( OldSpawnHitCount != SpawnHitCount )
+        {
+            OldSpawnHitCount = SpawnHitCount;
+            GetHitInfo();
+            PC = Level.GetLocalPlayerController();
+            if ( ((Instigator != None) && (Instigator.Controller == PC)) || (VSize(PC.ViewTarget.Location - mHitLocation) < 4000) )
+            {
+                if( mHitActor!=None )
+                    Spawn(class'ROBulletHitEffect',,, mHitLocation, Rotator(-mHitNormal));
+                CheckForSplash();
+                SpawnTracer();
+            }
+        }
+    }
 
-	if( FiringMode==1 )
-	{
-		if ( FlashCount>0 )
-		{
-			if( KFPawn(Instigator)!=None )
-			{
-				if (FiringMode == 0)
-				{
-					KFPawn(Instigator).StartFiringX(false,bRapidFire);
-				}
-				else
-				{
-					KFPawn(Instigator).StartFiringX(true,bRapidFire);
-				}
-			}
-		}
-		else
-		{
-			GotoState('');
-			if( KFPawn(Instigator)!=None )
-				KFPawn(Instigator).StopFiring();
-		}
-	}
-	else
-	{
-			if ( FlashCount>0 )
-		{
-			if( KFPawn(Instigator)!=None )
-			{
-				if (FiringMode == 0)
-				{
-					KFPawn(Instigator).StartFiringX(false,bRapidFire);
-				}
-				else
-				{
-					KFPawn(Instigator).StartFiringX(true,bRapidFire);
-				}
-			}
+    if( FiringMode==1 )
+    {
+        if ( FlashCount>0 )
+        {
+            if( KFPawn(Instigator)!=None )
+            {
+                if (FiringMode == 0)
+                {
+                    KFPawn(Instigator).StartFiringX(false,bRapidFire);
+                }
+                else
+                {
+                    KFPawn(Instigator).StartFiringX(true,bRapidFire);
+                }
+            }
+        }
+        else
+        {
+            GotoState('');
+            if( KFPawn(Instigator)!=None )
+                KFPawn(Instigator).StopFiring();
+        }
+    }
+    else
+    {
+            if ( FlashCount>0 )
+        {
+            if( KFPawn(Instigator)!=None )
+            {
+                if (FiringMode == 0)
+                {
+                    KFPawn(Instigator).StartFiringX(false,bRapidFire);
+                }
+                else
+                {
+                    KFPawn(Instigator).StartFiringX(true,bRapidFire);
+                }
+            }
 
-			if( bDoFiringEffects )
-			{
-				PC = Level.GetLocalPlayerController();
+            if( bDoFiringEffects )
+            {
+                PC = Level.GetLocalPlayerController();
 
-				if ( (Level.TimeSeconds - LastRenderTime > 0.2) && (Instigator.Controller != PC) )
-					return;
+                if ( (Level.TimeSeconds - LastRenderTime > 0.2) && (Instigator.Controller != PC) )
+                    return;
 
-				WeaponLight();
+                WeaponLight();
 
-				DoFlashEmitter();
+                DoFlashEmitter();
 
-				if ( (mShellCaseEmitter == None) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
-				{
-					mShellCaseEmitter = Spawn(mShellCaseEmitterClass);
-					if ( mShellCaseEmitter != None )
-						AttachToBone(mShellCaseEmitter, ShellEjectBoneName);
-				}
-				if (mShellCaseEmitter != None)
-					mShellCaseEmitter.mStartParticles++;
-			}
-		}
-		else
-		{
-			GotoState('');
-			if( KFPawn(Instigator)!=None )
-				KFPawn(Instigator).StopFiring();
-		}
-	}
+                if ( (mShellCaseEmitter == None) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
+                {
+                    mShellCaseEmitter = Spawn(mShellCaseEmitterClass);
+                    if ( mShellCaseEmitter != None )
+                        AttachToBone(mShellCaseEmitter, ShellEjectBoneName);
+                }
+                if (mShellCaseEmitter != None)
+                    mShellCaseEmitter.mStartParticles++;
+            }
+        }
+        else
+        {
+            GotoState('');
+            if( KFPawn(Instigator)!=None )
+                KFPawn(Instigator).StopFiring();
+        }
+    }
 }
 
 defaultproperties

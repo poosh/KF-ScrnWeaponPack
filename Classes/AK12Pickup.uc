@@ -9,7 +9,7 @@ defaultproperties
     PowerValue=55
     SpeedValue=80
     RangeValue=30
-	Description="The Kalashnikov AK-12 (formerly AK-200) is the newest derivative of the Soviet/Russian AK-47 series of assault rifles and was proposed for possible general issue to the Russian Army. This version uses the 5.45x39mm ammo (the same as AK-74)"
+    Description="The Kalashnikov AK-12 (formerly AK-200) is the newest derivative of the Soviet/Russian AK-47 series of assault rifles and was proposed for possible general issue to the Russian Army. This version uses the 5.45x39mm ammo (the same as AK-74)"
     ItemName="AK-12 SE"
     ItemShortName="AK-12 SE"
     AmmoItemName="5.45x39mm"

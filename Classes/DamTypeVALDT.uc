@@ -1,5 +1,5 @@
 class DamTypeVALDT extends KFProjectileWeaponDamageType
-	abstract;
+    abstract;
 
 
 // Award also Shiver kills with 2x Stalker progress 
@@ -7,13 +7,13 @@ class DamTypeVALDT extends KFProjectileWeaponDamageType
 // AwardKill() twice: for the decapitator and for the killer
 static function AwardKill(KFSteamStatsAndAchievements KFStatsAndAchievements, KFPlayerController Killer, KFMonster Killed )
 {
-	if( Killed.IsA('ZombieStalker') || Killed.IsA('ZombieShiver') )
-		KFStatsAndAchievements.AddStalkerKill();
+    if( Killed.IsA('ZombieStalker') || Killed.IsA('ZombieShiver') )
+        KFStatsAndAchievements.AddStalkerKill();
 } 
 
 static function AwardDamage(KFSteamStatsAndAchievements KFStatsAndAchievements, int Amount)
 {
-	KFStatsAndAchievements.AddBullpupDamage(Amount);
+    KFStatsAndAchievements.AddBullpupDamage(Amount);
 }
 
 defaultproperties

@@ -1,5 +1,5 @@
 class AKC74AssaultRifle extends AKBaseWeapon
-	config(user);
+    config(user);
 
 
 defaultproperties
@@ -7,8 +7,8 @@ defaultproperties
      MagCapacity=30
      ReloadRate=3.000000
      ReloadAnim="Reload"
-	ReloadShortAnim="Reload"
-	ReloadShortRate=2.0     
+    ReloadShortAnim="Reload"
+    ReloadShortRate=2.0     
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_AK47"
      Weight=5.000000

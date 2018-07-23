@@ -1,5 +1,5 @@
 class DamTypeMedicOvercharge extends ScrnDamTypeMedicBase
-	abstract;
+    abstract;
     
 defaultproperties
 {
