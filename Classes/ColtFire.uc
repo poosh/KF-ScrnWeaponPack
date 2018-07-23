@@ -151,9 +151,9 @@ defaultproperties
 
      PenDmgReduction=0.5
      MaxPenetrations=1
-     RecoilRate=0.850000
-     maxVerticalRecoilAngle=300
-     maxHorizontalRecoilAngle=50
+     RecoilRate=0.400000 //0.85
+     maxVerticalRecoilAngle=3000 //300
+     maxHorizontalRecoilAngle=500 //50
      DamageType=Class'ScrnWeaponPack.DamTypeColt'
      DamageMin=350
      DamageMax=350
@@ -161,7 +161,7 @@ defaultproperties
      bWaitForRelease=True
      bAttachSmokeEmitter=True
      TransientSoundVolume=2.500000
-     FireAnimRate=1.200000
+     FireAnimRate=1.50000 //synced better with fire animation
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
      FireRate=0.900000
