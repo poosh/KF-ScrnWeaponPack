@@ -57,9 +57,9 @@ simulated function Explode(vector HitLocation, vector HitNormal)
         SetPhysics(PHYS_Falling);
         return;
     }
-    
+
     super.Explode(HitLocation, HitNormal);
-}  
+}
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation)
 {
@@ -108,20 +108,21 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation)
     {
        Explode(HitLocation,Normal(HitLocation-Other.Location));
     }
-}  
+}
 
 defaultproperties
 {
     Speed=5000
     MaxSpeed=7500
     StraightFlightTime=0.5
+    TossZ=0
 
     DrawScale=0.5
-    
+
     ArmDistSquared=62500
     Damage=260
     DamageRadius=300
-    
+
     bBounce=False
     Physics=PHYS_Projectile
 }
