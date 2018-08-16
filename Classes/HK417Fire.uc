@@ -28,7 +28,8 @@ defaultproperties
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
      ShakeRotRate=(X=9500.000000,Y=9500.000000,Z=9500.000000)
      ShakeRotTime=0.650000
-     ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
+     //ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
+     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.250000
      BotRefireRate=0.990000
