@@ -96,7 +96,7 @@ simulated function WeaponTick(float dt)
 defaultproperties
 {
 	 IdleAnim=AimIdle //added this for new idle position
-	 ForceIdleOnFireTime=2.25 //copypasta from HRLfire
+	 ForceIdleOnFireTime=2.25
      PlayerViewOffset=(X=20.0,Y=15.0,Z=-17.000000)
 	 BobDamping=4.5 //reduced from default of probably 6
      MinimumFireRange=250
