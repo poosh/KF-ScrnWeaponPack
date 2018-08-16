@@ -102,7 +102,8 @@ defaultproperties
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=2.000000
-     ShakeOffsetMag=(X=6.000000,Y=3.000000,Z=7.000000)
+     //ShakeOffsetMag=(X=6.000000,Y=3.000000,Z=7.000000)
+     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=2.000000
      ProjectileClass=Class'ScrnWeaponPack.VSSDTBullet'
