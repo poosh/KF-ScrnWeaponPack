@@ -6,25 +6,25 @@ var     float               ForceIdleOnFireTime;  //time after firing for weapon
 //added this to make the HRL rocket draw smaller
 simulated function PostBeginPlay()
 {
-	if ( default.mesh == none )
-	{
-		PreloadAssets(self, true);
-	}
+    if ( default.mesh == none )
+    {
+        PreloadAssets(self, true);
+    }
 
-	// Weapon will handle FireMode instantiation
-	Super.PostBeginPlay();
+    // Weapon will handle FireMode instantiation
+    Super.PostBeginPlay();
 
-	if ( Level.NetMode == NM_DedicatedServer )
-		return;
+    if ( Level.NetMode == NM_DedicatedServer )
+        return;
 
     SetBoneScale(1, 0.70, 'Rocket'); //make the LAW rocket smoler by 30%
 
-	if( !bHasScope )
-	{
-		KFScopeDetail = KF_None;
-	}
+    if( !bHasScope )
+    {
+        KFScopeDetail = KF_None;
+    }
 
-	InitFOV();
+    InitFOV();
 }
 
 //added to support tweening from new idle position to ironsights
@@ -41,11 +41,11 @@ simulated function ZoomIn(bool bAnimateTransition)
     {
         if( bZoomOutInterrupted )
         {
-			TweenAnim(IdleAimAnim,ZoomTime/2);
+            TweenAnim(IdleAimAnim,ZoomTime/2);
         }
         else
         {
-			TweenAnim(IdleAimAnim,ZoomTime/2);
+            TweenAnim(IdleAimAnim,ZoomTime/2);
         }
     }
 }
@@ -53,12 +53,12 @@ simulated function ZoomIn(bool bAnimateTransition)
 //overwriting to add ForceIdleTime
 simulated function bool StartFire(int Mode)
 {
-	local bool RetVal;
+    local bool RetVal;
 
-	RetVal = super.StartFire(Mode);
+    RetVal = super.StartFire(Mode);
 
-	if( RetVal )
-	{
+    if( RetVal )
+    {
         if( Mode == 0 && ForceZoomOutOnFireTime > 0 )
         {
             ForceZoomOutTime = Level.TimeSeconds + ForceZoomOutOnFireTime;
@@ -71,12 +71,12 @@ simulated function bool StartFire(int Mode)
         {
             ForceIdleTime = Level.TimeSeconds + ForceIdleOnFireTime;
         }
-		NumClicks=0;
+        NumClicks=0;
 
-		InterruptReload();
-	}
+        InterruptReload();
+    }
 
-	return RetVal;
+    return RetVal;
 }
 
 //adds a force idle time
@@ -86,19 +86,19 @@ simulated function WeaponTick(float dt)
     if( ForceIdleTime > 0 )
     {
         if( Level.TimeSeconds - ForceIdleTime > 0 )
-    	{
+        {
             ForceIdleTime = 0;
             PlayIdle();
-    	}
+        }
     }
 }
 
 defaultproperties
 {
-	 IdleAnim=AimIdle //added this for new idle position
-	 ForceIdleOnFireTime=2.25
+     IdleAnim=AimIdle //added this for new idle position
+     ForceIdleOnFireTime=2.25
      PlayerViewOffset=(X=20.0,Y=15.0,Z=-17.000000)
-	 BobDamping=4.5 //reduced from default of probably 6
+     BobDamping=4.5 //reduced from default of probably 6
      MinimumFireRange=250
      Weight=10.000000
      TraderInfoTexture=Texture'ScrnWeaponPack_T.HRL.Trader_HRL'
