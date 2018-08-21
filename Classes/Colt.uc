@@ -50,6 +50,8 @@ simulated function WeaponTick(float dt)
         return;
 
     if ( bIsReloading ) {
+        if (AmmoAmount(0) <= MagAmmoRemaining )
+        InterruptReload(); //force interrupt if loaded last bullet
         if( Level.TimeSeconds >= ReloadTimer ) {
             ActuallyFinishReloading();
         }
@@ -193,7 +195,7 @@ simulated function AltFire(float F)
 // Anyway, why server would want to interrupt reload by its own?..
 simulated function bool InterruptReload()
 {
-    if( bIsReloading && !bInterruptedReload && (ReloadTimer - Level.TimeSeconds)*ReloadMulti > 0.5 )
+    if( bIsReloading && !bInterruptedReload && (ReloadTimer - Level.TimeSeconds)*ReloadMulti > 0.7/ReloadMulti )
     {
         // that's very lame how to do stuff like that - don't repeat it at home ;)
         // in theory client should send server a request to interrupt the reload,
@@ -439,7 +441,7 @@ defaultproperties
 
      FirstPersonFlashlightOffset=(X=-20.000000,Y=-22.000000,Z=8.000000)
      MagCapacity=6
-     ReloadRate=6.1
+     ReloadRate=5.5 //6.1
      ReloadAnim="Reload"
      bHoldToReload=True
      BulletLoadRate=0.475 // 0.525
