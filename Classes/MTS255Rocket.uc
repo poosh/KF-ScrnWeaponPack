@@ -124,5 +124,4 @@ defaultproperties
     
     bBounce=False
     Physics=PHYS_Projectile
-    TossZ=0 //no initial Z velocity
 }
