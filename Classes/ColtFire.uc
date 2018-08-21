@@ -17,7 +17,7 @@ function DoTrace(Vector Start, Rotator Dir)
     local array<Actor>    IgnoreActors;
     local Pawn DamagePawn;
     local int i;
-    
+
     local KFMonster Monster;
     local bool bWasDecapitated;
     //local int OldHealth;
@@ -38,9 +38,9 @@ function DoTrace(Vector Start, Rotator Dir)
     X = Vector(Dir);
     End = Start + TraceRange * X;
     HitDamage = DamageMax;
-    
+
     // HitCount isn't a number of max penetration. It is just to be sure we won't stuck in infinite loop
-    While( ++HitCount < 127 ) 
+    While( ++HitCount < 127 )
     {
         DamagePawn = none;
         Monster = none;
@@ -105,15 +105,15 @@ function DoTrace(Vector Start, Rotator Dir)
                 }
                 bWasDecapitated = Monster != none && Monster.bDecapitated;
                 Other.TakeDamage(int(HitDamage), Instigator, HitLocation, Momentum*X, DamageType);
-                if ( DamagePawn != none && (DamagePawn.Health <= 0 || (Monster != none 
-                        && !bWasDecapitated && Monster.bDecapitated)) ) 
+                if ( DamagePawn != none && (DamagePawn.Health <= 0 || (Monster != none
+                        && !bWasDecapitated && Monster.bDecapitated)) )
                 {
                     KillCount++;
                 }
 
                 // debug info
                 // if ( KFMonster(Other) != none )
-                    // log(String(class) $ ": Damage("$PenCounter$") = " 
+                    // log(String(class) $ ": Damage("$PenCounter$") = "
                         // $ int(HitDamage) $"/"$ (OldHealth-KFMonster(Other).Health)
                         // @ KFMonster(Other).MenuName , class.outer.name);
             }
@@ -150,7 +150,7 @@ defaultproperties
      NoAmmoSoundRef="KF_HandcannonSnd.50AE_DryFire"
 
      PenDmgReduction=0.5
-     MaxPenetrations=1
+     MaxPenetrations=2
      RecoilRate=0.400000 //0.85
      maxVerticalRecoilAngle=3000 //300
      maxHorizontalRecoilAngle=500 //50
@@ -160,7 +160,8 @@ defaultproperties
      Momentum=10000.000000
      bWaitForRelease=True
      bAttachSmokeEmitter=True
-     TransientSoundVolume=2.500000
+     TransientSoundVolume=2.00 // 2.5
+     TransientSoundRadius=150 // 400
      FireAnimRate=1.50000 //synced better with fire animation
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
