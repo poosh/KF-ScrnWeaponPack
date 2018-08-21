@@ -27,9 +27,9 @@ simulated function ZoomIn(bool bAnimateTransition)
 
 defaultproperties
 {
-	 IdleAnim=AimIdle //added this
-	 PlayerViewOffset=(X=10.0,Y=6.0,Z=-4.000000) //changed
-	 BobDamping=4.0
+	IdleAnim=AimIdle //added this
+	PlayerViewOffset=(X=10.0,Y=6.0,Z=-4.000000) //changed
+	BobDamping=4.0
      MinimumFireRange=250
      Weight=10.000000
      TraderInfoTexture=Texture'ScrnWeaponPack_T.HRL.Trader_HRL'
