@@ -8,110 +8,110 @@ var int HealAmount, HealBoost;
 
 function DoTrace(Vector Start, Rotator Dir)
 {
-	local Vector X,Y,Z, End, HitLocation, HitNormal, ArcEnd;
-	local Actor Other;
-	local byte HitCount, PenCounter;
-	local float HitDamage;
-	local array<int>	HitPoints;
-	local KFPawn HitPawn;
-	local array<Actor>	IgnoreActors;
-	local Pawn DamagePawn;
-	local int i;
+    local Vector X,Y,Z, End, HitLocation, HitNormal, ArcEnd;
+    local Actor Other;
+    local byte HitCount, PenCounter;
+    local float HitDamage;
+    local array<int>    HitPoints;
+    local KFPawn HitPawn;
+    local array<Actor>    IgnoreActors;
+    local Pawn DamagePawn;
+    local int i;
     
     local KFMonster Monster;
     local bool bWasDecapitated;
-	//local int OldHealth;
+    //local int OldHealth;
 
-	MaxRange();
+    MaxRange();
 
-	Weapon.GetViewAxes(X, Y, Z);
-	if ( Weapon.WeaponCentered() )
-	{
-		ArcEnd = (Instigator.Location + Weapon.EffectOffset.X * X + 1.5 * Weapon.EffectOffset.Z * Z);
-	}
-	else
+    Weapon.GetViewAxes(X, Y, Z);
+    if ( Weapon.WeaponCentered() )
+    {
+        ArcEnd = (Instigator.Location + Weapon.EffectOffset.X * X + 1.5 * Weapon.EffectOffset.Z * Z);
+    }
+    else
     {
         ArcEnd = (Instigator.Location + Instigator.CalcDrawOffset(Weapon) + Weapon.EffectOffset.X * X +
-		 Weapon.Hand * Weapon.EffectOffset.Y * Y + Weapon.EffectOffset.Z * Z);
+         Weapon.Hand * Weapon.EffectOffset.Y * Y + Weapon.EffectOffset.Z * Z);
     }
 
-	X = Vector(Dir);
-	End = Start + TraceRange * X;
-	HitDamage = DamageMax;
-	
-	// HitCount isn't a number of max penetration. It is just to be sure we won't stuck in infinite loop
-	While( ++HitCount < 127 ) 
-	{
+    X = Vector(Dir);
+    End = Start + TraceRange * X;
+    HitDamage = DamageMax;
+    
+    // HitCount isn't a number of max penetration. It is just to be sure we won't stuck in infinite loop
+    While( ++HitCount < 127 ) 
+    {
         DamagePawn = none;
         Monster = none;
 
-		Other = Instigator.HitPointTrace(HitLocation, HitNormal, End, HitPoints, Start,, 1);
-		if( Other==None )
-			Break;
-		else if( Other==Instigator || Other.Base == Instigator ) {
-			IgnoreActors[IgnoreActors.Length] = Other;
-			Other.SetCollision(false);
-			Start = HitLocation;
-			Continue;
-		}
+        Other = Instigator.HitPointTrace(HitLocation, HitNormal, End, HitPoints, Start,, 1);
+        if( Other==None )
+            Break;
+        else if( Other==Instigator || Other.Base == Instigator ) {
+            IgnoreActors[IgnoreActors.Length] = Other;
+            Other.SetCollision(false);
+            Start = HitLocation;
+            Continue;
+        }
         else if ( ROBulletWhipAttachment(Other) != none ) {
              IgnoreActors[IgnoreActors.Length] = Other;
              Start = HitLocation;
              continue;
         }
 
-		if( ExtendedZCollision(Other)!=None && Other.Owner!=None )
-		{
+        if( ExtendedZCollision(Other)!=None && Other.Owner!=None )
+        {
             IgnoreActors[IgnoreActors.Length] = Other;
             IgnoreActors[IgnoreActors.Length] = Other.Owner;
-			Other.SetCollision(false);
-			Other.Owner.SetCollision(false);
-			DamagePawn = Pawn(Other.Owner);
+            Other.SetCollision(false);
+            Other.Owner.SetCollision(false);
+            DamagePawn = Pawn(Other.Owner);
             Monster = KFMonster(Other.Owner);
-		}
+        }
 
-		if ( !Other.bWorldGeometry && Other!=Level )
-		{
-			HitPawn = KFPawn(Other);
+        if ( !Other.bWorldGeometry && Other!=Level )
+        {
+            HitPawn = KFPawn(Other);
 
-	    	if ( HitPawn != none )
-	    	{
+            if ( HitPawn != none )
+            {
                 if ( HitPawn.Health > 0 ) {
                     MedicPistol(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
                     HealPawn(HitPawn);
                     break;
                 }
                  // Hit detection debugging
-				 /*log("PreLaunchTrace hit "$HitPawn.PlayerReplicationInfo.PlayerName);
-				 HitPawn.HitStart = Start;
-				 HitPawn.HitEnd = End;*/
+                 /*log("PreLaunchTrace hit "$HitPawn.PlayerReplicationInfo.PlayerName);
+                 HitPawn.HitStart = Start;
+                 HitPawn.HitEnd = End;*/
 
                  // Hit detection debugging
-				 /*if( Level.NetMode == NM_Standalone)
-				 	  HitPawn.DrawBoneLocation();*/
+                 /*if( Level.NetMode == NM_Standalone)
+                       HitPawn.DrawBoneLocation();*/
 
                 IgnoreActors[IgnoreActors.Length] = Other;
                 IgnoreActors[IgnoreActors.Length] = HitPawn.AuxCollisionCylinder;
-    			Other.SetCollision(false);
-    			HitPawn.AuxCollisionCylinder.SetCollision(false);
-    			DamagePawn = HitPawn;
-			}
+                Other.SetCollision(false);
+                HitPawn.AuxCollisionCylinder.SetCollision(false);
+                DamagePawn = HitPawn;
+            }
             else
             {
-    			if( DamagePawn == none )
-        			DamagePawn = Pawn(Other);
+                if( DamagePawn == none )
+                    DamagePawn = Pawn(Other);
 
                 if( KFMonster(Other)!=None )
-    			{
+                {
                     IgnoreActors[IgnoreActors.Length] = Other;
-        			Other.SetCollision(false);
+                    Other.SetCollision(false);
                     Monster = KFMonster(Other);
-					//OldHealth = KFMonster(Other).Health;
-    			}
+                    //OldHealth = KFMonster(Other).Health;
+                }
                 bWasDecapitated = Monster != none && Monster.bDecapitated;
                 
                 // DAMAGE & HEAL
-    			Other.TakeDamage(int(HitDamage), Instigator, HitLocation, Momentum*X, DamageType);
+                Other.TakeDamage(int(HitDamage), Instigator, HitLocation, Momentum*X, DamageType);
                 if ( Monster != none && !Monster.bDecapitated && Monster.Health > 0 ) {
                     MedicPistol(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
                     Monster.Health += int(HitDamage * class<KFWeaponDamageType>(DamageType).default.HeadShotDamageMult);
@@ -119,31 +119,31 @@ function DoTrace(Vector Start, Rotator Dir)
                         Monster.TakeDamage(Monster.Health * 10, Instigator, Monster.Location, vect(0,0,1), class'DamTypeMedicOvercharge' ); 
                     }
                 }
-			}
-			if( ++PenCounter > MaxPenetrations || DamagePawn==None )
-			{
-				Break;
-			}
-			HitDamage *= PenDmgReduction;
-			Start = HitLocation;
-		}
-		else if ( HitScanBlockingVolume(Other)==None )
-		{
-			if( KFWeaponAttachment(Weapon.ThirdPersonActor)!=None )
-		      KFWeaponAttachment(Weapon.ThirdPersonActor).UpdateHit(Other,HitLocation,HitNormal);
-			Break;
-		}
-	}
+            }
+            if( ++PenCounter > MaxPenetrations || DamagePawn==None )
+            {
+                Break;
+            }
+            HitDamage *= PenDmgReduction;
+            Start = HitLocation;
+        }
+        else if ( HitScanBlockingVolume(Other)==None )
+        {
+            if( KFWeaponAttachment(Weapon.ThirdPersonActor)!=None )
+              KFWeaponAttachment(Weapon.ThirdPersonActor).UpdateHit(Other,HitLocation,HitNormal);
+            Break;
+        }
+    }
 
     // Turn the collision back on for any actors we turned it off
-	if ( IgnoreActors.Length > 0 )
-	{
-		for (i=0; i<IgnoreActors.Length; i++)
-		{
+    if ( IgnoreActors.Length > 0 )
+    {
+        for (i=0; i<IgnoreActors.Length; i++)
+        {
             if ( IgnoreActors[i] != none )
                 IgnoreActors[i].SetCollision(true);
-		}
-	}
+        }
+    }
 }
 
 function HealPawn(KFPawn Healed)

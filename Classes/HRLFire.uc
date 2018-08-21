@@ -3,7 +3,7 @@ class HRLFire extends LAWFire;
 function bool AllowFire()
 {
     //  allow fire without zooming
-	return ( Weapon.AmmoAmount(ThisModeNum) >= AmmoPerFire);
+    return ( Weapon.AmmoAmount(ThisModeNum) >= AmmoPerFire);
 }
 
 

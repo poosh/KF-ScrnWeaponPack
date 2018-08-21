@@ -1,13 +1,13 @@
 class MTS255Rocket extends SPGrenadeProjectile;
 
-var() 		float 		StraightFlightTime;          // How long the projectile and flies straight
-var 		bool 		bOutOfPropellant;            // Projectile is out of propellant
+var()         float         StraightFlightTime;          // How long the projectile and flies straight
+var         bool         bOutOfPropellant;            // Projectile is out of propellant
 var     bool                bDud;
 
 replication
 {
-	reliable if(Role == ROLE_Authority)
-		bDud;
+    reliable if(Role == ROLE_Authority)
+        bDud;
 }
 
 simulated function Tick( float DeltaTime )
@@ -57,15 +57,15 @@ simulated function Explode(vector HitLocation, vector HitNormal)
         SetPhysics(PHYS_Falling);
         return;
     }
-    
+
     super.Explode(HitLocation, HitNormal);
-}  
+}
 
 simulated function ProcessTouch(Actor Other, Vector HitLocation)
 {
-	// Don't let it hit this player, or blow up on another player
+    // Don't let it hit this player, or blow up on another player
     if ( Other == none || Other == Instigator || Other.Base == Instigator )
-		return;
+        return;
 
     // Don't collide with bullet whip attachments
     if( KFBulletWhipAttachment(Other) != none )
@@ -106,22 +106,23 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation)
 
     if( !bDud )
     {
-	   Explode(HitLocation,Normal(HitLocation-Other.Location));
-	}
-}  
+       Explode(HitLocation,Normal(HitLocation-Other.Location));
+    }
+}
 
 defaultproperties
 {
     Speed=5000
     MaxSpeed=7500
     StraightFlightTime=0.5
+    TossZ=0
 
     DrawScale=0.5
-    
+
     ArmDistSquared=62500
     Damage=260
     DamageRadius=300
-    
+
     bBounce=False
     Physics=PHYS_Projectile
 }

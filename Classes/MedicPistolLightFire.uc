@@ -5,7 +5,7 @@ simulated function ModeDoFire()
 {
     local MedicPistol W;
     
-	Super.ModeDoFire();
+    Super.ModeDoFire();
     
     W = MedicPistol(Weapon);
     if ( W != none ) {

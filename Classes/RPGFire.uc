@@ -9,16 +9,16 @@ function bool AllowFire()
             return false;
         }
     }
-	return ( Weapon.AmmoAmount(ThisModeNum) >= AmmoPerFire);
+    return ( Weapon.AmmoAmount(ThisModeNum) >= AmmoPerFire);
 }
 function ServerPlayFiring()
 {
-	Super.ServerPlayFiring();
+    Super.ServerPlayFiring();
     KFWeapon(Weapon).ZoomOut(false);
 }
 function PlayFiring()
 {
-	Super.PlayFiring();
+    Super.PlayFiring();
     KFWeapon(Weapon).ZoomOut(false);
 }
 

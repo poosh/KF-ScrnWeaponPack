@@ -1,6 +1,6 @@
 class MedicPistol extends KFWeapon
-	config(user);
-	
+    config(user);
+    
 
 var const   class<ScrnLocalLaserDot>    LaserDotClass;
 var         ScrnLocalLaserDot           LaserDot;             // The first person laser site dot
@@ -17,14 +17,14 @@ var string HealSoundRef;
 
 replication
 {
-	reliable if(Role < ROLE_Authority)
-		ServerSetLaserType;
+    reliable if(Role < ROLE_Authority)
+        ServerSetLaserType;
         
- 	reliable if( Role == ROLE_Authority )
-		ClientSuccessfulHeal;  
+     reliable if( Role == ROLE_Authority )
+        ClientSuccessfulHeal;  
 
-	reliable if( bNetDirty && Role == ROLE_Authority )
-		HealRotation, HealLocation;
+    reliable if( bNetDirty && Role == ROLE_Authority )
+        HealRotation, HealLocation;
 }
 
 //=============================================================================
@@ -34,7 +34,7 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 {
     local MedicPistol W;
     
-	super.PreloadAssets(Inv, bSkipRefCount);
+    super.PreloadAssets(Inv, bSkipRefCount);
     
     default.HealSound = sound(DynamicLoadObject(default.HealSoundRef, class'Sound', true));
     
@@ -45,12 +45,12 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 
 static function bool UnloadAssets()
 {
-	if ( super.UnloadAssets() )
-	{
-		default.HealSound = none;
-	}
+    if ( super.UnloadAssets() )
+    {
+        default.HealSound = none;
+    }
 
-	return true;
+    return true;
 }
     
 //=============================================================================
@@ -89,8 +89,8 @@ simulated function WeaponTick(float dt)
 //bring Laser to current state, which is indicating by LaserType 
 simulated function ApplyLaserState()
 {
-	if( Role < ROLE_Authority  )
-		ServerSetLaserType(LaserType);
+    if( Role < ROLE_Authority  )
+        ServerSetLaserType(LaserType);
 
     if ( ThirdPersonActor != none )
         ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
@@ -98,26 +98,26 @@ simulated function ApplyLaserState()
     if ( !Instigator.IsLocallyControlled() )
         return;
     
-	if(LaserType > 0 ) {
+    if(LaserType > 0 ) {
         if ( LaserDot == none )
             LaserDot = Spawn(LaserDotClass, self);
         LaserDot.SetLaserType(LaserType);
-		//spawn 1-st person laser attachment for weapon owner
-		if ( LaserAttachment == none ) {
-			LaserAttachment = Spawn(LaserAttachmentClass,,,,);
-			AttachToBone(LaserAttachment, FlashBoneName);
-		}
-		ConstantColor'ScrnTex.Laser.LaserColor'.Color = 
-			LaserDot.GetLaserColor(); // LaserAttachment's color
-		LaserAttachment.bHidden = false;
+        //spawn 1-st person laser attachment for weapon owner
+        if ( LaserAttachment == none ) {
+            LaserAttachment = Spawn(LaserAttachmentClass,,,,);
+            AttachToBone(LaserAttachment, FlashBoneName);
+        }
+        ConstantColor'ScrnTex.Laser.LaserColor'.Color = 
+            LaserDot.GetLaserColor(); // LaserAttachment's color
+        LaserAttachment.bHidden = false;
 
-	}
-	else {
-		if ( LaserAttachment != none )
-			LaserAttachment.bHidden = true;
+    }
+    else {
+        if ( LaserAttachment != none )
+            LaserAttachment.bHidden = true;
         if ( LaserDot != none )
             LaserDot.Destroy(); //bHidden = true;
-	}
+    }
 }
 
 
@@ -155,8 +155,8 @@ simulated function DetachFromPawn(Pawn P)
 
 simulated function TurnOffLaser()
 {
-	if( !Instigator.IsLocallyControlled() )
-		return;
+    if( !Instigator.IsLocallyControlled() )
+        return;
 
     if( Role < ROLE_Authority  )
         ServerSetLaserType(0);
@@ -187,7 +187,7 @@ simulated function RenderOverlays( Canvas Canvas )
     local Actor Other;
     local vector X,Y,Z;
     local coords C;
-	local KFFire KFM;
+    local KFFire KFM;
     local array<Actor> HitActors;
 
     if (Instigator == None)
@@ -208,15 +208,15 @@ simulated function RenderOverlays( Canvas Canvas )
 
     SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) );
     SetRotation( Instigator.GetViewRotation() + ZoomRotInterp);
-	
-	KFM = KFFire(FireMode[0]);
+    
+    KFM = KFFire(FireMode[0]);
 
     // Handle drawing the laser dot
     if ( LaserDot != None )
     {
         //move LaserDot during fire animation too  -- PooSH
         if( bIsReloading )
-		{
+        {
             C = GetBoneCoords(FlashBoneName);
             X = C.XAxis;
             Y = C.YAxis;
@@ -272,7 +272,7 @@ simulated function RenderOverlays( Canvas Canvas )
 
 exec function SwitchModes()
 {
-	DoToggle();
+    DoToggle();
 }
 
 
@@ -287,16 +287,16 @@ simulated function HitHealTarget(vector HitLocation, rotator HitRotation)
     HealLocation = HitLocation;
     HealRotation = HitRotation;
 
-	if( Role == ROLE_Authority ) {
-	   NetUpdateTime = Level.TimeSeconds - 1;
-	}
+    if( Role == ROLE_Authority ) {
+       NetUpdateTime = Level.TimeSeconds - 1;
+    }
 
-	PlaySound(HealSound,,2.0);
+    PlaySound(HealSound,,2.0);
 
-	if ( EffectIsRelevant(Location,false) )
-	{
-		Spawn(Class'KFMod.HealingFX',,, HitLocation, HitRotation);
-	}
+    if ( EffectIsRelevant(Location,false) )
+    {
+        Spawn(Class'KFMod.HealingFX',,, HitLocation, HitRotation);
+    }
 }
 
 defaultproperties

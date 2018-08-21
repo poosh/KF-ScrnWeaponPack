@@ -1,5 +1,5 @@
 class DamTypeSpas extends KFProjectileWeaponDamageType
-	abstract;
+    abstract;
 
 defaultproperties
 {

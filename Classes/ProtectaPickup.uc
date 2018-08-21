@@ -2,7 +2,7 @@ class ProtectaPickup extends KFWeaponPickup;
 
 defaultproperties
 {
-     cost=2500
+     cost=3333
      AmmoCost=26
      BuyClipSize=12
      PowerValue=100

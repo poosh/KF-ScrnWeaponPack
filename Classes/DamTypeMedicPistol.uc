@@ -1,5 +1,5 @@
 class DamTypeMedicPistol extends ScrnDamTypeMedicBase
-	abstract;
+    abstract;
 
 defaultproperties
 {

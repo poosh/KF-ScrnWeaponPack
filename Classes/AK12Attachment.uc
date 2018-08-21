@@ -6,7 +6,7 @@ defaultproperties
 {
      MeshRef="ScrnWeaponPack_A.AK12_3rd"
 
-	 ShellEjectBoneName="Shellport"
+     ShellEjectBoneName="Shellport"
      mMuzFlashClass=Class'ScrnWeaponPack.MuzzleFlashAK12AR'
      mTracerClass=Class'KFMod.KFNewTracer'
      mShellCaseEmitterClass=Class'KFMod.KFShellSpewer'
@@ -57,5 +57,5 @@ defaultproperties
      PostFireBlendCrouchAnim="CHBlend_AK47"
      SplashEffect=Class'ROEffects.BulletSplashEmitter'
      CullDistance=5000.000000
-	 DrawScale=1.0
+     DrawScale=1.0
 }

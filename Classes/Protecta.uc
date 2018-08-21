@@ -11,9 +11,44 @@ simulated function AltFire(float F)
 
 exec function SwitchModes()
 {
-	DoToggle();
+    DoToggle();
 }
 
+simulated function bool CanZoomNow()
+{
+    // aiming while firing makes zoom bugged. Prevent zooming while firing.
+    return Instigator != none && Instigator.Controller.bFire == 0;
+}
+
+//overridden to fix zooming in and out
+simulated exec function ToggleIronSights()
+{
+    if( bHasAimingMode )
+    {
+        if( bAimingRifle )
+        {
+            PerformZoom(false);
+            TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
+        }
+        else
+        {
+            if( Owner != none && Owner.Physics == PHYS_Falling &&
+                Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
+            {
+                return;
+            }
+
+            InterruptReload();
+
+            if( bIsReloading || !CanZoomNow() )
+                return;
+
+            PerformZoom(True);
+            //also blend to idle
+            TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
+        }
+    }
+}
 
 defaultproperties
 {

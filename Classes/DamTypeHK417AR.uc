@@ -5,19 +5,19 @@ class DamTypeHK417AR extends KFProjectileWeaponDamageType;
 // AwardKill() twice: for the decapitator and for the killer
 static function AwardKill(KFSteamStatsAndAchievements KFStatsAndAchievements, KFPlayerController Killer, KFMonster Killed )
 {
-	if( Killed.IsA('ZombieStalker') || Killed.IsA('ZombieShiver') )
-		KFStatsAndAchievements.AddStalkerKill();
+    if( Killed.IsA('ZombieStalker') || Killed.IsA('ZombieShiver') )
+        KFStatsAndAchievements.AddStalkerKill();
 } 
 
 static function AwardDamage(KFSteamStatsAndAchievements KFStatsAndAchievements, int Amount)
 {
-	KFStatsAndAchievements.AddBullpupDamage(Amount);
+    KFStatsAndAchievements.AddBullpupDamage(Amount);
 }
 
 defaultproperties
 {
      bSniperWeapon=False
-	 HeadShotDamageMult=1.3 // 1.1
+     HeadShotDamageMult=1.3 // 1.1
      WeaponClass=Class'ScrnWeaponPack.HK417AR'
      DeathString="%k killed %o (HK-417)."
      bRagdollBullet=True

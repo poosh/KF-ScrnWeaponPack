@@ -2,9 +2,9 @@ class KFShellEjectSVD extends KFShellEject;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
-	Emitters[0].SpawnParticle(1);
-	Emitters[1].SpawnParticle(1);
-	Emitters[2].SpawnParticle(5);
+    Emitters[0].SpawnParticle(1);
+    Emitters[1].SpawnParticle(1);
+    Emitters[2].SpawnParticle(5);
 }
 
 defaultproperties
