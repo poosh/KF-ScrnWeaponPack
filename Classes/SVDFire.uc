@@ -10,7 +10,7 @@ defaultproperties
 
      FireForce="AssaultRifleFire"
      FireRate=0.70 //0.350000
-     FireAnimRate=0.50
+     FireAnimRate=0.70
      AmmoClass=Class'ScrnWeaponPack.SVDAmmo'
      BotRefireRate=1.2
      FireAimedAnim="Fire_Iron"
