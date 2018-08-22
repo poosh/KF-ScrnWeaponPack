@@ -189,8 +189,8 @@ defaultproperties
 
 
      MagCapacity=15
-    ReloadShortAnim="Reload"
-    ReloadShortRate=2.57
+     ReloadShortAnim="Reload"
+     ReloadShortRate=2.57
      ReloadRate=3.15
      ReloadAnim="Reload"
      ReloadAnimRate=1.0
