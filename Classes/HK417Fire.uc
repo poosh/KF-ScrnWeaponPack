@@ -1,5 +1,26 @@
 class HK417Fire extends KFFire;
 
+//adds faked recoil to 3d scope zoom
+event ModeDoFire()
+{
+    if( KFWeapon(Weapon).bAimingRifle )
+    {
+        if ( KFWeapon(Weapon).KFScopeDetail != KF_TextureScope)
+        {
+            ShakeOffsetMag.X=2.0; //faked recoil
+            ShakeOffsetMag.Y=0;
+            ShakeOffsetMag.Z=0;
+            ShakeOffsetRate.X=50;
+        }
+    }
+    else 
+    {
+        ShakeOffsetMag=default.ShakeOffsetMag;
+        ShakeOffsetRate=default.ShakeOffsetRate;
+    }
+	Super.ModeDoFire();
+}
+
 defaultproperties
 {
      StereoFireSoundRef="ScrnWeaponPack_SND.HK417AR.HK417_shot"
@@ -28,8 +49,8 @@ defaultproperties
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
      ShakeRotRate=(X=9500.000000,Y=9500.000000,Z=9500.000000)
      ShakeRotTime=0.650000
-     //ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
-     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
+     ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
+     //ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.250000
      BotRefireRate=0.990000
