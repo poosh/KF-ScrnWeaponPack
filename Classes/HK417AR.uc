@@ -1,9 +1,5 @@
-﻿class HK417AR extends ScopedWeapon;
+class HK417AR extends ScopedWeapon;
 
-var         name             ReloadShortAnim;
-var         float             ReloadShortRate;
-
-var transient bool  bShortReload;
 var bool bChangedViewOffset; //stores if vieweoffset has been changed
 
 

@@ -15,41 +15,41 @@ class ScopedWeapon extends KFWeapon
 var() Material ZoomMat;
 var() Sound ZoomSound;
 
-var()        int                lenseMaterialID;        // used since material id's seem to change alot
+var() int lenseMaterialID;  // used since material id's seem to change alot
 
-var()        float            scopePortalFOVHigh;        // The FOV to zoom the scope portal by.
-var()        float            scopePortalFOV;            // The FOV to zoom the scope portal by.
-var()       vector          XoffsetScoped;
-var()       vector          XoffsetHighDetail;
+var() float scopePortalFOVHigh;  // The FOV to zoom the scope portal by.
+var() float scopePortalFOV;  // The FOV to zoom the scope portal by.
+var() vector XoffsetScoped;
+var() vector XoffsetHighDetail;
 
 // Not sure if these pitch vars are still needed now that we use Scripted Textures. We'll keep for now in case they are. - Ramm 08/14/04
-// var()        int                scopePitch;                // Tweaks the pitch of the scope firing angle
-// var()        int                scopeYaw;                // Tweaks the yaw of the scope firing angle
-// var()        int                scopePitchHigh;            // Tweaks the pitch of the scope firing angle high detail scope
-// var()        int                scopeYawHigh;            // Tweaks the yaw of the scope firing angle high detail scope
+// var() int scopePitch;  // Tweaks the pitch of the scope firing angle
+// var() int scopeYaw;  // Tweaks the yaw of the scope firing angle
+// var() int scopePitchHigh;  // Tweaks the pitch of the scope firing angle high detail scope
+// var() int scopeYawHigh;  // Tweaks the yaw of the scope firing angle high detail scope
 
 // 3d Scope vars
-var   ScriptedTexture       ScopeScriptedTexture;   // Scripted texture for 3d scopes
-var      Shader                ScopeScriptedShader;       // The shader that combines the scripted texture with the sight overlay
-var   Material              ScriptedTextureFallback;// The texture to render if the users system doesn't support shaders
+var ScriptedTexture ScopeScriptedTexture;  // Scripted texture for 3d scopes
+var Shader ScopeScriptedShader;  // The shader that combines the scripted texture with the sight overlay
+var Material ScriptedTextureFallback;// The texture to render if the users system doesn't support shaders
 
 // new scope vars
-var     Combiner            ScriptedScopeCombiner;
-var     texture             TexturedScopeTexture;
+var Combiner ScriptedScopeCombiner;
+var texture TexturedScopeTexture;
 
-var        bool                bInitializedScope;        // Set to true when the scope has been initialized
+var bool bInitializedScope;  // Set to true when the scope has been initialized
 
-var        string              ZoomMatRef;
-var        string              ScriptedTextureFallbackRef;
+var string ZoomMatRef;
+var string ScriptedTextureFallbackRef;
 
-var     texture             CrosshairTex;
-var     string              CrosshairTexRef;
+var texture CrosshairTex;
+var string CrosshairTexRef;
 
-var        const bool            bDebugMode;            // flag for whether debug commands can be run
+var const bool bDebugMode;  // flag for whether debug commands can be run
 
-var         name             ReloadShortAnim;
-var         float             ReloadShortRate;
-var transient bool          bShortReload;
+var name ReloadShortAnim;
+var float ReloadShortRate;
+var transient bool bShortReload;
 
 
 //=============================================================================

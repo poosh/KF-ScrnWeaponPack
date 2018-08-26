@@ -1,4 +1,4 @@
-﻿class SVD extends SVDS;
+class SVD extends SVDS;
 
 function byte BestMode()
 {
@@ -37,9 +37,40 @@ simulated function Notify_HideBullets()
     }
     else if (MagAmmoRemaining == 2)
     {
-                    SetBoneScale (1, 0.0, 'Bullet');
+        SetBoneScale (1, 0.0, 'Bullet');
     }
 }
+
+//overridden to fix zooming in and out
+simulated exec function ToggleIronSights()
+{
+    if( bHasAimingMode )
+    {
+        if( bAimingRifle )
+        {
+            PerformZoom(false);
+            TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
+        }
+        else
+        {
+            if( Owner != none && Owner.Physics == PHYS_Falling &&
+                Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
+            {
+                return;
+            }
+
+            InterruptReload();
+
+            if( bIsReloading || !CanZoomNow() )
+                return;
+
+            PerformZoom(True);
+            //also blend to idle
+            TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
+        }
+    }
+}
+
 
 defaultproperties
 {

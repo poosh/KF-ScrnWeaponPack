@@ -1,4 +1,4 @@
-﻿class AK12AssaultRifle extends AKBaseWeapon;
+class AK12AssaultRifle extends AKBaseWeapon;
 
 
 defaultproperties
