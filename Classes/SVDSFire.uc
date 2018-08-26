@@ -72,17 +72,15 @@ simulated function bool AllowFire()
     return super(WeaponFire).AllowFire();
 }
 
-//adds faked recoil to only 3d scopes
+//adds faked recoil to 3d scope zoom
 event ModeDoFire()
 {
     if( KFWeapon(Weapon).bAimingRifle )
     {
         if ( KFWeapon(Weapon).KFScopeDetail != KF_TextureScope)
         {
-            ShakeOffsetMag.X=3.0; //faked recoil
-            ShakeOffsetMag.Y=0;
-            ShakeOffsetMag.Z=0;
-            ShakeOffsetRate.X=1000;
+            ShakeOffsetMag=default.ScopedShakeOffsetMag;
+            ShakeOffsetRate=default.ScopedShakeOffsetRate;
         }
     }
     else 
@@ -92,6 +90,7 @@ event ModeDoFire()
     }
 	Super.ModeDoFire();
 }
+
 
 function float MaxRange()
 {
@@ -125,7 +124,9 @@ defaultproperties
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=2.000000
      ShakeOffsetMag=(X=10.000000,Y=3.000000,Z=12.000000)
+     ScopedShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000) //recoil shake disabled for 3d scopes
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
+     ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //recoil shake disabled for 3d scopes
      ShakeOffsetTime=2.000000
      ProjectileClass=Class'ScrnWeaponPack.SVDSBullet'
      BotRefireRate=0.550000
