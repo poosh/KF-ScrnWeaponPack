@@ -1,6 +1,5 @@
 ﻿class AK12AssaultRifle extends AKBaseWeapon;
 
-
 defaultproperties
 {
     SkinRefs(0)="ScrnWeaponPack_T.AK12.AK12_tex_1_cmb"
