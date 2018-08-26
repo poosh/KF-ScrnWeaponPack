@@ -4,6 +4,8 @@ var()           class<Emitter>  ShellEjectClass;            // class of the shel
 var()           Emitter         ShellEjectEmitter;          // The shell eject emitter
 var()           name            ShellEjectBoneName;         // name of the shell eject bone
 
+var vector ScopedShakeOffsetMag; //Shake offset mag used for 3d scopes
+var vector ScopedShakeOffsetRate; //Shake offset rate used for 3d scopes
 
 simulated function InitEffects()
 {
@@ -80,10 +82,8 @@ event ModeDoFire()
     {
         if ( KFWeapon(Weapon).KFScopeDetail != KF_TextureScope)
         {
-            ShakeOffsetMag.X=3.0; //faked recoil
-            ShakeOffsetMag.Y=0;
-            ShakeOffsetMag.Z=0;
-            ShakeOffsetRate.X=1000;
+            ShakeOffsetMag=default.ScopedShakeOffsetMag;
+            ShakeOffsetRate=default.ScopedShakeOffsetRate;
         }
     }
     else 
@@ -126,7 +126,9 @@ defaultproperties
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=2.000000
      ShakeOffsetMag=(X=6.000000,Y=3.000000,Z=7.000000)
+     ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scopes
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
+     ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scopes
      ShakeOffsetTime=2.000000
      ProjectileClass=Class'ScrnWeaponPack.VSSDTBullet'
      BotRefireRate=0.650000
