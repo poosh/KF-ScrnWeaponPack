@@ -1,5 +1,27 @@
 class HK417Fire extends KFFire;
 
+var vector ScopedShakeOffsetMag; //Shake offset mag used for 3d scopes
+var vector ScopedShakeOffsetRate; //Shake offset rate used for 3d scopes
+
+//adds faked recoil to 3d scope zoom
+event ModeDoFire()
+{
+    if( KFWeapon(Weapon).bAimingRifle )
+    {
+        if ( KFWeapon(Weapon).KFScopeDetail != KF_TextureScope)
+        {
+            ShakeOffsetMag=default.ScopedShakeOffsetMag;
+            ShakeOffsetRate=default.ScopedShakeOffsetRate;
+        }
+    }
+    else 
+    {
+        ShakeOffsetMag=default.ShakeOffsetMag;
+        ShakeOffsetRate=default.ShakeOffsetRate;
+    }
+	Super.ModeDoFire();
+}
+
 defaultproperties
 {
      StereoFireSoundRef="ScrnWeaponPack_SND.HK417AR.HK417_shot"
@@ -28,9 +50,10 @@ defaultproperties
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
      ShakeRotRate=(X=9500.000000,Y=9500.000000,Z=9500.000000)
      ShakeRotTime=0.650000
-     //ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
-     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
+     ShakeOffsetMag=(X=3.000000,Y=3.000000,Z=3.000000)
+     ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scope
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
+     ScopedShakeOffsetRate=(X=50.000000,Y=50.000000,Z=50.000000) //faked recoil for 3d scope
      ShakeOffsetTime=1.250000
      BotRefireRate=0.990000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stSTG'

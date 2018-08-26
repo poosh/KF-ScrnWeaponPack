@@ -6,9 +6,9 @@ defaultproperties
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
     lenseMaterialID=3
     scopePortalFOVHigh=10.000000
-    scopePortalFOV=10.000000
+    scopePortalFOV=8.000000 //10
     PlayerIronSightFOV=32.000000
-    ZoomedDisplayFOV=50.000000
+    ZoomedDisplayFOV=70.000000 //50
     ZoomedDisplayFOVHigh=55.000000
     StandardDisplayFOV=65.000000
     ZoomMatRef="ScrnWeaponPack_T.SVD.PSO1ScopeFinalBlend"

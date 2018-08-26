@@ -3,6 +3,9 @@
 //=============================================================================
 class HuntingRifleFire extends KFFire;
 
+var vector ScopedShakeOffsetMag; //Shake offset mag used for 3d scopes
+var vector ScopedShakeOffsetRate; //Shake offset rate used for 3d scopes
+
 //adds limited shot penetration
 function DoTrace(Vector Start, Rotator Dir)
 {
@@ -116,6 +119,25 @@ function DoTrace(Vector Start, Rotator Dir)
             IgnoreActors[i].SetCollision(true);
 }
 
+//adds faked recoil to 3d scope zoom
+event ModeDoFire()
+{
+    if( KFWeapon(Weapon).bAimingRifle )
+    {
+        if ( KFWeapon(Weapon).KFScopeDetail != KF_TextureScope)
+        {
+            ShakeOffsetMag=default.ScopedShakeOffsetMag;
+            ShakeOffsetRate=default.ScopedShakeOffsetRate;
+        }
+    }
+    else 
+    {
+        ShakeOffsetMag=default.ShakeOffsetMag;
+        ShakeOffsetRate=default.ShakeOffsetRate;
+    }
+	Super.ModeDoFire();
+}
+
 defaultproperties
 {
      FireSoundRef="ScrnWeaponPack_SND.BDHR.awp1_mono"
@@ -143,9 +165,10 @@ defaultproperties
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=2.000000
-     //ShakeOffsetMag=(X=10.000000,Y=3.000000,Z=12.000000)
      ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
+     ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scope
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
+     ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scope
      ShakeOffsetTime=2.000000
      BotRefireRate=0.650000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
