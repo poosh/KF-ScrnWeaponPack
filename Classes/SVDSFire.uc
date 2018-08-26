@@ -4,6 +4,9 @@ var()           class<Emitter>  ShellEjectClass;            // class of the shel
 var()           Emitter         ShellEjectEmitter;          // The shell eject emitter
 var()           name            ShellEjectBoneName;         // name of the shell eject bone
 
+var vector ScopedShakeOffsetMag; //Shake offset mag used for 3d scopes
+var vector ScopedShakeOffsetRate; //Shake offset rate used for 3d scopes
+
 
 simulated function InitEffects()
 {
