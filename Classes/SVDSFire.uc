@@ -88,7 +88,7 @@ event ModeDoFire()
         ShakeOffsetMag=default.ShakeOffsetMag;
         ShakeOffsetRate=default.ShakeOffsetRate;
     }
-	Super.ModeDoFire();
+    Super.ModeDoFire();
 }
 
 

@@ -2,43 +2,43 @@
 
 function byte BestMode()
 {
-	return 0;
+    return 0;
 }
 
 simulated function Notify_ShowBullets()
 {
-	local int AvailableAmmo;
+    local int AvailableAmmo;
 
-	AvailableAmmo = AmmoAmount(0);
+    AvailableAmmo = AmmoAmount(0);
 
-	if (AvailableAmmo == 0)
-	{
-		SetBoneScale (0, 0.0, 'bullet1');
-		SetBoneScale (1, 0.0, 'Bullet');
-	}
-	else if (AvailableAmmo == 1)
-	{
-		SetBoneScale (0, 1.0, 'bullet1');
-		SetBoneScale (1, 0.0, 'Bullet');
-	}
-	else
-	{
-		SetBoneScale (0, 1.0, 'bullet1');
-		SetBoneScale (1, 1.0, 'Bullet');
-	}
+    if (AvailableAmmo == 0)
+    {
+        SetBoneScale (0, 0.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'Bullet');
+    }
+    else if (AvailableAmmo == 1)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'Bullet');
+    }
+    else
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'Bullet');
+    }
 }
 
 simulated function Notify_HideBullets()
 {
-	if (MagAmmoRemaining <= 1)
-	{
-		SetBoneScale (0, 0.0, 'bullet1');
+    if (MagAmmoRemaining <= 1)
+    {
+        SetBoneScale (0, 0.0, 'bullet1');
         SetBoneScale (1, 0.0, 'Bullet');
-	}
-	else if (MagAmmoRemaining == 2)
-	{
+    }
+    else if (MagAmmoRemaining == 2)
+    {
                     SetBoneScale (1, 0.0, 'Bullet');
-	}
+    }
 }
 
 defaultproperties

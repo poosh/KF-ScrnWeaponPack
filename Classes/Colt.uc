@@ -45,13 +45,13 @@ simulated function WeaponTick(float dt)
             }
         }
     }
-    
+
     if ( Role < ROLE_Authority )
         return;
 
     if ( bIsReloading ) {
         if (AmmoAmount(0) <= MagAmmoRemaining )
-        InterruptReload(); //force interrupt if loaded last bullet
+            InterruptReload(); //force interrupt if loaded last bullet
         if( Level.TimeSeconds >= ReloadTimer ) {
             ActuallyFinishReloading();
         }
@@ -84,7 +84,7 @@ simulated function WeaponTick(float dt)
                 ServerSpawnLight();
             }
         }
-    }    
+    }
 }
 
 
@@ -92,7 +92,7 @@ simulated function bool AllowReload()
 {
     if ( bIsReloading || MagAmmoRemaining >= AmmoAmount(0) )
         return false;
-        
+
     UpdateMagCapacity(Instigator.PlayerReplicationInfo);
     if ( MagAmmoRemaining >= MagCapacity )
         return false;
@@ -100,12 +100,12 @@ simulated function bool AllowReload()
     if( KFInvasionBot(Instigator.Controller) != none || KFFriendlyAI(Instigator.Controller) != none )
         return true;
 
-    return !FireMode[0].IsFiring() && !FireMode[1].IsFiring() 
+    return !FireMode[0].IsFiring() && !FireMode[1].IsFiring()
         && Level.TimeSeconds > (FireMode[0].NextFireTime - 0.1);
 }
 
 
-// Since vanilla reloading replication is totally fucked, I moved base code into separate, 
+// Since vanilla reloading replication is totally fucked, I moved base code into separate,
 // replication-free function, which is executed on both server and client side
 // -- PooSH
 simulated function DoReload()
@@ -125,9 +125,9 @@ simulated function DoReload()
 
     bIsReloading = true;
     bInterruptedReload = false;
-    
-    BulletUnloadRate = default.BulletUnloadRate / ReloadMulti; 
-    BulletLoadRate = default.BulletLoadRate / ReloadMulti; 
+
+    BulletUnloadRate = default.BulletUnloadRate / ReloadMulti;
+    BulletLoadRate = default.BulletLoadRate / ReloadMulti;
     NextBulletLoadTime = Level.TimeSeconds + BulletUnloadRate + BulletLoadRate;
     // more bullets left = less time to reload
     ReloadRate = default.ReloadRate / ReloadMulti;
@@ -137,25 +137,25 @@ simulated function DoReload()
     Instigator.SetAnimAction(WeaponReloadAnim);
 }
 
-// This function is triggered by client, replicated to server and NOT EXECUTED on client, 
+// This function is triggered by client, replicated to server and NOT EXECUTED on client,
 // even if marked as simulated
 exec function ReloadMeNow()
 {
     local KFPlayerController PC;
-    
-    if ( !AllowReload() ) 
+
+    if ( !AllowReload() )
         return;
-        
+
     DoReload();
     ClientReload();
-    
+
     PC = KFPlayerController(Instigator.Controller);
-    if ( PC != none && Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress 
+    if ( PC != none && Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress
             && Level.TimeSeconds - PC.LastReloadMessageTime > PC.ReloadMessageDelay )
     {
         KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
         KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
-    }    
+    }
 }
 
 function ServerRequestAutoReload()
@@ -176,10 +176,10 @@ function AddReloadedAmmo() {} // magazine is filled in WeaponTick now
 
 simulated function bool StartFire(int Mode)
 {
-    if ( MagAmmoRemaining <= 0 ) 
+    if ( MagAmmoRemaining <= 0 )
         return false;
     if ( bIsReloading ) {
-        InterruptReload(); 
+        InterruptReload();
         return false;
     }
     return super(Weapon).StartFire(Mode);
@@ -200,7 +200,7 @@ simulated function bool InterruptReload()
         // that's very lame how to do stuff like that - don't repeat it at home ;)
         // in theory client should send server a request to interrupt the reload,
         // and the server send back accept to client.
-        // But in such case we have a double chance of screwing the shit up, so let's just 
+        // But in such case we have a double chance of screwing the shit up, so let's just
         // do it lazy way.
         ServerInterruptReload();
         ClientInterruptReload();
@@ -241,10 +241,10 @@ simulated exec function ToggleIronSights()
 simulated exec function IronSightZoomIn()
 {
     if( bHasAimingMode ) {
-        if( Owner != none && Owner.Physics == PHYS_Falling 
+        if( Owner != none && Owner.Physics == PHYS_Falling
                 && Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
             return;
-            
+
         if( bIsReloading )
             InterruptReload(); // finish reloading while zooming in  -- PooSH
         PerformZoom(True);
@@ -257,7 +257,7 @@ simulated function bool PutDown()
 
     // continue here, because there is nothing to stop us from interrupting the reload  -- PooSH
     if ( bIsReloading )
-        InterruptReload(); 
+        InterruptReload();
 
     if( bAimingRifle )
         ZoomOut(False);
@@ -348,7 +348,7 @@ simulated function bool PutDown()
 
 
 simulated function Notify_DropBullets()
-{    
+{
     if ( !Instigator.IsLocallyControlled() )
         return ;
     // bullets are reloaded in this order: 2,1,5,4,6,3
@@ -359,47 +359,47 @@ simulated function Notify_DropBullets()
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 0.0, 'b4');
            SetBoneScale(5, 0.0, 'b5');
-           SetBoneScale(6, 0.0, 'b6');   
-            break;            
+           SetBoneScale(6, 0.0, 'b6');
+            break;
         case 4:
            SetBoneScale(1, 0.0, 'b1');
            SetBoneScale(2, 0.0, 'b2');
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 0.0, 'b4');
            SetBoneScale(5, 0.0, 'b5');
-           SetBoneScale(6, 1.0, 'b6');                  
-            break;            
+           SetBoneScale(6, 1.0, 'b6');
+            break;
         case 3:
            SetBoneScale(1, 0.0, 'b1');
            SetBoneScale(2, 0.0, 'b2');
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 1.0, 'b4');
            SetBoneScale(5, 0.0, 'b5');
-           SetBoneScale(6, 1.0, 'b6');         
-            break;            
+           SetBoneScale(6, 1.0, 'b6');
+            break;
         case 2:
            SetBoneScale(1, 0.0, 'b1');
            SetBoneScale(2, 0.0, 'b2');
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 1.0, 'b4');
            SetBoneScale(5, 1.0, 'b5');
-           SetBoneScale(6, 1.0, 'b6'); 
-            break;            
+           SetBoneScale(6, 1.0, 'b6');
+            break;
         case 1:
            SetBoneScale(1, 1.0, 'b1');
            SetBoneScale(2, 0.0, 'b2');
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 1.0, 'b4');
            SetBoneScale(5, 1.0, 'b5');
-           SetBoneScale(6, 1.0, 'b6');   
-            break;            
+           SetBoneScale(6, 1.0, 'b6');
+            break;
         default:
            SetBoneScale(1, 1.0, 'b1');
            SetBoneScale(2, 1.0, 'b2');
            SetBoneScale(3, 1.0, 'b3');
            SetBoneScale(4, 1.0, 'b4');
            SetBoneScale(5, 1.0, 'b5');
-           SetBoneScale(6, 1.0, 'b6');        
+           SetBoneScale(6, 1.0, 'b6');
     }
 }
 
@@ -428,7 +428,7 @@ simulated function ShowAllBullets()
    SetBoneScale(3, 1.0, 'b3');
    SetBoneScale(4, 1.0, 'b4');
    SetBoneScale(5, 1.0, 'b5');
-   SetBoneScale(6, 1.0, 'b6'); 
+   SetBoneScale(6, 1.0, 'b6');
 }
 
 defaultproperties
