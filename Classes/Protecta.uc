@@ -13,14 +13,13 @@ exec function SwitchModes()
 {
     DoToggle();
 }
-//test disabling this in case it's already fixed
-/* 
+
 simulated function bool CanZoomNow()
 {
     // aiming while firing makes zoom bugged. Prevent zooming while firing.
     return Instigator != none && Instigator.Controller.bFire == 0;
 }
-*/
+
 //overridden to fix zooming in and out
 simulated exec function ToggleIronSights()
 {
