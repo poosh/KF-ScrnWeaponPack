@@ -15,6 +15,10 @@ var transient Rotator HealRotation;
 var Sound HealSound;
 var string HealSoundRef;
 
+var name ReloadShortAnim;
+var float ReloadShortRate;
+var transient bool bShortReload;
+
 replication
 {
     reliable if(Role < ROLE_Authority)
@@ -76,12 +80,153 @@ simulated function Destroyed()
     super.Destroyed();
 }
 
+simulated function bool AllowReload()
+{
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
+    if(KFInvasionBot(Instigator.Controller) != none && !bIsReloading &&
+        MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining)
+        return true;
+
+    if(KFFriendlyAI(Instigator.Controller) != none && !bIsReloading &&
+        MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining)
+        return true;
+
+
+    if(FireMode[0].IsFiring() || FireMode[1].IsFiring() ||
+           bIsReloading || MagAmmoRemaining > MagCapacity ||
+           ClientState == WS_BringUp ||
+           AmmoAmount(0) <= MagAmmoRemaining ||
+                   (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 )
+        return false;
+    return true;
+}
+
+
+exec function ReloadMeNow()
+{
+    local float ReloadMulti;
+
+    if(!AllowReload())
+        return;
+    if ( bHasAimingMode && bAimingRifle )
+    {
+        FireMode[1].bIsFiring = False;
+
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+            ServerZoomOut(false);
+    }
+
+    if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
+        ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
+    else
+        ReloadMulti = 1.0;
+
+    bIsReloading = true;
+    ReloadTimer = Level.TimeSeconds;
+    bShortReload = MagAmmoRemaining > 0 && ReloadShortAnim != '';
+    if ( bShortReload )
+        ReloadRate = Default.ReloadShortRate / ReloadMulti;
+    else
+        ReloadRate = Default.ReloadRate / ReloadMulti;
+
+    if( bHoldToReload )
+    {
+        NumLoadedThisReload = 0;
+    }
+    ClientReload();
+    Instigator.SetAnimAction(WeaponReloadAnim);
+    if ( Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress && KFPlayerController(Instigator.Controller) != none &&
+        Level.TimeSeconds - KFPlayerController(Instigator.Controller).LastReloadMessageTime > KFPlayerController(Instigator.Controller).ReloadMessageDelay )
+    {
+        KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
+        KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
+    }
+}
+
+simulated function ClientReload()
+{
+    local float ReloadMulti;
+    if ( bHasAimingMode && bAimingRifle )
+    {
+        FireMode[1].bIsFiring = False;
+
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+            ServerZoomOut(false);
+    }
+
+    if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
+        ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
+    else
+        ReloadMulti = 1.0;
+
+    bIsReloading = true;
+    if ( MagAmmoRemaining <= 0 || ReloadShortAnim == '' )
+    {
+        PlayAnim(ReloadAnim, ReloadAnimRate*ReloadMulti, 0.1);
+    }
+    else if ( MagAmmoRemaining >= 1 )
+    {
+        PlayAnim(ReloadShortAnim, ReloadAnimRate*ReloadMulti, 0.1);
+    }
+}
+
+function AddReloadedAmmo()
+{
+    local int a;
+
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
+
+    a = MagCapacity;
+    if ( bShortReload )
+        a++; // 1 bullet already bolted
+
+    if ( AmmoAmount(0) >= a )
+        MagAmmoRemaining = a;
+    else
+        MagAmmoRemaining = AmmoAmount(0);
+
+    // this seems redudant -- PooSH
+    // if( !bHoldToReload )
+    // {
+        // ClientForceKFAmmoUpdate(MagAmmoRemaining,AmmoAmount(0));
+    // }
+
+    if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
+    {
+        KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
+    }
+}
 
 simulated function WeaponTick(float dt)
 {
+//Change the various animations depending on whether the last round was fired
+    if (Level.NetMode != NM_DedicatedServer)
+    {
+        if (MagAmmoRemaining >= 1 || bIsReloading)
+        {
+            //ReloadAnim = 'ReloadChambered';
+            IdleAnim = default.IdleAnim;
+            IdleAimAnim = default.IdleAimAnim;
+            SelectAnim = default.SelectAnim;
+            PutDownAnim = default.PutDownAnim;
+            ModeSwitchAnim = default.ModeSwitchAnim;
+        }
+        else if (MagAmmoRemaining == 0)
+        {
+            //ReloadAnim = default.ReloadAnim;
+            IdleAnim = 'IdleEmpty';
+            IdleAimAnim = 'IdleEmpty_Iron';
+            SelectAnim = 'SelectEmpty';
+            PutDownAnim = 'PutDownEmpty';
+            ModeSwitchAnim = 'LightOnEmpty';	
+        }
+    }
+//End animation-swapping stuff
     super.WeaponTick(dt);
-    
+   
     if ( (FlashLight != none && FlashLight.bHasLight ) == (LaserType > 0) )
         ToggleLaser(); // automatically turn on laser if flashlight is off
 }
@@ -316,7 +461,9 @@ defaultproperties
 
      MagCapacity=7
      ReloadRate=2.000000
+     ReloadShortRate=1.5
      ReloadAnim="Reload"
+     ReloadShortAnim="ReloadChambered"
      ReloadAnimRate=1.000000
      FlashBoneName="LightBone"
      WeaponReloadAnim="Reload_Single9mm"
