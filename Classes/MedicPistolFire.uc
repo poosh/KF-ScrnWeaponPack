@@ -5,6 +5,20 @@ var byte  MaxPenetrations; //how many enemies can penetrate a single bullet
 
 var int HealAmount, HealBoost;
 
+simulated event ModeDoFire()
+{
+	if (MedicPistol(Weapon).MagAmmoRemaining == 1)
+	{
+		FireAnim = 'FireLast';
+		FireAimedAnim = 'FireLast_Iron';
+	}
+	Else
+	{
+		FireAnim = default.FireAnim;
+		FireAimedAnim = default.FireAimedAnim;
+	}
+    Super.ModeDoFire();
+}
 
 function DoTrace(Vector Start, Rotator Dir)
 {
