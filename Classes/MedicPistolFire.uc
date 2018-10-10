@@ -1,22 +1,28 @@
 class MedicPistolFire extends KFFire;
 
+var MedicPistol ScrnWeap; // avoid typecasting
+
 var float PenDmgReduction; //penetration damage reduction. 1.0 - no reduction, 0 - no penetration, 0.75 - 25% reduction
 var byte  MaxPenetrations; //how many enemies can penetrate a single bullet
 
 var int HealAmount, HealBoost;
 
+function PostBeginPlay()
+{
+    super.PostBeginPlay();
+    ScrnWeap = MedicPistol(Weapon);
+}
+
 simulated event ModeDoFire()
 {
-	if (MedicPistol(Weapon).MagAmmoRemaining == 1)
-	{
-		FireAnim = 'FireLast';
-		FireAimedAnim = 'FireLast_Iron';
-	}
-	Else
-	{
-		FireAnim = default.FireAnim;
-		FireAimedAnim = default.FireAimedAnim;
-	}
+    if ( ScrnWeap.bFiringLastRound ) {
+        FireAnim = 'FireLast';
+        FireAimedAnim = 'FireLast_Iron';
+    }
+    else {
+        FireAnim = default.FireAnim;
+        FireAimedAnim = default.FireAimedAnim;
+    }
     Super.ModeDoFire();
 }
 
@@ -31,7 +37,7 @@ function DoTrace(Vector Start, Rotator Dir)
     local array<Actor>    IgnoreActors;
     local Pawn DamagePawn;
     local int i;
-    
+
     local KFMonster Monster;
     local bool bWasDecapitated;
     //local int OldHealth;
@@ -52,9 +58,9 @@ function DoTrace(Vector Start, Rotator Dir)
     X = Vector(Dir);
     End = Start + TraceRange * X;
     HitDamage = DamageMax;
-    
+
     // HitCount isn't a number of max penetration. It is just to be sure we won't stuck in infinite loop
-    While( ++HitCount < 127 ) 
+    While( ++HitCount < 127 )
     {
         DamagePawn = none;
         Monster = none;
@@ -123,14 +129,14 @@ function DoTrace(Vector Start, Rotator Dir)
                     //OldHealth = KFMonster(Other).Health;
                 }
                 bWasDecapitated = Monster != none && Monster.bDecapitated;
-                
+
                 // DAMAGE & HEAL
                 Other.TakeDamage(int(HitDamage), Instigator, HitLocation, Momentum*X, DamageType);
                 if ( Monster != none && !Monster.bDecapitated && Monster.Health > 0 ) {
                     MedicPistol(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
                     Monster.Health += int(HitDamage * class<KFWeaponDamageType>(DamageType).default.HeadShotDamageMult);
                     if ( Monster.Health > 2 * Monster.HealthMax ) {
-                        Monster.TakeDamage(Monster.Health * 10, Instigator, Monster.Location, vect(0,0,1), class'DamTypeMedicOvercharge' ); 
+                        Monster.TakeDamage(Monster.Health * 10, Instigator, Monster.Location, vect(0,0,1), class'DamTypeMedicOvercharge' );
                     }
                 }
             }
@@ -166,10 +172,10 @@ function HealPawn(KFPawn Healed)
     local SRStatsBase Stats;
     local int MedicReward;
     local float HealPotency, HealSum;
-    
+
     if ( Healed.Health <= 0 )
         return;
-    
+
     //if( Instigator != none && Healed.Health > 0 && Healed.Health <  Healed.HealthMax ) {
     PRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
     if ( PRI != none )
@@ -188,15 +194,15 @@ function HealPawn(KFPawn Healed)
 
     if ( Healed.Controller != none )
         Healed.Controller.ShakeView(ShakeRotMag, ShakeRotRate, ShakeRotTime, ShakeOffsetMag, ShakeOffsetRate, ShakeOffsetTime);
-    
+
     if ( ScrnHumanPawn(Healed) != none )
         ScrnHumanPawn(Healed).TakeHealing(ScrnHumanPawn(Instigator), HealSum, HealPotency, KFWeapon(Instigator.Weapon));
-    else 
+    else
         Healed.GiveHealth(HealSum, Healed.HealthMax);
-    
+
     // instantly raise player health
     Healed.Health += int(HealBoost * HealPotency);
-    if ( Healed.Health > 250 && Stats != none )  
+    if ( Healed.Health > 250 && Stats != none )
         class'ScrnAchievements'.static.ProgressAchievementByID(Stats.Rep, 'MedicPistol_250', 1);
 
     if ( PRI != None && Stats != none ) {
@@ -212,7 +218,7 @@ function HealPawn(KFPawn Healed)
                 PRI.Score += MedicReward;
             }
         }
-        else 
+        else
             PRI.Score += MedicReward;
 
         if ( KFHumanPawn(Instigator) != none )
@@ -234,7 +240,7 @@ defaultproperties
     PenDmgReduction=0.50
     MaxPenetrations=0
     bWaitForRelease=True
-    
+
     maxVerticalRecoilAngle=250
     maxHorizontalRecoilAngle=50
     FireAimedAnim="Fire_Iron"

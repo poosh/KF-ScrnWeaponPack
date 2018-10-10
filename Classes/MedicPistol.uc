@@ -1,6 +1,6 @@
 class MedicPistol extends KFWeapon
     config(user);
-    
+
 
 var const   class<ScrnLocalLaserDot>    LaserDotClass;
 var         ScrnLocalLaserDot           LaserDot;             // The first person laser site dot
@@ -19,13 +19,15 @@ var name ReloadShortAnim;
 var float ReloadShortRate;
 var transient bool bShortReload;
 
+var bool bFiringLastRound;
+
 replication
 {
     reliable if(Role < ROLE_Authority)
         ServerSetLaserType;
-        
+
      reliable if( Role == ROLE_Authority )
-        ClientSuccessfulHeal;  
+        ClientSuccessfulHeal;
 
     reliable if( bNetDirty && Role == ROLE_Authority )
         HealRotation, HealLocation;
@@ -37,11 +39,11 @@ replication
 static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 {
     local MedicPistol W;
-    
+
     super.PreloadAssets(Inv, bSkipRefCount);
-    
+
     default.HealSound = sound(DynamicLoadObject(default.HealSoundRef, class'Sound', true));
-    
+
     if ( W != none ) {
         W.HealSound = default.HealSound;
     }
@@ -56,11 +58,10 @@ static function bool UnloadAssets()
 
     return true;
 }
-    
+
 //=============================================================================
 // Functions
 //=============================================================================
-    
 
 simulated function PostNetReceive()
 {
@@ -70,10 +71,17 @@ simulated function PostNetReceive()
     }
 }
 
+simulated function Fire(float f)
+{
+    if ( f == 0)
+        bFiringLastRound = MagAmmoRemaining == 1;
+    super.Fire(f);
+}
+
 simulated function Destroyed()
 {
     if (LaserDot != None)
-        LaserDot.Destroy();    
+        LaserDot.Destroy();
     if (LaserAttachment != None)
         LaserAttachment.Destroy();
 
@@ -221,17 +229,17 @@ simulated function WeaponTick(float dt)
             IdleAimAnim = 'IdleEmpty_Iron';
             SelectAnim = 'SelectEmpty';
             PutDownAnim = 'PutDownEmpty';
-            ModeSwitchAnim = 'LightOnEmpty';	
+            ModeSwitchAnim = 'LightOnEmpty';
         }
     }
 //End animation-swapping stuff
     super.WeaponTick(dt);
-   
+
     if ( (FlashLight != none && FlashLight.bHasLight ) == (LaserType > 0) )
         ToggleLaser(); // automatically turn on laser if flashlight is off
 }
 
-//bring Laser to current state, which is indicating by LaserType 
+//bring Laser to current state, which is indicating by LaserType
 simulated function ApplyLaserState()
 {
     if( Role < ROLE_Authority  )
@@ -239,10 +247,10 @@ simulated function ApplyLaserState()
 
     if ( ThirdPersonActor != none )
         ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
-    
+
     if ( !Instigator.IsLocallyControlled() )
         return;
-    
+
     if(LaserType > 0 ) {
         if ( LaserDot == none )
             LaserDot = Spawn(LaserDotClass, self);
@@ -252,7 +260,7 @@ simulated function ApplyLaserState()
             LaserAttachment = Spawn(LaserAttachmentClass,,,,);
             AttachToBone(LaserAttachment, FlashBoneName);
         }
-        ConstantColor'ScrnTex.Laser.LaserColor'.Color = 
+        ConstantColor'ScrnTex.Laser.LaserColor'.Color =
             LaserDot.GetLaserColor(); // LaserAttachment's color
         LaserAttachment.bHidden = false;
 
@@ -269,12 +277,12 @@ simulated function ApplyLaserState()
 // Toggle laser on or off
 simulated function ToggleLaser()
 {
-    if( !Instigator.IsLocallyControlled() ) 
+    if( !Instigator.IsLocallyControlled() )
         return;
 
-    if ( LaserType == 0 ) 
+    if ( LaserType == 0 )
         LaserType = 3; // Blue
-    else 
+    else
         LaserType = 0;
 
     ApplyLaserState();
@@ -306,7 +314,7 @@ simulated function TurnOffLaser()
     if( Role < ROLE_Authority  )
         ServerSetLaserType(0);
 
-    //don't change Laser type here, because we need to restore it state 
+    //don't change Laser type here, because we need to restore it state
     //when next time weapon will be bringed up
     if ( LaserAttachment != none )
         LaserAttachment.bHidden = true;
@@ -320,7 +328,7 @@ simulated function TurnOffLaser()
 function ServerSetLaserType(byte NewLaserType)
 {
     LaserType = NewLaserType;
-    ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);   
+    ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
 }
 
 
@@ -353,7 +361,7 @@ simulated function RenderOverlays( Canvas Canvas )
 
     SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) );
     SetRotation( Instigator.GetViewRotation() + ZoomRotInterp);
-    
+
     KFM = KFFire(FireMode[0]);
 
     // Handle drawing the laser dot
@@ -367,7 +375,7 @@ simulated function RenderOverlays( Canvas Canvas )
             Y = C.YAxis;
             Z = C.ZAxis;
         }
-        else 
+        else
             GetViewAxes(X, Y, Z);
 
         StartTrace = Instigator.Location + Instigator.EyePosition();
@@ -455,9 +463,9 @@ defaultproperties
      SkinRefs(2)="ScrnWeaponPack_T.MedicPistol.Frame_cmb"
      SkinRefs(3)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
      SkinRefs(4)="ScrnWeaponPack_T.MedicPistol.Slide_shd"
-     
+
      LaserAttachmentClass=Class'ScrnBalanceSrv.ScrnLaserAttachmentFirstPerson'
-     LaserDotClass=Class'ScrnBalanceSrv.ScrnLocalLaserDot'     
+     LaserDotClass=Class'ScrnBalanceSrv.ScrnLocalLaserDot'
 
      MagCapacity=7
      ReloadRate=2.000000
