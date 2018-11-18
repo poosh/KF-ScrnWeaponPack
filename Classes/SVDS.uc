@@ -24,7 +24,7 @@ defaultproperties
     ReloadShortRate=1.875
 
     WeaponReloadAnim="Reload_M14"
-    Weight=7.000000
+    Weight=8.000000
     bHasAimingMode=True
     IdleAimAnim="Iron_Idle"
     bModeZeroCanDryFire=True

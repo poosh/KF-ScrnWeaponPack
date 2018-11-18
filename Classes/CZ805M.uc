@@ -172,16 +172,16 @@ defaultproperties
      MaxHealAmmo=625
      AmmoRegenRate=0.300000
      
-    ReloadShortAnim="Reload"
-    ReloadShortRate=2.11   
+     ReloadShortAnim="Reload"
+     ReloadShortRate=1.91 //2.11   
      MagCapacity=30
-     ReloadRate=3.300000
+     ReloadRate=3.250000 //3.3
      ReloadAnim="Reload"
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_AK47"
      Weight=6.000000
      bHasAimingMode=True
-     IdleAimAnim="Idle"
+     IdleAimAnim="Idle_Iron"
      StandardDisplayFOV=60.000000
      bModeZeroCanDryFire=True
      SleeveNum=2
@@ -193,8 +193,8 @@ defaultproperties
      FireModeClass(0)=Class'ScrnWeaponPack.CZ805MFire'
      FireModeClass(1)=Class'ScrnWeaponPack.CZ805MAltFire'
      PutDownAnim="Put_Down"
-     BringUpTime=0.33
-     SelectAnimRate=5
+     //BringUpTime=0.33
+     //SelectAnimRate=5
      SelectForce="SwitchToAssaultRifle"
      AIRating=0.550000
      CurrentRating=0.550000

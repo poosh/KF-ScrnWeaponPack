@@ -50,7 +50,7 @@ defaultproperties
      SkinRefs(0)="KF_Weapons2_Trip_T.hands.BritishPara_Hands_1st_P"
      SkinRefs(1)="KF_Weapons_Trip_T.Rifles.CBLens_cmb"
      SkinRefs(2)="ScrnWeaponPack_T.SVD.AlphaLens"
-     SkinRefs(3)="ScrnWeaponPack_T.VSS.newvss"
+     SkinRefs(3)="ScrnWeaponPack_T.VSS.newvss_cmb"
      SkinRefs(4)="ScrnWeaponPack_T.VSS.mag_9x39_cmb"
      SkinRefs(5)="ScrnWeaponPack_T.VSS.Scope"
      SelectSoundRef="ScrnWeaponPack_SND.VSS.VSS_Draw"

@@ -5,15 +5,16 @@ defaultproperties
      FireSoundRef="ScrnWeaponPack_SND.cz805.Firecz805b"
      NoAmmoSoundRef="KF_SCARSnd.SCAR_DryFire"
 
-     FireAimedAnim="Fire"
+     FireAimedAnim="Fire_Iron"
      RecoilRate=0.060000
      maxVerticalRecoilAngle=125
      maxHorizontalRecoilAngle=75
-     ShellEjectClass=Class'ROEffects.KFShellEjectSCAR'
+     //ShellEjectClass=Class'ROEffects.KFShellEjectSCAR'
+     ShellEjectClass=class'ROEffects.KFShellEjectM4Rifle' //changed to m4
      ShellEjectBoneName="Shell_eject"
      bAccuracyBonusForSemiAuto=True
      DamageType=Class'ScrnWeaponPack.DamTypeCZ805M'
-     DamageMax=35
+     DamageMax=41
      Momentum=12500.000000
      bPawnRapidFireAnim=True
      TransientSoundVolume=1.800000

@@ -3,6 +3,40 @@
 //=============================================================================
 class Spas extends KFWeaponShotgun;
 
+var bool bChamberThisReload; //if full reload is uninterrupted, play chambering animation
+
+
+//add notify triggered shell eject
+simulated function Notify_EjectShell()
+{
+    if ( SpasFire(FireMode[0]).ShellEjectEmitter != None )
+    {
+        SpasFire(FireMode[0]).ShellEjectEmitter.Trigger(Self, Instigator);
+    }
+}
+
+
+simulated function ClientReload()
+{
+    bChamberThisReload = ( MagAmmoRemaining == 0 && (AmmoAmount(0) - MagAmmoRemaining > MagCapacity) ); //for chambering animation
+    Super.ClientReload();
+}
+
+simulated function ClientFinishReloading()
+{
+    bIsReloading = false;
+
+    //play chambering animation if finished reloading from empty
+    if ( !bChamberThisReload )
+    {
+        PlayIdle();
+    }
+    bChamberThisReload = false;
+
+    if(Instigator.PendingWeapon != none && Instigator.PendingWeapon != self)
+        Instigator.Controller.ClientSwitchToBestWeapon();
+}
+
 // Allow this weapon to auto reload on alt fire
 simulated function AltFire(float F)
 {
@@ -29,7 +63,7 @@ defaultproperties
      MagCapacity=8
      ReloadRate=0.666667
      ReloadAnim="Reload"
-     ReloadAnimRate=1.0
+     ReloadAnimRate=0.92 //0.94
      bHasSecondaryAmmo=False
      bReduceMagAmmoOnSecondaryFire=True
      IdleAimAnim=Idle_Iron
