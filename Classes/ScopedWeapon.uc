@@ -35,6 +35,7 @@ var Material ScriptedTextureFallback;// The texture to render if the users syste
 
 // new scope vars
 var Combiner ScriptedScopeCombiner;
+var Combiner ScriptedScopeStatic; //for illuminated reticle
 var texture TexturedScopeTexture;
 
 var bool bInitializedScope;  // Set to true when the scope has been initialized
@@ -44,6 +45,10 @@ var string ScriptedTextureFallbackRef;
 
 var texture CrosshairTex;
 var string CrosshairTexRef;
+
+//illuminated reticle support
+var texture IllumTex;
+var string IllumTexRef;
 
 var const bool bDebugMode;  // flag for whether debug commands can be run
 
@@ -64,12 +69,14 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
     default.ZoomMat = FinalBlend(DynamicLoadObject(default.ZoomMatRef, class'FinalBlend', true));
     default.ScriptedTextureFallback = texture(DynamicLoadObject(default.ScriptedTextureFallbackRef, class'texture', true));
     default.CrosshairTex = texture(DynamicLoadObject(default.CrosshairTexRef, class'texture', true));
+    default.IllumTex = texture(DynamicLoadObject(default.IllumTexRef, class'texture', true)); //illuminated reticle texture
 
     W = ScopedWeapon(Inv);
     if ( W != none ) {
         W.ZoomMat = default.ZoomMat;
         W.ScriptedTextureFallback = default.ScriptedTextureFallback;
         W.CrosshairTex = default.CrosshairTex;
+        W.IllumTex = default.IllumTex;
     }
 }
 static function bool UnloadAssets()
@@ -79,6 +86,7 @@ static function bool UnloadAssets()
         default.ZoomMat = none;
         default.ScriptedTextureFallback = none;
         default.CrosshairTex = none;
+        default.IllumTex = none;
     }
 
     return true;
@@ -224,11 +232,29 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.AlphaOperation = AO_Use_Mask;
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
-
+    
+			if( IllumTex != none && ScriptedScopeStatic == none )
+			{
+				// Construct the Combiner (Self Illumination)
+				ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+	            ScriptedScopeStatic.Material1 = IllumTex;
+	            ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+	            ScriptedScopeStatic.CombineOperation = CO_Add;
+	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+	        }
+            
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;
-                ScopeScriptedShader.SelfIllumination = ScriptedScopeCombiner;
+                if (IllumTex != none)
+                {
+                    ScopeScriptedShader.SelfIllumination = ScriptedScopeStatic;
+                }
+                else
+                {
+                    ScopeScriptedShader.SelfIllumination = ScriptedScopeCombiner;
+                }
                 ScopeScriptedShader.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
             }
 

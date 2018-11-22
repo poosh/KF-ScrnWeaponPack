@@ -4,6 +4,7 @@ class SVDS extends ScopedWeapon;
 defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
+    IllumTexRef="ScrnWeaponPack_T.VSS.PSO1Sope_dot" //illuminated reticle
     lenseMaterialID=3
     scopePortalFOVHigh=10.000000
     scopePortalFOV=8.000000 //10
@@ -24,7 +25,7 @@ defaultproperties
     ReloadShortRate=1.875
 
     WeaponReloadAnim="Reload_M14"
-    Weight=8.000000
+    Weight=7.000000
     bHasAimingMode=True
     IdleAimAnim="Iron_Idle"
     bModeZeroCanDryFire=True

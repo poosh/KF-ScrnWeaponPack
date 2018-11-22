@@ -7,10 +7,10 @@ defaultproperties
 
      FireAimedAnim="Fire_Iron"
      RecoilRate=0.060000
-     maxVerticalRecoilAngle=125
+     maxVerticalRecoilAngle=150
      maxHorizontalRecoilAngle=75
      //ShellEjectClass=Class'ROEffects.KFShellEjectSCAR'
-     ShellEjectClass=class'ROEffects.KFShellEjectM4Rifle' //changed to m4
+     ShellEjectClass=class'ScrnWeaponPack.CZ805MShellEject' //changed to m4
      ShellEjectBoneName="Shell_eject"
      bAccuracyBonusForSemiAuto=True
      DamageType=Class'ScrnWeaponPack.DamTypeCZ805M'
@@ -21,7 +21,7 @@ defaultproperties
      FireLoopAnim="Fire"
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
-     FireRate=0.096000
+     FireRate=0.09000 //0.096000
      AmmoClass=Class'ScrnWeaponPack.CZ805MAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
@@ -31,7 +31,7 @@ defaultproperties
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.150000
      BotRefireRate=0.990000
-     FlashEmitterClass=Class'ROEffects.MuzzleFlash1stSTG'
+     FlashEmitterClass=Class'ScrnWeaponPack.CZ805MMuzzleFlash'
      aimerror=42.000000
      Spread=0.007500
      SpreadStyle=SS_Random

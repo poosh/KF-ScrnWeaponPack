@@ -3,7 +3,7 @@ class CZ805MPickup extends KFWeaponPickup;
 defaultproperties
 {
      Weight=6.000000
-     cost=3250
+     cost=3000
      AmmoCost=14
      BuyClipSize=31
      PowerValue=45

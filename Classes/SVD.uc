@@ -45,6 +45,7 @@ simulated function Notify_HideBullets()
 defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
+    IllumTexRef="ScrnWeaponPack_T.VSS.PSO1Sope_dot" //illuminated reticle
     ZoomMatRef="ScrnWeaponPack_T.SVD.PSO1ScopeFinalBlend"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
 

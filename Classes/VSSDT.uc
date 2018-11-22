@@ -21,6 +21,7 @@ defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.VSS.PSO1Sope"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
+    IllumTexRef="ScrnWeaponPack_T.VSS.PSO1Sope_dot" //illuminated reticle
 
 
      lenseMaterialID=2

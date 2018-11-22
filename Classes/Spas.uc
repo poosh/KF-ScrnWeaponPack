@@ -4,7 +4,31 @@
 class Spas extends KFWeaponShotgun;
 
 var bool bChamberThisReload; //if full reload is uninterrupted, play chambering animation
+var ScrnFakedProjectile FakedShell;
 
+simulated function PostBeginPlay()
+{
+    Super.PostBeginPlay();
+    if ( !Instigator.IsLocallyControlled() )
+        return;
+
+    if ( FakedShell == none ) //only spawn fakedshell once
+        FakedShell = spawn(class'ScrnFakedShell',self);
+    if ( FakedShell != none )
+    {
+        AttachToBone(FakedShell, 'bullet_shell'); //attach faked shell
+        FakedShell.SetDrawScale(4.7); //4.7
+        FakedShell.SetRelativeRotation(rot(0,32768,0));
+    }
+}
+
+simulated function Destroyed()
+{
+    if ( FakedShell != none && !FakedShell.bDeleteMe )
+        FakedShell.Destroy();
+
+    super.Destroyed();
+}
 
 //add notify triggered shell eject
 simulated function Notify_EjectShell()
@@ -86,7 +110,7 @@ defaultproperties
      IconCoords=(X1=169,Y1=172,X2=245,Y2=208)
      ItemName="SPAS-12 SE"
      TransientSoundVolume=1.000000
-     PlayerViewOffset=(X=20.000000,Y=18.750000,Z=-7.500000)
+     PlayerViewOffset=(X=5.000000,Y=17.0000,Z=-7.000000) //(X=20.000000,Y=18.750000,Z=-7.500000)
      AmbientGlow=0
      AIRating=0.6
      CurrentRating=0.6
