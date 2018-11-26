@@ -159,7 +159,6 @@ defaultproperties
      SmokeTrailClass=Class'ROEffects.PanzerfaustTrail'
      ExplosionClass=Class'ScrnWeaponPack.ScrnRPGExplosion'
      TracerClass=Class'ScrnWeaponPack.ScrnRPGTracer'
-     StaticMesh=StaticMesh'ScrnWeaponPack_SM.ScrnRPGProj' //remove this before release
      StaticMeshRef="ScrnWeaponPack_SM.ScrnRPGProj"
      ExplosionSoundRef="ScrnWeaponPack_SND.RPG.RPGExplode"
      AmbientSoundRef="KF_LAWSnd.Rocket_Propel" 
