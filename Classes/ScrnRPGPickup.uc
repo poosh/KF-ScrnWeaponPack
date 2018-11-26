@@ -6,7 +6,7 @@ defaultproperties
      cost=4000
      AmmoCost=40
      BuyClipSize=1
-     Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius."
+     Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius and rockets drop over distance. Use Altfire to toggle scope."
      ItemName="RPG-7 SE"
      ItemShortName="RPG-7 SE"
      AmmoItemName="RPG-7 Rockets"

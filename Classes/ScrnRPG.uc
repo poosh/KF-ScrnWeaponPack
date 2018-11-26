@@ -794,7 +794,7 @@ defaultproperties
      //PlayerIronSightFOV=65 //give some zoom when aiming
      RaiseAnimRate=2.7 //2,7
      //ZoomTime=0.25
-     Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius."
+     Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius and rockets drop over distance. Use Altfire to toggle scope."
      PickupClass=Class'ScrnWeaponPack.ScrnRPGPickup'
      ItemName="RPG-7 SE"
      SightFlipRotation=(Pitch=-160,Yaw=0,Roll=0)
