@@ -1,14 +1,88 @@
 class AKC74AssaultRifle extends AKBaseWeapon
     config(user);
 
+simulated function Notify_ShowBullets()
+{
+    if ( !Instigator.IsLocallyControlled() )
+        return ;
+    if (AmmoAmount(0) == 0)
+    {
+        SetBoneScale (0, 0.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (AmmoAmount(0) == 1)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (AmmoAmount(0) == 2)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (AmmoAmount(0) == 3)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'bullet2');
+        SetBoneScale (2, 1.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (AmmoAmount(0) => 4)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'bullet2');
+        SetBoneScale (2, 1.0, 'bullet3');
+        SetBoneScale (3, 1.0, 'bullet4');
+    }
+}
+
+simulated function Notify_HideBullets()
+{
+    if ( !Instigator.IsLocallyControlled() )
+        return ;
+    if (MagAmmoRemaining <= 1)
+    {
+        SetBoneScale (0, 0.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (MagAmmoRemaining == 2)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 0.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (MagAmmoRemaining == 3)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+    else if (MagAmmoRemaining => 4)
+    {
+        SetBoneScale (0, 1.0, 'bullet1');
+        SetBoneScale (1, 1.0, 'bullet2');
+        SetBoneScale (2, 0.0, 'bullet3');
+        SetBoneScale (3, 0.0, 'bullet4');
+    }
+}
 
 defaultproperties
 {
      MagCapacity=30
      ReloadRate=3.000000
      ReloadAnim="Reload"
-    ReloadShortAnim="Reload"
-    ReloadShortRate=2.0     
+     ReloadShortAnim="Reload"
+     ReloadShortRate=2.0     
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_AK47"
      Weight=5.000000
