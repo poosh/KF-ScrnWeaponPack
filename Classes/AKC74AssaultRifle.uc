@@ -22,11 +22,12 @@ defaultproperties
      SkinRefs(0)="ScrnWeaponPack_T.AK74.wpn_ak74"
      SkinRefs(1)="KF_Weapons_Trip_T.hands.hands_1stP_military_cmb"
      SkinRefs(2)="ScrnWeaponPack_T.AK74.wpn_ak74_1"
+     SkinRefs(3)="ScrnWeaponPack_T.AK12.AK12_tex_4_cmb" //AK12 magazine
      SelectSoundRef="ScrnWeaponPack_SND.AK74.akc74_draw"
      HudImageRef="ScrnWeaponPack_T.AK74.AKC74_Unselected"
      SelectedHudImageRef="ScrnWeaponPack_T.AK74.AKC74_selected"
      PlayerIronSightFOV=65.000000
-     ZoomedDisplayFOV=32.000000
+     ZoomedDisplayFOV=42.000000 //32.000000
      FireModeClass(0)=Class'ScrnWeaponPack.AKC74Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"

@@ -93,7 +93,7 @@ defaultproperties
      BotRefireRate=1.500000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
      aimerror=1.000000
-     Spread=750.000000 //1025
+     Spread=900.000000 //1025
      maxVerticalRecoilAngle=1500
      maxHorizontalRecoilAngle=900
      FireAimedAnim="Fire_Iron"

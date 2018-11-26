@@ -63,6 +63,7 @@ simulated function HandleRecoil(float Rec)
 
 defaultproperties
 {
+    KickMomentum=(X=-45.000000,Z=10.000000) //Pump action is (X=-85.000000,Z=15.000000)
     maxVerticalRecoilAngle=750
     maxHorizontalRecoilAngle=500
     FireRate=0.25
