@@ -33,7 +33,7 @@ simulated function Notify_ShowBullets()
         SetBoneScale (2, 1.0, 'bullet3');
         SetBoneScale (3, 0.0, 'bullet4');
     }
-    else if (AmmoAmount(0) => 4)
+    else if (AmmoAmount(0) >= 4)
     {
         SetBoneScale (0, 1.0, 'bullet1');
         SetBoneScale (1, 1.0, 'bullet2');
@@ -67,7 +67,7 @@ simulated function Notify_HideBullets()
         SetBoneScale (2, 0.0, 'bullet3');
         SetBoneScale (3, 0.0, 'bullet4');
     }
-    else if (MagAmmoRemaining => 4)
+    else if (MagAmmoRemaining >= 4)
     {
         SetBoneScale (0, 1.0, 'bullet1');
         SetBoneScale (1, 1.0, 'bullet2');
@@ -119,7 +119,7 @@ defaultproperties
      InventoryGroup=3
      GroupOffset=7
      PickupClass=Class'ScrnWeaponPack.AKC74Pickup'
-     PlayerViewOffset=(X=18.000000,Y=22.000000,Z=-6.000000)
+     PlayerViewOffset=(X=35.000000,Y=22.000000,Z=-6.000000) //(X=18.000000,Y=22.000000,Z=-6.000000)
      BobDamping=5.000000
      AttachmentClass=Class'ScrnWeaponPack.AKC74Attachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
