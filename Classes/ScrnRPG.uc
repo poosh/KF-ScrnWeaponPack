@@ -93,7 +93,14 @@ simulated function AltFire(float F)
     FireMode[1].NextFireTime = Level.TimeSeconds + 0.70;
     
     bScopeAttached = !bScopeAttached;
-    ZoomOut(false);
+    if (bAimingRifle)
+    {
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+        {
+            ServerZoomOut(false);
+        }
+    }
     if ( Level.NetMode != NM_DedicatedServer )
     {
         PlayAnim('ScopeAttach',1.0,0.2); 
