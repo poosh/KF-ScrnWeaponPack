@@ -46,7 +46,7 @@ simulated function Notify_HideBullets()
     MyAmmos = MagAmmoRemaining;
     if (MyAmmos > 9)
     {
-        MagFloat = (MyAmmos-10)/(MagCapacity-10);
+        MagFloat = float(MyAmmos-10)/(MagCapacity-10);
     }
     if (MyAmmos < 1)
     SetBoneScale(1, 0.0, 'mag1b1');
@@ -121,8 +121,8 @@ simulated function Notify_ReloadStarted()
 		return;
     
     MyAmmos = AmmoAmount(0);
-    MagFloat = (MagAmmoRemaining-10)/(MagCapacity-10);
-    AmmoFloat = (AmmoAmount(0)-10)/(MagCapacity-10);
+    MagFloat = float(MagAmmoRemaining-10)/(MagCapacity-10);
+    AmmoFloat = float(AmmoAmount(0)-10)/(MagCapacity-10);
     
     if (MagAmmoRemaining < 1)
     SetBoneScale(31, 0.0, 'mag2b1');
