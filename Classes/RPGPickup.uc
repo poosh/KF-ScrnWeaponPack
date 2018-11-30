@@ -13,8 +13,8 @@ defaultproperties
      SpeedValue=20
      RangeValue=64
      Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius."
-     ItemName="RPG-7 SE"
-     ItemShortName="RPG-7 SE"
+     ItemName="RPG-7"
+     ItemShortName="RPG-7"
      AmmoItemName="RPG Rockets"
      //showMesh=SkeletalMesh'ScrnWeaponPack_A.RPG7_3rd'
      AmmoMesh=StaticMesh'ScrnWeaponPack_SM.Rocket'

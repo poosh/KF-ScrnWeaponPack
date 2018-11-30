@@ -7,7 +7,7 @@ class SpasAmmo extends KFAmmunition;
 
 defaultproperties
 {
-     MaxAmmo=48
+     MaxAmmo=56
      InitialAmount=24
      AmmoPickupAmount=8
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

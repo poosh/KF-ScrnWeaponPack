@@ -20,7 +20,7 @@ simulated function UpdateRocket()
 {
     if ( MagAmmoRemaining >= 1)
         SetBoneScale (0, 1.0, 'Rocket');
-    else 
+    else
         SetBoneScale (0, 0.0, 'Rocket');
 }
 
@@ -49,7 +49,7 @@ simulated function bool PutDown()
 }
 
 
-simulated function ClientReload()  
+simulated function ClientReload()
 {
     super.ClientReload();
     SetBoneScale (0, 1.0, 'Rocket');
@@ -137,6 +137,6 @@ defaultproperties
      BobDamping=1.800000
      AttachmentClass=Class'ScrnWeaponPack.RPGAttachment'
      IconCoords=(X1=429,Y1=212,X2=508,Y2=251)
-     ItemName="RPG-7 SE"
+     ItemName="RPG-7"
      AmbientGlow=2
 }

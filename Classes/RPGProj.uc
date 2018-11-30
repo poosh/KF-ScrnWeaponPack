@@ -1,116 +1,67 @@
 // subclassing ROBallisticProjectile so we can do the ambient volume scaling
-class RPGProj extends LAWProj;
+class RPGProj extends ScrnLAWProj;
 
-var class<Emitter> ExplosionClass;
+var class<PanzerfaustTrail> SmokeTrailClass;
+var class<Emitter> TracerClass;
 
-//don't blow up on minor damage
-//destoy 
-function TakeDamage( int Damage, Pawn InstigatedBy, Vector Hitlocation, Vector Momentum, class<DamageType> damageType, optional int HitIndex)
+var Emitter Tracer; //some corona
+
+//overrided to change smoke emiter
+simulated function PostBeginPlay()
 {
-    if( damageType == class'SirenScreamDamage')
+    local rotator SmokeRotation;
+
+    BCInverse = 1 / BallisticCoefficient;
+
+    if ( Level.NetMode != NM_DedicatedServer)
     {
-        Disintegrate(HitLocation, vect(0,0,1));
-    }
-    else if ( !bDud && Damage >= 200 ) {
-        if ( (VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0))  
-            Disintegrate(HitLocation, vect(0,0,1));
-        else
-            Explode(HitLocation, vect(0,0,0));
-    }
-}
+        SmokeTrail = Spawn(SmokeTrailClass,self);
+        SmokeTrail.SetBase(self);
+        SmokeRotation.Pitch = 32768;
+        SmokeTrail.SetRelativeRotation(SmokeRotation);
+        Tracer = Spawn(TracerClass,self);
 
-// overrided to add ExplosionClass
-simulated function Explode(vector HitLocation, vector HitNormal)
-{
-    local Controller C;
-    local PlayerController  LocalPlayer;
-
-    bHasExploded = True;
-
-    // Don't explode if this is a dud
-    if( bDud )
-    {
-        Velocity = vect(0,0,0);
-        LifeSpan=1.0;
-        SetPhysics(PHYS_Falling);
     }
 
-
-    PlaySound(ExplosionSound,,2.0);
-    if ( EffectIsRelevant(Location,false) )
-    {
-        Spawn(ExplosionClass,,,HitLocation + HitNormal*20,rotator(HitNormal));
-        Spawn(ExplosionDecal,self,,HitLocation, rotator(-HitNormal));
-    }
-
-    BlowUp(HitLocation);
-    Destroy();
-
-    // Shake nearby players screens
-    LocalPlayer = Level.GetLocalPlayerController();
-    if ( (LocalPlayer != None) && (VSize(Location - LocalPlayer.ViewTarget.Location) < DamageRadius) )
-        LocalPlayer.ShakeView(RotMag, RotRate, RotTime, OffsetMag, OffsetRate, OffsetTime);
-
-    for ( C=Level.ControllerList; C!=None; C=C.NextController )
-        if ( (PlayerController(C) != None) && (C != LocalPlayer)
-            && (VSize(Location - PlayerController(C).ViewTarget.Location) < DamageRadius) )
-            C.ShakeView(RotMag, RotRate, RotTime, OffsetMag, OffsetRate, OffsetTime);
-}
-
-simulated function ProcessTouch(Actor Other, Vector HitLocation)
-{
-    // Don't let it hit this player, or blow up on another player
-    if ( Other == none || Other == Instigator || Other.Base == Instigator )
-        return;
-
-    // Don't collide with bullet whip attachments
-    if( KFBulletWhipAttachment(Other) != none )
-    {
-        return;
-    }
-
-    // Don't allow hits on people on the same team - except hardcore mode
-    if( !class'ScrnBalance'.default.Mut.bHardcore && KFHumanPawn(Other) != none && Instigator != none
-            && KFHumanPawn(Other).GetTeamNum() == Instigator.GetTeamNum() )   
-    {
-        return;
-    }
-
-    // Use the instigator's location if it exists. This fixes issues with
-    // the original location of the projectile being really far away from
-    // the real Origloc due to it taking a couple of milliseconds to
-    // replicate the location to the client and the first replicated location has
-    // already moved quite a bit.
-    if( Instigator != none )
-    {
-        OrigLoc = Instigator.Location;
-    }
-
-    if( !bDud && ((VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0)) )
-    {
-        if( Role == ROLE_Authority )
-        {
-            AmbientSound=none;
-            PlaySound(Sound'ProjectileSounds.PTRD_deflect04',,2.0);
-            Other.TakeDamage( ImpactDamage, Instigator, HitLocation, Normal(Velocity), ImpactDamageType );
-        }
-
-        bDud = true;
-        Velocity = vect(0,0,0);
-        LifeSpan=1.0;
-        SetPhysics(PHYS_Falling);
-    }
+    OrigLoc = Location;
 
     if( !bDud )
     {
-       Explode(HitLocation,Normal(HitLocation-Other.Location));
+        Dir = vector(Rotation);
+        Velocity = speed * Dir;
+        Velocity.Z += TossZ;
     }
+
+    if (PhysicsVolume.bWaterVolume)
+    {
+        bHitWater = True;
+        Velocity=0.6*Velocity;
+    }
+    super(Projectile).PostBeginPlay();
+}
+
+simulated function Destroyed()
+{
+    if (Tracer != none && !Tracer.bDeleteMe)
+    {
+        Tracer.Destroy();
+    }
+	Super.Destroyed();
 }
 
 
+function float ScaleMonsterDamage(KFMonster Victim)
+{
+    if ( ZombieBoss(Victim) != none )
+        return 0.8; // add 20% resistance to Pat
+    return 1.0;
+}
+
 defaultproperties
 {
+     SmokeTrailClass=Class'ROEffects.PanzerfaustTrail'
      ExplosionClass=Class'ScrnWeaponPack.RpgExplosion'
+     TracerClass=Class'ScrnWeaponPack.ScrnRPGTracer'
      ShakeRotMag=(X=512.000000,Y=400.000000)
      ShakeRotRate=(X=3000.000000,Y=3000.000000)
      ShakeOffsetMag=(X=20.000000,Y=30.000000,Z=30.000000)
