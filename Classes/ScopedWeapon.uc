@@ -282,6 +282,17 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
 
+            if( IllumTex != none && ScriptedScopeStatic == none )
+            {
+                // Construct the Combiner (Self Illumination)
+                ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+                ScriptedScopeStatic.Material1 = IllumTex;
+                ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+                ScriptedScopeStatic.CombineOperation = CO_Add;
+                ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+                ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+	        }
+            
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;

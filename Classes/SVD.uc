@@ -45,7 +45,7 @@ simulated function Notify_HideBullets()
 defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
-    IllumTexRef="ScrnWeaponPack_T.VSS.PSO1Sope_dot" //illuminated reticle
+    IllumTexRef="ScrnWeaponPack_T.SVD.PSO1Sope_dot" //illuminated reticle
     ZoomMatRef="ScrnWeaponPack_T.SVD.PSO1ScopeFinalBlend"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
 
@@ -68,8 +68,8 @@ defaultproperties
     scopePortalFOVHigh=12.000000
     scopePortalFOV=10.000000 //12
     bHasScope=True
-    ZoomedDisplayFOVHigh=32.000000
-    ZoomedDisplayFOV=45 //32
+    ZoomedDisplayFOVHigh=35.000000
+    ZoomedDisplayFOV=50 //32
     MagCapacity=10
     ReloadRate=5.000000
     ReloadAnim="Reload"

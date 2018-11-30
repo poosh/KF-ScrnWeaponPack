@@ -21,16 +21,16 @@ defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.VSS.PSO1Sope"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
-    IllumTexRef="ScrnWeaponPack_T.VSS.PSO1Sope_dot" //illuminated reticle
+    IllumTexRef="ScrnWeaponPack_T.SVD.PSO1Sope_dot" //illuminated reticle
 
 
      lenseMaterialID=2
-     scopePortalFOVHigh=30.000000
-     scopePortalFOV=30.000000
+     scopePortalFOVHigh=20.000000
+     scopePortalFOV=10.000000
      ZoomedDisplayFOVHigh=55
-     ZoomedDisplayFOV=55
+     ZoomedDisplayFOV=65
      StandardDisplayFOV=65.000000
-     PlayerIronSightFOV=32
+     PlayerIronSightFOV=30 //32
 
      ZoomMatRef="ScrnWeaponPack_T.VSS.PSO1ScopeFinalBlend"
      bHasScope=True

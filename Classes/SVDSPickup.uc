@@ -5,7 +5,7 @@ class SVDSPickup extends KFWeaponPickup;
 
 defaultproperties
 {
-     Weight=8.000000
+     Weight=7.000000
      cost=3000
      AmmoCost=20
      BuyClipSize=5
