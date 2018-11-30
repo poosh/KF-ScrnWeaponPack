@@ -112,8 +112,8 @@ defaultproperties
      ShellEjectBoneName="Shell_eject"
 
      RecoilRate=0.200000
-     maxVerticalRecoilAngle=1000
-     maxHorizontalRecoilAngle=30
+     maxVerticalRecoilAngle=1500
+     maxHorizontalRecoilAngle=300
      FireAimedAnim="Fire"
      ProjPerFire=1
      ProjSpawnOffset=(X=0,Y=0,Z=0)

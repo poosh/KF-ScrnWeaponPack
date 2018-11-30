@@ -21,15 +21,16 @@ defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.VSS.PSO1Sope"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
+    IllumTexRef="ScrnWeaponPack_T.SVD.PSO1Sope_dot" //illuminated reticle
 
 
      lenseMaterialID=2
-     scopePortalFOVHigh=30.000000
-     scopePortalFOV=30.000000
+     scopePortalFOVHigh=20.000000
+     scopePortalFOV=10.000000
      ZoomedDisplayFOVHigh=55
-     ZoomedDisplayFOV=55
+     ZoomedDisplayFOV=65
      StandardDisplayFOV=65.000000
-     PlayerIronSightFOV=32
+     PlayerIronSightFOV=30 //32
 
      ZoomMatRef="ScrnWeaponPack_T.VSS.PSO1ScopeFinalBlend"
      bHasScope=True
@@ -50,7 +51,7 @@ defaultproperties
      SkinRefs(0)="KF_Weapons2_Trip_T.hands.BritishPara_Hands_1st_P"
      SkinRefs(1)="KF_Weapons_Trip_T.Rifles.CBLens_cmb"
      SkinRefs(2)="ScrnWeaponPack_T.SVD.AlphaLens"
-     SkinRefs(3)="ScrnWeaponPack_T.VSS.newvss"
+     SkinRefs(3)="ScrnWeaponPack_T.VSS.newvss_cmb"
      SkinRefs(4)="ScrnWeaponPack_T.VSS.mag_9x39_cmb"
      SkinRefs(5)="ScrnWeaponPack_T.VSS.Scope"
      SelectSoundRef="ScrnWeaponPack_SND.VSS.VSS_Draw"

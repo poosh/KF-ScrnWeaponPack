@@ -3,6 +3,64 @@
 //=============================================================================
 class Spas extends KFWeaponShotgun;
 
+var bool bChamberThisReload; //if full reload is uninterrupted, play chambering animation
+var ScrnFakedProjectile FakedShell;
+
+simulated function PostBeginPlay()
+{
+    Super.PostBeginPlay();
+    if ( !Instigator.IsLocallyControlled() )
+        return;
+
+    if ( FakedShell == none ) //only spawn fakedshell once
+        FakedShell = spawn(class'ScrnFakedShell',self);
+    if ( FakedShell != none )
+    {
+        AttachToBone(FakedShell, 'bullet_shell'); //attach faked shell
+        FakedShell.SetDrawScale(4.7); //4.7
+        FakedShell.SetRelativeRotation(rot(0,32768,0));
+    }
+}
+
+simulated function Destroyed()
+{
+    if ( FakedShell != none && !FakedShell.bDeleteMe )
+        FakedShell.Destroy();
+
+    super.Destroyed();
+}
+
+//add notify triggered shell eject
+simulated function Notify_EjectShell()
+{
+    if ( SpasFire(FireMode[0]).ShellEjectEmitter != None )
+    {
+        SpasFire(FireMode[0]).ShellEjectEmitter.Trigger(Self, Instigator);
+    }
+}
+
+
+simulated function ClientReload()
+{
+    bChamberThisReload = ( MagAmmoRemaining == 0 && (AmmoAmount(0) - MagAmmoRemaining > MagCapacity) ); //for chambering animation
+    Super.ClientReload();
+}
+
+simulated function ClientFinishReloading()
+{
+    bIsReloading = false;
+
+    //play chambering animation if finished reloading from empty
+    if ( !bChamberThisReload )
+    {
+        PlayIdle();
+    }
+    bChamberThisReload = false;
+
+    if(Instigator.PendingWeapon != none && Instigator.PendingWeapon != self)
+        Instigator.Controller.ClientSwitchToBestWeapon();
+}
+
 // Allow this weapon to auto reload on alt fire
 simulated function AltFire(float F)
 {
@@ -29,7 +87,7 @@ defaultproperties
      MagCapacity=8
      ReloadRate=0.666667
      ReloadAnim="Reload"
-     ReloadAnimRate=1.0
+     ReloadAnimRate=0.92 //0.94
      bHasSecondaryAmmo=False
      bReduceMagAmmoOnSecondaryFire=True
      IdleAimAnim=Idle_Iron
@@ -52,7 +110,7 @@ defaultproperties
      IconCoords=(X1=169,Y1=172,X2=245,Y2=208)
      ItemName="SPAS-12 SE"
      TransientSoundVolume=1.000000
-     PlayerViewOffset=(X=20.000000,Y=18.750000,Z=-7.500000)
+     PlayerViewOffset=(X=5.000000,Y=17.0000,Z=-7.000000) //(X=20.000000,Y=18.750000,Z=-7.500000)
      AmbientGlow=0
      AIRating=0.6
      CurrentRating=0.6

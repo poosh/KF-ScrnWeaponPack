@@ -16,7 +16,7 @@ defaultproperties
      FireAimedAnim="Fire_Iron"
      RecoilRate=0.15 // 0.3
      maxVerticalRecoilAngle=1500
-     maxHorizontalRecoilAngle=50
+     maxHorizontalRecoilAngle=250
      ProjectileClass=Class'ScrnWeaponPack.SVDBullet'
      FireLoopAnim="Fire"
      TweenTime=0.025000

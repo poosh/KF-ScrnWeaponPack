@@ -1,16 +1,14 @@
-class ScopedWeapon extends KFWeapon
-    abstract;
+class ScrnRPG extends LAW;
+//Scrn RPG has a more powerful warhead with enhanced ballistic behaviour, a scope is attached by default and altfire toggles attaching and detaching the scope.
 
-//=============================================================================
-// Execs
-//=============================================================================
-#exec OBJ LOAD FILE=ScopeShaders.utx
-#exec OBJ LOAD FILE=ScrnWeaponPack_T.utx
-#exec OBJ LOAD FILE=ScrnWeaponPack_A.ukx
+//altfire plays an anim and changes the bScopeAttached bool value, a notify in the anim performs the changeover when the launcher is offscreen
+//this bool is also read in BringUp
 
-//=============================================================================
-// Variables
-//=============================================================================
+var bool bScopeAttached;
+var     float       RaiseAnimRate; //multiplier for Raise anim rate
+var vector ZoomedViewOffset; //for handling different zoom positions depending on scope attach status
+var byte ZoomedFOVWithScope;
+var rotator SightFlipRotation;
 
 var() Material ZoomMat;
 var() Sound ZoomSound;
@@ -19,14 +17,6 @@ var() int lenseMaterialID;  // used since material id's seem to change alot
 
 var() float scopePortalFOVHigh;  // The FOV to zoom the scope portal by.
 var() float scopePortalFOV;  // The FOV to zoom the scope portal by.
-var() vector XoffsetScoped;
-var() vector XoffsetHighDetail;
-
-// Not sure if these pitch vars are still needed now that we use Scripted Textures. We'll keep for now in case they are. - Ramm 08/14/04
-// var() int scopePitch;  // Tweaks the pitch of the scope firing angle
-// var() int scopeYaw;  // Tweaks the yaw of the scope firing angle
-// var() int scopePitchHigh;  // Tweaks the pitch of the scope firing angle high detail scope
-// var() int scopeYawHigh;  // Tweaks the yaw of the scope firing angle high detail scope
 
 // 3d Scope vars
 var ScriptedTexture ScopeScriptedTexture;  // Scripted texture for 3d scopes
@@ -46,23 +36,21 @@ var string ScriptedTextureFallbackRef;
 var texture CrosshairTex;
 var string CrosshairTexRef;
 
-//illuminated reticle support
+//illuminated reticle
 var texture IllumTex;
 var string IllumTexRef;
 
 var const bool bDebugMode;  // flag for whether debug commands can be run
 
-var name ReloadShortAnim;
-var float ReloadShortRate;
-var transient bool bShortReload;
+replication
+{
+	reliable if(Role < ROLE_Authority)
+		bScopeAttached;
+}
 
-
-//=============================================================================
-// Dynamic Asset Load
-//=============================================================================
 static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
 {
-    local ScopedWeapon W;
+    local ScrnRPG W;
 
     super.PreloadAssets(Inv, bSkipRefCount);
 
@@ -71,7 +59,7 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
     default.CrosshairTex = texture(DynamicLoadObject(default.CrosshairTexRef, class'texture', true));
     default.IllumTex = texture(DynamicLoadObject(default.IllumTexRef, class'texture', true)); //illuminated reticle texture
 
-    W = ScopedWeapon(Inv);
+    W = ScrnRPG(Inv);
     if ( W != none ) {
         W.ZoomMat = default.ZoomMat;
         W.ScriptedTextureFallback = default.ScriptedTextureFallback;
@@ -79,6 +67,7 @@ static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
         W.IllumTex = default.IllumTex;
     }
 }
+
 static function bool UnloadAssets()
 {
     if ( super.UnloadAssets() )
@@ -92,10 +81,100 @@ static function bool UnloadAssets()
     return true;
 }
 
+//sets faked fire times so this anim doesn't get interrupted
+simulated function AltFire(float F)
+{
+    local PlayerController Player;
+    if( Level.TimeSeconds < FireMode[0].NextFireTime || ClientState != WS_ReadyToFire )
+    {
+        return;
+    }
+    FireMode[0].NextFireTime = Level.TimeSeconds + 0.70;
+    FireMode[1].NextFireTime = Level.TimeSeconds + 0.70;
+    
+    bScopeAttached = !bScopeAttached;
+    if (bAimingRifle)
+    {
+        ZoomOut(false);
+        if( Role < ROLE_Authority)
+        {
+            ServerZoomOut(false);
+        }
+    }
+    if ( Level.NetMode != NM_DedicatedServer )
+    {
+        PlayAnim('ScopeAttach',1.0,0.2); 
+    }
+	Player = Level.GetLocalPlayerController();
+	if ( Player != None )
+	{
+		if ( !bScopeAttached )
+        {
+			Player.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',0);
+        }
+		else
+        {
+            Player.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',1);
+        }        
+	} 
+}
 
-//=============================================================================
-// Functions
-//=============================================================================
+//anim notify in 'ScopeAttach'
+simulated function Notify_UpdateScope()
+{   
+    ApplyScopeStatus();
+}
+
+
+simulated function BringUp(optional Weapon PrevWeapon)
+{   
+    super.BringUp(PrevWeapon);
+    ApplyScopeStatus();
+    if (AmmoAmount(0) <= 0)
+    {
+        HideRocket();
+    }
+    else
+    {
+        Notify_ShowRocket(); //reload doesn't work
+    }
+}
+
+simulated function ApplyScopeStatus()
+{   
+    if ( Level.NetMode != NM_DedicatedServer )
+    {
+        if (bScopeAttached)
+        {
+            SetBoneScale(2, 1.0, 'PGO7_optimized'); //show scope
+            ZoomedViewOffset.Y = 0;
+            ZoomedViewOffset.Z = 0.05;
+            PlayerViewOffset.Y = default.PlayerViewOffset.Y - 8.72;  
+            PlayerViewOffset.Z = default.PlayerViewOffset.Z - 0.5;  
+            PlayerIronSightFOV = default.ZoomedFOVWithScope;
+            ZoomedDisplayFOV = default.ZoomedDisplayFOV;
+            SetBoneRotation( 'frontsight', SightFlipRotation, , 100 ); //flip down sights
+            SetBoneRotation( 'rearsight', -1*SightFlipRotation, , 100 ); //flip down sights
+            
+            
+        }
+        else
+        {
+            bScopeAttached = false;
+            SetBoneScale(2, 0.0, 'PGO7_optimized'); //hide scope
+            //ZoomedViewOffset=(X=0.000000,Y=-8.5500000,Z=-0.50000) //new sight alignment fix
+            ZoomedViewOffset.Y = -8.72;
+            ZoomedViewOffset.Z = -0.5;
+            PlayerViewOffset.Y = default.PlayerViewOffset.Y;  
+            PlayerViewOffset.Z = default.PlayerViewOffset.Z;  
+            ZoomedDisplayFOV = default.ZoomedDisplayFOV;
+            PlayerIronSightFOV = default.PlayerIronSightFOV;
+            SetBoneRotation( 'frontsight', SightFlipRotation, , 0); //flip up sights
+            SetBoneRotation( 'rearsight', SightFlipRotation, , 0); //flip up sights
+        }       
+    } 
+    UpdateScopeMode();
+}
 
 exec function pfov(int thisFOV)
 {
@@ -115,25 +194,6 @@ exec function zfov(int thisFOV)
     default.ZoomedDisplayFOVHigh = thisFOV;
 }
 
-
-// exec function pPitch(int num)
-// {
-    // if( !bDebugMode )
-        // return;
-
-    // scopePitch = num;
-    // scopePitchHigh = num;
-// }
-
-// exec function pYaw(int num)
-// {
-    // if( !bDebugMode )
-        // return;
-
-    // scopeYaw = num;
-    // scopeYawHigh = num;
-// }
-
 simulated exec function TexSize(int i, int j)
 {
     if( !bDebugMode )
@@ -142,53 +202,10 @@ simulated exec function TexSize(int i, int j)
     ScopeScriptedTexture.SetSize(i, j);
 }
 
-function bool RecommendRangedAttack()
-{
-    return true;
-}
-
-//TODO: LONG ranged?
-function bool RecommendLongRangedAttack()
-{
-    return true;
-}
-
-function float SuggestAttackStyle()
-{
-    return -1.0;
-}
-
-function float GetAIRating()
-{
-    local Bot B;
-
-    B = Bot(Instigator.Controller);
-    if ( (B == None) || (B.Enemy == None) )
-        return AIRating;
-
-    return AIRating;
-}
-
-function byte BestMode()
-{
-    return 0;
-}
-
-
-
-// Helper function for the scope system. The scope system checks here to see when it should draw the portal.
-// if you want to limit any times the portal should/shouldn't be drawn, add them here.
-// Ramm 10/27/03
 simulated function bool ShouldDrawPortal()
 {
-//    local     name    thisAnim;
-//    local    float     animframe;
-//    local    float     animrate;
-//
-//    GetAnimParams(0, thisAnim,animframe,animrate);
-
-//    if(bUsingSights && (IsInState('Idle') || IsInState('PostFiring')) && thisAnim != 'scope_shoot_last')
-    if( bAimingRifle )
+    //    if(bUsingSights && (IsInState('Idle') || IsInState('PostFiring')) && thisAnim != 'scope_shoot_last')
+    if( bScopeAttached && bAimingRifle )
         return true;
     else
         return false;
@@ -200,23 +217,28 @@ simulated function PostBeginPlay()
 
     // Get new scope detail value from KFWeapon
     KFScopeDetail = class'KFMod.KFWeapon'.default.KFScopeDetail;
-
-    UpdateScopeMode();
+    bScopeAttached = true;
+    if (bScopeAttached)
+    {
+        UpdateScopeMode();
+    }
 }
 
 // Handles initializing and swithing between different scope modes
 simulated function UpdateScopeMode()
 {
+    if (!bScopeAttached)
+    {
+        ZoomedDisplayFOV = default.ZoomedDisplayFOV;
+        return;
+    }
     if (Level.NetMode != NM_DedicatedServer && Instigator != none && Instigator.IsLocallyControlled() &&
         Instigator.IsHumanControlled() )
     {
         if( KFScopeDetail == KF_ModelScope)
         {
             scopePortalFOV = default.scopePortalFOV;
-            ZoomedDisplayFOV = default.ZoomedDisplayFOV;
-            //bPlayerFOVZooms = false;
-            if (bUsingSights)
-                PlayerViewOffset = XoffsetScoped;
+            ZoomedDisplayFOV = default.ZoomedFOVWithScope;
 
             if( ScopeScriptedTexture == none )
                 ScopeScriptedTexture = ScriptedTexture(Level.ObjectPool.AllocateObject(class'ScriptedTexture'));
@@ -233,15 +255,15 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
 
-            if( IllumTex != none && ScriptedScopeStatic == none )
-            {
-                // Construct the Combiner (Self Illumination)
-                ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
-                ScriptedScopeStatic.Material1 = IllumTex;
-                ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
-                ScriptedScopeStatic.CombineOperation = CO_Add;
-                ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
-                ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+			if( IllumTex != none && ScriptedScopeStatic == none )
+			{
+				// Construct the Combiner (Self Illumination)
+				ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+	            ScriptedScopeStatic.Material1 = IllumTex;
+	            ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+	            ScriptedScopeStatic.CombineOperation = CO_Add;
+	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
 	        }
             
             if( ScopeScriptedShader == none ) {
@@ -260,13 +282,13 @@ simulated function UpdateScopeMode()
 
             bInitializedScope = true;
         }
+        
         else if( KFScopeDetail == KF_ModelScopeHigh )
         {
             scopePortalFOV = scopePortalFOVHigh;
-            ZoomedDisplayFOV = default.ZoomedDisplayFOVHigh;
-            if (bUsingSights)
-                PlayerViewOffset = XoffsetHighDetail;
-
+            //ZoomedDisplayFOV = default.ZoomedDisplayFOVHigh;
+            ZoomedDisplayFOV = default.ZoomedFOVWithScope;
+            
             if( ScopeScriptedTexture == none )
                 ScopeScriptedTexture = ScriptedTexture(Level.ObjectPool.AllocateObject(class'ScriptedTexture'));
             ScopeScriptedTexture.FallBackMaterial = ScriptedTextureFallback;
@@ -282,15 +304,15 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
 
-            if( IllumTex != none && ScriptedScopeStatic == none )
-            {
-                // Construct the Combiner (Self Illumination)
-                ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
-                ScriptedScopeStatic.Material1 = IllumTex;
-                ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
-                ScriptedScopeStatic.CombineOperation = CO_Add;
-                ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
-                ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+			if( IllumTex != none && ScriptedScopeStatic == none )
+			{
+				// Construct the Combiner (Self Illumination)
+				ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+	            ScriptedScopeStatic.Material1 = IllumTex;
+	            ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+	            ScriptedScopeStatic.CombineOperation = CO_Add;
+	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
 	        }
             
             if( ScopeScriptedShader == none ) {
@@ -324,15 +346,6 @@ simulated event RenderTexture(ScriptedTexture Tex)
     local rotator RollMod;
 
     RollMod = Instigator.GetViewRotation();
-    //RollMod.Roll -= 16384;
-
-//    Rpawn = ROPawn(Instigator);
-//    // Subtract roll from view while leaning - Ramm
-//    if (Rpawn != none && rpawn.LeanAmount != 0)
-//    {
-//        RollMod.Roll += rpawn.LeanAmount;
-//    }
-
     if(Owner != none && Instigator != none && Tex != none && Tex.Client != none)
         Tex.DrawPortal(0,0,Tex.USize,Tex.VSize,Owner,(Instigator.Location + Instigator.EyePosition()), RollMod,  scopePortalFOV );
 }
@@ -377,6 +390,10 @@ simulated function SetZoomBlendColor(Canvas c)
  */
 simulated function ZoomIn(bool bAnimateTransition)
 {
+    if( Level.TimeSeconds < FireMode[0].NextFireTime )
+    {
+        return;
+    }
     super(BaseKFWeapon).ZoomIn(bAnimateTransition);
 
     bAimingRifle = True;
@@ -391,6 +408,22 @@ simulated function ZoomIn(bool bAnimateTransition)
             PlayOwnedSound(AimInSound, SLOT_Interact,,,,, false);
         }
     }
+    if( bAnimateTransition )
+    {
+        if( bZoomOutInterrupted )
+        {
+            PlayAnim('Raise',RaiseAnimRate,0.1);
+        }
+        else
+        {
+            PlayAnim('Raise',RaiseAnimRate,0.1);
+        }
+    } 
+    
+    if (!bScopeAttached)
+    {
+        KFPlayerController(Instigator.Controller).TransitionFOV(PlayerIronSightFOV+(KFPlayerController(Instigator.Controller).DefaultFOV-PlayerIronSightFOV)*0.5,ZoomTime); //modified because reasons
+    }
 }
 
 /**
@@ -401,21 +434,55 @@ simulated function ZoomIn(bool bAnimateTransition)
  */
 simulated function ZoomOut(bool bAnimateTransition)
 {
-    super.ZoomOut(bAnimateTransition);
+    super(BaseKFWeapon).ZoomOut(bAnimateTransition);
+	bAimingRifle = False;
 
-    bAimingRifle = False;
+	if( KFHumanPawn(Instigator)!=None )
+		KFHumanPawn(Instigator).SetAiming(False);
 
-    if( KFHumanPawn(Instigator)!=None )
-        KFHumanPawn(Instigator).SetAiming(False);
-
-    if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
-    {
-        if( AimOutSound != none )
-        {
-            PlayOwnedSound(AimOutSound, SLOT_Interact,,,,, false);
+	if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
+	{
+		if( AimOutSound != none )
+		{
+            PlayOwnedSound(AimOutSound, SLOT_Misc,,,,, false);
         }
+	}
+    
+    //KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
+    if ( bScopeAttached && KFScopeDetail == KF_TextureScope )
+    {
         KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
     }
+    else
+    {
+        KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,ZoomTime);
+    }
+    
+    if( Level.TimeSeconds > FireMode[0].NextFireTime )
+    {
+        TweenAnim(IdleAnim,FastZoomOutTime);
+    }
+}
+
+/**
+ * Called by the native code when the interpolation of the first person weapon from the zoomed position finishes
+ */
+simulated event OnZoomOutFinished()
+{
+	local name anim;
+	local float frame, rate;
+
+	GetAnimParams(0, anim, frame, rate);
+
+	if (ClientState == WS_ReadyToFire)
+	{
+		// Play the regular idle anim when we're finished zooming out
+		if (anim == IdleAimAnim)
+		{
+		   PlayIdle();
+		}
+	}
+    //maybe there should be some fov transition here?
 }
 
 simulated function WeaponTick(float dt)
@@ -453,7 +520,7 @@ simulated event OnZoomInFinished()
         }
     }
 
-    if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none &&
+    if( bScopeAttached && Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none &&
         KFScopeDetail == KF_TextureScope )
     {
         KFPlayerController(Instigator.Controller).TransitionFOV(PlayerIronSightFOV,0.0);
@@ -467,6 +534,8 @@ simulated function bool CanZoomNow()
 
 simulated event RenderOverlays(Canvas Canvas)
 {
+    local vector DrawOffset;
+    local vector ScopedDrawOffset;
     local int m;
     local PlayerController PC;
 
@@ -493,8 +562,9 @@ simulated event RenderOverlays(Canvas Canvas)
         }
     }
 
-
-    SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) );
+    DrawOffset = (90/DisplayFOV * ZoomedViewOffset) >> Instigator.GetViewRotation(); //calculate additional offset
+    SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) + DrawOffset); //add additional offset
+    //SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) );
     SetRotation( Instigator.GetViewRotation() + ZoomRotInterp);
 
     PreDrawFPWeapon();
@@ -512,10 +582,12 @@ simulated event RenderOverlays(Canvas Canvas)
         }
 
         bDrawingFirstPerson = true;
-        Canvas.DrawBoundActor(self, false, false,DisplayFOV,PC.Rotation,rot(0,0,0),Instigator.CalcZoomedDrawOffset(self));
+        //applies to 3d scope
+        ScopedDrawOffset = (0.9/DisplayFOV * 100 * -ZoomedViewOffset);
+        Canvas.DrawBoundActor(self, false, false,DisplayFOV,PC.Rotation,rot(0,0,0),Instigator.CalcZoomedDrawOffset(self)+ScopedDrawOffset);
         bDrawingFirstPerson = false;
     }
-    else if( KFScopeDetail == KF_TextureScope && PC.DesiredFOV == PlayerIronSightFOV && bAimingRifle)
+    else if( bScopeAttached && (KFScopeDetail == KF_TextureScope) && PC.DesiredFOV == PlayerIronSightFOV && bAimingRifle)
     {
         Skins[LenseMaterialID] = ScriptedTextureFallback;
 
@@ -523,19 +595,24 @@ simulated event RenderOverlays(Canvas Canvas)
 
         Canvas.Style = ERenderStyle.STY_Normal;
         Canvas.SetPos(0, 0);
-        Canvas.DrawTile(ZoomMat, (Canvas.SizeX - Canvas.SizeY) / 2, Canvas.SizeY, 0.0, 0.0, 8, 8);
+        Canvas.DrawTile(ZoomMat, 0.5*(Canvas.SizeX - Canvas.SizeY)+(0.15*Canvas.SizeY), Canvas.SizeY, 0.0, 0.0, 8, 8); //left bar
         Canvas.SetPos(Canvas.SizeX, 0);
-        Canvas.DrawTile(ZoomMat, -(Canvas.SizeX - Canvas.SizeY) / 2, Canvas.SizeY, 0.0, 0.0, 8, 8);
+        Canvas.DrawTile(ZoomMat, -0.5*(Canvas.SizeX - Canvas.SizeY)-(0.15*Canvas.SizeY), Canvas.SizeY, 0.0, 0.0, 8, 8); //right bar
+        
+        Canvas.SetPos(0, 0);
+        Canvas.DrawTile(ZoomMat, Canvas.SizeX, 0.15*Canvas.SizeY, 0.0, 0.0, 8, 8); //top bar
+        Canvas.SetPos(0, Canvas.SizeY);
+        Canvas.DrawTile(ZoomMat, Canvas.SizeX, -0.15*Canvas.SizeY, 0.0, 0.0, 8, 8); //bottom bar
 
         Canvas.Style = 255;
-        Canvas.SetPos((Canvas.SizeX - Canvas.SizeY) / 2,0);
-        Canvas.DrawTile(ZoomMat, Canvas.SizeY, Canvas.SizeY, 0.0, 0.0, 1024, 1024);
+        Canvas.SetPos(0.5*(Canvas.SizeX - Canvas.SizeY)+0.15*(Canvas.SizeY),0.15*(Canvas.SizeY)); //700, 0
+        Canvas.DrawTile(ZoomMat, Canvas.SizeY * 0.7, Canvas.SizeY * 0.7, 0.0, 0.0, 512, 512);
 
         Canvas.Font = Canvas.MedFont;
         Canvas.SetDrawColor(200,150,0);
 
         Canvas.SetPos(Canvas.SizeX * 0.16, Canvas.SizeY * 0.43);
-        Canvas.DrawText(" ");
+        Canvas.DrawText("hello im an rpg scope uguu");
 
         Canvas.SetPos(Canvas.SizeX * 0.16, Canvas.SizeY * 0.47);
     }
@@ -548,36 +625,6 @@ simulated event RenderOverlays(Canvas Canvas)
     }
 }
 
-//=============================================================================
-// Scopes
-//=============================================================================
-
-//------------------------------------------------------------------------------
-// SetScopeDetail(RO) - Allow the players to change scope detail while ingame.
-//    Changes are saved to the ini file.
-//------------------------------------------------------------------------------
-//simulated exec function SetScopeDetail()
-//{
-//    if( !bHasScope )
-//        return;
-//
-//    if (KFScopeDetail == KF_ModelScope)
-//        KFScopeDetail = KF_TextureScope;
-//    else if ( KFScopeDetail == KF_TextureScope)
-//        KFScopeDetail = KF_ModelScopeHigh;
-//    else if ( KFScopeDetail == KF_ModelScopeHigh)
-//        KFScopeDetail = KF_ModelScope;
-//
-//    AdjustIngameScope();
-//    class'KFMod.KFWeapon'.default.KFScopeDetail = KFScopeDetail;
-//    class'KFMod.KFWeapon'.static.StaticSaveConfig();        // saves the new scope detail value to the ini
-//}
-
-//------------------------------------------------------------------------------
-// AdjustIngameScope(RO) - Takes the changes to the ScopeDetail variable and
-//    sets the scope to the new detail mode. Called when the player switches the
-//    scope setting ingame, or when the scope setting is changed from the menu
-//------------------------------------------------------------------------------
 simulated function AdjustIngameScope()
 {
     local PlayerController PC;
@@ -668,127 +715,94 @@ simulated function PreTravelCleanUp()
     }
 }
 
-simulated function bool AllowReload()
+//copypaste, not sure what this does
+simulated function ClientWeaponSet(bool bPossiblySwitch)
 {
-    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
-
-    if(KFInvasionBot(Instigator.Controller) != none && !bIsReloading &&
-        MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining)
-        return true;
-
-    if(KFFriendlyAI(Instigator.Controller) != none && !bIsReloading &&
-        MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining)
-        return true;
-
-
-    if(FireMode[0].IsFiring() || FireMode[1].IsFiring() ||
-           bIsReloading || MagAmmoRemaining > MagCapacity ||
-           ClientState == WS_BringUp ||
-           AmmoAmount(0) <= MagAmmoRemaining ||
-                   (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 )
-        return false;
-    return true;
+    super.ClientWeaponSet(bPossiblySwitch);
 }
 
-exec function ReloadMeNow()
+//copypaste from RPG to set magammoremaining after last round fired or something
+function ServerStopFire(byte Mode)
 {
-    local float ReloadMulti;
-
-    if(!AllowReload())
-        return;
-    if ( bHasAimingMode && bAimingRifle )
-    {
-        FireMode[1].bIsFiring = False;
-
-        ZoomOut(false);
-        if( Role < ROLE_Authority)
-            ServerZoomOut(false);
-    }
-
-    if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
-        ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
-    else
-        ReloadMulti = 1.0;
-
-    bIsReloading = true;
-    ReloadTimer = Level.TimeSeconds;
-    bShortReload = MagAmmoRemaining > 0 && ReloadShortAnim != '';
-    if ( bShortReload )
-        ReloadRate = Default.ReloadShortRate / ReloadMulti;
-    else
-        ReloadRate = Default.ReloadRate / ReloadMulti;
-
-    if( bHoldToReload )
-    {
-        NumLoadedThisReload = 0;
-    }
-    ClientReload();
-    Instigator.SetAnimAction(WeaponReloadAnim);
-    if ( Level.Game.NumPlayers > 1 && KFGameType(Level.Game).bWaveInProgress && KFPlayerController(Instigator.Controller) != none &&
-        Level.TimeSeconds - KFPlayerController(Instigator.Controller).LastReloadMessageTime > KFPlayerController(Instigator.Controller).ReloadMessageDelay )
-    {
-        KFPlayerController(Instigator.Controller).Speech('AUTO', 2, "");
-        KFPlayerController(Instigator.Controller).LastReloadMessageTime = Level.TimeSeconds;
+    super(BaseKFWeapon).ServerStopFire(Mode);
+    if( AmmoAmount(0) <= 0 ) {
+        MagAmmoRemaining=0;
     }
 }
 
-simulated function ClientReload()
+//called by fire function, hides rocket so it doesn't tween to outside of screen for reload anim
+simulated function HideRocket()
 {
-    local float ReloadMulti;
-    if ( bHasAimingMode && bAimingRifle )
+    if ( Level.NetMode != NM_DedicatedServer )
     {
-        FireMode[1].bIsFiring = False;
-
-        ZoomOut(false);
-        if( Role < ROLE_Authority)
-            ServerZoomOut(false);
+        SetBoneScale(1, 0.0, 'Rocket'); 
     }
+}   
 
-    if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
-        ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
-    else
-        ReloadMulti = 1.0;
 
-    bIsReloading = true;
-    if ( MagAmmoRemaining <= 0 || ReloadShortAnim == '' )
-    {
-        PlayAnim(ReloadAnim, ReloadAnimRate*ReloadMulti, 0.1);
-    }
-    else if ( MagAmmoRemaining >= 1 )
-    {
-        PlayAnim(ReloadShortAnim, ReloadAnimRate*ReloadMulti, 0.1);
-    }
-}
-
-function AddReloadedAmmo()
+simulated function Notify_ShowRocket()
 {
-    local int a;
-
-    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
-
-    a = MagCapacity;
-    if ( bShortReload )
-        a++; // 1 bullet already bolted
-
-    if ( AmmoAmount(0) >= a )
-        MagAmmoRemaining = a;
-    else
-        MagAmmoRemaining = AmmoAmount(0);
-
-    // this seems redudant -- PooSH
-    // if( !bHoldToReload )
-    // {
-        // ClientForceKFAmmoUpdate(MagAmmoRemaining,AmmoAmount(0));
-    // }
-
-    if ( PlayerController(Instigator.Controller) != none && KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements) != none )
+    if ( Level.NetMode != NM_DedicatedServer )
     {
-        KFSteamStatsAndAchievements(PlayerController(Instigator.Controller).SteamStatsAndAchievements).OnWeaponReloaded();
+        SetBoneScale(1, 1.0, 'Rocket'); 
     }
-}
+}   
 
 defaultproperties
-{
-    ReloadShortRate=
-    bDebugMode = false;
+{    
+     SleeveNum=0
+     //SkinRefs(0)=" " //sleeves
+     SkinRefs(1)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Launcher_cmb" //Texture'ScrnRPG7_Tex.ScrnRPG7_T.ScrnRPG7_Launcher_D'
+     SkinRefs(2)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Rocket_cmb" //Texture'ScrnRPG7_Tex.ScrnRPG7_T.ScrnRPG7_Rocket_D'
+     SkinRefs(3)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7_cmb" //Texture'ScrnRPG7_Tex.ScrnRPG7_T.ScrnRPG7_PGO7_D'
+     SkinRefs(4)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7Eyecup" //"ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7Eyecup_D"
+     SkinRefs(5)="KF_Weapons_Trip_T.Rifles.CBLens_cmb" //Combiner'KF_Weapons_Trip_T.Rifles.CBLens_cmb'
+     
+     //scope stuff
+     IllumTexRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_ReticleIlluminated"
+     CrosshairTexRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Reticle" //3d scope
+     ZoomMatRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_reticle_finalblend" //texture scope
+     ScriptedTextureFallbackRef="KF_Weapons_Trip_T.CBLens_cmb"//Material'Weapons1st_tex.Zoomscope.LensShader'
+
+     TraderInfoTexture=Texture'ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_trader'
+     SelectSoundRef="KF_LAWSnd.LAW_Select"
+     HudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_unselected"
+     SelectedHudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_selected"
+     
+     AttachmentClass=Class'ScrnWeaponPack.ScrnRPGAttachment'
+     
+     //ScriptedTextureFallbackRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Rocket_D"//Material'Weapons1st_tex.Zoomscope.LensShader' //"KF_Weapons_Trip_T.CBLens_cmb"
+
+     lenseMaterialID=5
+     
+     scopePortalFOVHigh=15.000000
+     scopePortalFOV=15.000000
+
+     bHasScope=True //allows switching scope mode via menu ingame
+     ZoomedFOVWithScope=45 //50
+     
+     ZoomedDisplayFOVHigh=45.000000
+     ZoomedDisplayFOV=65 //64
+     PlayerIronSightFOV=65 //default for pistols, set to 30 if texture scope
+
+     PlayerViewOffset=(X=10.000000,Y=15.000000,Z=-3.000000)
+     MeshRef="ScrnWeaponPack_A.ScrnRPG_1st"
+     FastZoomOutTime=0.2
+     ForceZoomOutOnFireTime=0.3
+     //ForceZoomOutOnFireTime=0.1
+     Weight=12.000000
+     FireModeClass(0)=Class'ScrnWeaponPack.ScrnRPGFire'
+     FireModeClass(1)=Class'KFMod.NoFire'
+     IdleAimAnim="AimIdle"
+     ReloadAnim="Reload"
+     ReloadRate=2.75
+     StandardDisplayFOV=65
+     //ZoomedDisplayFOV=50
+     //PlayerIronSightFOV=65 //give some zoom when aiming
+     RaiseAnimRate=2.7 //2,7
+     //ZoomTime=0.25
+     Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius and rockets drop over distance. Use Altfire to toggle scope."
+     PickupClass=Class'ScrnWeaponPack.ScrnRPGPickup'
+     ItemName="RPG-7 SE"
+     SightFlipRotation=(Pitch=-160,Yaw=0,Roll=0)
 }

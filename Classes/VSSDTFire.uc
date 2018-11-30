@@ -112,7 +112,8 @@ defaultproperties
      RecoilRate=0.100000
      maxVerticalRecoilAngle=600
      maxHorizontalRecoilAngle=200
-     FireAimedAnim="Iron_Idle"
+     FireAimedAnim="Fire_Iron" //"Iron_Idle"
+     FireAnimRate=1.75
      ProjPerFire=1
      ProjSpawnOffset=(X=0,Y=0,Z=0)
      bWaitForRelease=True
@@ -124,12 +125,12 @@ defaultproperties
      AmmoClass=Class'ScrnWeaponPack.VSSDTAmmo'
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
-     ShakeRotTime=2.000000
+     ShakeRotTime=1.000000
      ShakeOffsetMag=(X=6.000000,Y=3.000000,Z=7.000000)
      ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scopes
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scopes
-     ShakeOffsetTime=2.000000
+     ShakeOffsetTime=1.000000
      ProjectileClass=Class'ScrnWeaponPack.VSSDTBullet'
      BotRefireRate=0.650000
      FlashEmitterClass=Class'ScrnWeaponPack.MuzzleFlash3rdVSSDT'

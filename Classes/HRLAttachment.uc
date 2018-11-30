@@ -1,4 +1,4 @@
-class HRLAttachment extends LAWAttachment;
+class HRLAttachment extends ScrnLAWAttachment;
 
 defaultproperties
 {

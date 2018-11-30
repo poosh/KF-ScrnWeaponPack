@@ -14,41 +14,6 @@ exec function SwitchModes()
     DoToggle();
 }
 
-simulated function bool CanZoomNow()
-{
-    // aiming while firing makes zoom bugged. Prevent zooming while firing.
-    return Instigator != none && Instigator.Controller.bFire == 0;
-}
-
-//overridden to fix zooming in and out
-simulated exec function ToggleIronSights()
-{
-    if( bHasAimingMode )
-    {
-        if( bAimingRifle )
-        {
-            PerformZoom(false);
-            TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
-        }
-        else
-        {
-            if( Owner != none && Owner.Physics == PHYS_Falling &&
-                Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
-            {
-                return;
-            }
-
-            InterruptReload();
-
-            if( bIsReloading || !CanZoomNow() )
-                return;
-
-            PerformZoom(True);
-            //also blend to idle
-            TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
-        }
-    }
-}
 
 defaultproperties
 {
@@ -91,10 +56,11 @@ defaultproperties
      InventoryGroup=4
      GroupOffset=9
      PickupClass=Class'ScrnWeaponPack.ProtectaPickup'
-     PlayerViewOffset=(X=18.000000,Y=9.000000,Z=-5.000000)
+     PlayerViewOffset=(X=25.000000,Y=20.000000,Z=-7.000000)
      BobDamping=5.000000
      AttachmentClass=Class'ScrnWeaponPack.ProtectaAttachment'
      IconCoords=(X1=169,Y1=172,X2=245,Y2=208)
      ItemName="Flare Shotgun 'Protecta' SE"
      TransientSoundVolume=1.250000
+     PlayerViewPivot=(Pitch=20,Roll=0,Yaw=20) //sight alignment fix
 }

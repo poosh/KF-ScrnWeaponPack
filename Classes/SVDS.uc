@@ -4,10 +4,11 @@ class SVDS extends ScopedWeapon;
 defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
+    IllumTexRef="ScrnWeaponPack_T.SVD.PSO1Sope_dot" //illuminated reticle
     lenseMaterialID=3
     scopePortalFOVHigh=10.000000
     scopePortalFOV=8.000000 //10
-    PlayerIronSightFOV=32.000000
+    PlayerIronSightFOV=20.000000 //32
     ZoomedDisplayFOV=70.000000 //50
     ZoomedDisplayFOVHigh=55.000000
     StandardDisplayFOV=65.000000

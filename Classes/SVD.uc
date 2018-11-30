@@ -41,40 +41,11 @@ simulated function Notify_HideBullets()
     }
 }
 
-//overridden to fix zooming in and out
-simulated exec function ToggleIronSights()
-{
-    if( bHasAimingMode )
-    {
-        if( bAimingRifle )
-        {
-            PerformZoom(false);
-            TweenAnim(IdleAnim,ZoomTime/2); //fix zoom out
-        }
-        else
-        {
-            if( Owner != none && Owner.Physics == PHYS_Falling &&
-                Owner.PhysicsVolume.Gravity.Z <= class'PhysicsVolume'.default.Gravity.Z )
-            {
-                return;
-            }
-
-            InterruptReload();
-
-            if( bIsReloading || !CanZoomNow() )
-                return;
-
-            PerformZoom(True);
-            //also blend to idle
-            TweenAnim(IdleAimAnim,ZoomTime/2); //fix zoom in
-        }
-    }
-}
-
 
 defaultproperties
 {
     CrosshairTexRef="ScrnWeaponPack_T.SVD.PSO1Scope"
+    IllumTexRef="ScrnWeaponPack_T.SVD.PSO1Sope_dot" //illuminated reticle
     ZoomMatRef="ScrnWeaponPack_T.SVD.PSO1ScopeFinalBlend"
     ScriptedTextureFallbackRef="ScrnWeaponPack_T.SVD.AlphaLens"
 
@@ -97,8 +68,8 @@ defaultproperties
     scopePortalFOVHigh=12.000000
     scopePortalFOV=10.000000 //12
     bHasScope=True
-    ZoomedDisplayFOVHigh=32.000000
-    ZoomedDisplayFOV=45 //32
+    ZoomedDisplayFOVHigh=35.000000
+    ZoomedDisplayFOV=50 //32
     MagCapacity=10
     ReloadRate=5.000000
     ReloadAnim="Reload"

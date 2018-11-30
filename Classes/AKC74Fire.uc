@@ -2,7 +2,7 @@ class AKC74Fire extends KFFire;
 
 defaultproperties
 {
-     FireAimedAnim="Fire"
+     FireAimedAnim="Fire_Iron"
      RecoilRate=0.040000
      maxVerticalRecoilAngle=400
      maxHorizontalRecoilAngle=200
