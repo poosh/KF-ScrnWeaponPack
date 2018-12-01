@@ -23,7 +23,7 @@ mkdir %outputdir%\Sounds
 mkdir %outputdir%\StaticMeshes
 mkdir %outputdir%\System
 mkdir %outputdir%\Textures
-mkdir %outputdir%\uz2
+REM mkdir %outputdir%\uz2
 
 
 copy /y %KFDIR%\system\ScrnWeaponPack.* %outputdir%\System\

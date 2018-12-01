@@ -66,7 +66,7 @@ defaultproperties
      ShakeRotRate=(X=3000.000000,Y=3000.000000)
      ShakeOffsetMag=(X=20.000000,Y=30.000000,Z=30.000000)
      ArmDistSquared=90000.000000
-     ImpactDamage=500
+     ImpactDamage=400
      StaticMeshRef="ScrnWeaponPack_A.RPG.Rocket"
      ExplosionSoundRef="ScrnWeaponPack_SND.RPG.RPGExplode"
      AmbientSoundRef="ScrnWeaponPack_SND.RPG.RPGFly"

@@ -1,51 +1,43 @@
 class ScrnRPGAttachment extends RPGAttachment;
 
-var bool bLocalScopeStatus;
-var ScrnRPG ScrnWeap; // avoid typecasting
+var bool bScopeAttached;
+var name mMuzFlashBone;
 
-simulated function PostBeginPlay()
+replication
 {
-    super.PostBeginPlay();
-    ScrnWeap = ScrnRPG(Instigator.Weapon);
-    HideScope();
+    reliable if( Role == ROLE_Authority )
+        bScopeAttached;
 }
 
 simulated function PostNetReceive()
 {
-	Super.PostNetReceive();
-	if ( bLocalScopeStatus != ScrnWeap.bScopeAttached )
-	{
-        bLocalScopeStatus = ScrnWeap.bScopeAttached;
-        if (bLocalScopeStatus)
-        {
-            ShowScope();
-        }
-        else
-        {
-            HideScope();
-        }
-	}
-}
+    Super.PostNetReceive();
 
-simulated function ShowScope()
-{
-    if ( Level.NetMode != NM_DedicatedServer )
-    {
+    if (bScopeAttached ) {
         SetBoneScale(1, 1.0, 'PGO7_optimized'); //show scope
     }
-}
-
-simulated function HideScope()
-{
-    if ( Level.NetMode != NM_DedicatedServer )
-    {
+    else {
         SetBoneScale(1, 0.0, 'PGO7_optimized'); //hide scope
     }
+
 }
 
+simulated function DoFlashEmitter()
+{
+    if (mMuzFlash3rd == None)
+    {
+        mMuzFlash3rd = Spawn(mMuzFlashClass);
+        AttachToBone(mMuzFlash3rd, mMuzFlashBone);
+    }
+    if(mMuzFlash3rd != None)
+        mMuzFlash3rd.SpawnParticle(1);
+}
 
 defaultproperties
 {
+    mMuzFlashBone="Reartip"
     mMuzFlashClass=Class'ScrnWeaponPack.ScrnRPGBackblast'
     MeshRef="ScrnWeaponPack_A.ScrnRPG_3rd"
+    bNetNotify=true
+    bScopeAttached=true
 }

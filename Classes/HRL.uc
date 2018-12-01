@@ -112,4 +112,5 @@ defaultproperties
      PickupClass=Class'ScrnWeaponPack.HRLPickup'
      AttachmentClass=Class'ScrnWeaponPack.HRLAttachment'
      ItemName="HRL-1 Rocket Launcher SE"
+     bHoldToReload=false // to show correct ammo amount on classic hud
 }

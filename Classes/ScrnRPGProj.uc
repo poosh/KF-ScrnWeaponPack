@@ -14,8 +14,8 @@ defaultproperties
      MomentumTransfer=2000.000000
 
      BallisticCoefficient=0.9 //0.3
-	 Speed=3700.000000 //2600
-	 MaxSpeed=3700.000000 //3000
+     Speed=3700.000000 //2600
+     MaxSpeed=3700.000000 //3000
      bTrueBallistics=true //add ballistic drop
      bInitialAcceleration=true //projectile accelerates after launch
      InitialAccelerationTime=0.5 //0.5 second acceleration

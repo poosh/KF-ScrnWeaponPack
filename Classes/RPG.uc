@@ -95,7 +95,7 @@ defaultproperties
      ReloadRate=2.666667
      ReloadAnim="Reload"
      ReloadAnimRate=1.0
-     bHoldToReload=False
+     bHoldToReload=False // to show correct ammo amount on classic hud
      bDoSingleReload=True
      NumLoadedThisReload=1
      WeaponReloadAnim="Reload_Crossbow"

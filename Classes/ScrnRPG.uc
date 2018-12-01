@@ -44,8 +44,8 @@ var const bool bDebugMode;  // flag for whether debug commands can be run
 
 replication
 {
-	reliable if(Role < ROLE_Authority)
-		bScopeAttached;
+    reliable if(Role < ROLE_Authority)
+        ServerAttachScope;
 }
 
 static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
@@ -84,7 +84,8 @@ static function bool UnloadAssets()
 //sets faked fire times so this anim doesn't get interrupted
 simulated function AltFire(float F)
 {
-    local PlayerController Player;
+    local PlayerController PC;
+
     if( Level.TimeSeconds < FireMode[0].NextFireTime || ClientState != WS_ReadyToFire )
     {
         return;
@@ -93,6 +94,9 @@ simulated function AltFire(float F)
     FireMode[1].NextFireTime = Level.TimeSeconds + 0.70;
 
     bScopeAttached = !bScopeAttached;
+    ScrnRPGAttachment(ThirdPersonActor).bScopeAttached = bScopeAttached;
+    ServerAttachScope(bScopeAttached);
+
     if (bAimingRifle)
     {
         ZoomOut(false);
@@ -105,18 +109,25 @@ simulated function AltFire(float F)
     {
         PlayAnim('ScopeAttach',1.0,0.2);
     }
-	Player = Level.GetLocalPlayerController();
-	if ( Player != None )
-	{
-		if ( !bScopeAttached )
+
+    PC = PlayerController(Instigator.Controller);
+    if ( PC != none )
+    {
+        if ( !bScopeAttached )
         {
-			Player.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',0);
+            PC.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',0);
         }
-		else
+        else
         {
-            Player.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',1);
+            PC.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',1);
         }
-	}
+    }
+}
+
+function ServerAttachScope(bool bAttach)
+{
+    bScopeAttached = bAttach;
+    ScrnRPGAttachment(ThirdPersonActor).bScopeAttached = bScopeAttached;
 }
 
 //anim notify in 'ScopeAttach'
@@ -255,16 +266,16 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
 
-			if( IllumTex != none && ScriptedScopeStatic == none )
-			{
-				// Construct the Combiner (Self Illumination)
-				ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
-	            ScriptedScopeStatic.Material1 = IllumTex;
-	            ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
-	            ScriptedScopeStatic.CombineOperation = CO_Add;
-	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
-	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
-	        }
+            if( IllumTex != none && ScriptedScopeStatic == none )
+            {
+                // Construct the Combiner (Self Illumination)
+                ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+                ScriptedScopeStatic.Material1 = IllumTex;
+                ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+                ScriptedScopeStatic.CombineOperation = CO_Add;
+                ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+                ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+            }
 
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
@@ -304,16 +315,16 @@ simulated function UpdateScopeMode()
                 ScriptedScopeCombiner.Material2 = ScopeScriptedTexture;
             }
 
-			if( IllumTex != none && ScriptedScopeStatic == none )
-			{
-				// Construct the Combiner (Self Illumination)
-				ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
-	            ScriptedScopeStatic.Material1 = IllumTex;
-	            ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
-	            ScriptedScopeStatic.CombineOperation = CO_Add;
-	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
-	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
-	        }
+            if( IllumTex != none && ScriptedScopeStatic == none )
+            {
+                // Construct the Combiner (Self Illumination)
+                ScriptedScopeStatic = Combiner(Level.ObjectPool.AllocateObject(class'Combiner'));
+                ScriptedScopeStatic.Material1 = IllumTex;
+                ScriptedScopeStatic.FallbackMaterial = Shader'ScopeShaders.Zoomblur.LensShader';
+                ScriptedScopeStatic.CombineOperation = CO_Add;
+                ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
+                ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
+            }
 
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
@@ -435,18 +446,18 @@ simulated function ZoomIn(bool bAnimateTransition)
 simulated function ZoomOut(bool bAnimateTransition)
 {
     super(BaseKFWeapon).ZoomOut(bAnimateTransition);
-	bAimingRifle = False;
+    bAimingRifle = False;
 
-	if( KFHumanPawn(Instigator)!=None )
-		KFHumanPawn(Instigator).SetAiming(False);
+    if( KFHumanPawn(Instigator)!=None )
+        KFHumanPawn(Instigator).SetAiming(False);
 
-	if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
-	{
-		if( AimOutSound != none )
-		{
+    if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
+    {
+        if( AimOutSound != none )
+        {
             PlayOwnedSound(AimOutSound, SLOT_Misc,,,,, false);
         }
-	}
+    }
 
     //KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
     if ( bScopeAttached && KFScopeDetail == KF_TextureScope )
@@ -469,27 +480,27 @@ simulated function ZoomOut(bool bAnimateTransition)
  */
 simulated event OnZoomOutFinished()
 {
-	local name anim;
-	local float frame, rate;
+    local name anim;
+    local float frame, rate;
 
-	GetAnimParams(0, anim, frame, rate);
 
-	if (ClientState == WS_ReadyToFire)
-	{
-		// Play the regular idle anim when we're finished zooming out
-		if (anim == IdleAimAnim)
-		{
-		   PlayIdle();
-		}
-	}
+    if ( ClientState == WS_ReadyToFire && !bIsReloading )
+    {
+        GetAnimParams(0, anim, frame, rate);
+        // Play the regular idle anim when we're finished zooming out
+        if (anim == IdleAimAnim)
+        {
+           PlayIdle();
+        }
+    }
     //maybe there should be some fov transition here?
 }
 
 simulated function WeaponTick(float dt)
 {
-    super.WeaponTick(dt);
+    super(KFWeaponShotgun).WeaponTick(dt);
 
-    if( bAimingRifle && ForceZoomOutTime > 0 && Level.TimeSeconds - ForceZoomOutTime > 0 )
+    if( !bIsReloading && bAimingRifle && ForceZoomOutTime > 0 && Level.TimeSeconds - ForceZoomOutTime > 0 )
     {
         ForceZoomOutTime = 0;
 
@@ -629,10 +640,11 @@ simulated function AdjustIngameScope()
 {
     local PlayerController PC;
 
+    if ( Instigator == none || !bHasScope )
+        return;
     // Lets avoid having to do multiple casts every tick - Ramm
     PC = PlayerController(Instigator.Controller);
-
-    if( !bHasScope )
+    if( PC == none )
         return;
 
     switch (KFScopeDetail)
@@ -715,10 +727,18 @@ simulated function PreTravelCleanUp()
     }
 }
 
-//copypaste, not sure what this does
 simulated function ClientWeaponSet(bool bPossiblySwitch)
 {
     super.ClientWeaponSet(bPossiblySwitch);
+    UpdateRocket();
+}
+
+simulated function UpdateRocket()
+{
+    if ( MagAmmoRemaining >= 1)
+        SetBoneScale (1, 1.0, 'Rocket');
+    else
+        SetBoneScale (1, 0.0, 'Rocket');
 }
 
 //copypaste from RPG to set magammoremaining after last round fired or something
@@ -726,8 +746,22 @@ function ServerStopFire(byte Mode)
 {
     super(BaseKFWeapon).ServerStopFire(Mode);
     if( AmmoAmount(0) <= 0 ) {
-        MagAmmoRemaining=0;
+        MagAmmoRemaining = 0;
     }
+    else {
+        MagAmmoRemaining = 1;
+    }
+}
+
+simulated function AddReloadedAmmo()
+{
+    super(KFWeapon).AddReloadedAmmo();
+}
+
+simulated function ClientReload()
+{
+    super.ClientReload();
+    ShowRocket();
 }
 
 //called by fire function, hides rocket so it doesn't tween to outside of screen for reload anim
@@ -739,13 +773,17 @@ simulated function HideRocket()
     }
 }
 
-
-simulated function Notify_ShowRocket()
+simulated function ShowRocket()
 {
     if ( Level.NetMode != NM_DedicatedServer )
     {
         SetBoneScale(1, 1.0, 'Rocket');
     }
+}
+
+simulated function Notify_ShowRocket()
+{
+    ShowRocket();
 }
 
 defaultproperties
@@ -794,8 +832,10 @@ defaultproperties
      FireModeClass(0)=Class'ScrnWeaponPack.ScrnRPGFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      IdleAimAnim="AimIdle"
+     bHoldToReload=false // to show correct ammo amount on classic hud
      ReloadAnim="Reload"
      ReloadRate=2.75
+     ReloadAnimRate=1.0
      StandardDisplayFOV=65
      //ZoomedDisplayFOV=50
      //PlayerIronSightFOV=65 //give some zoom when aiming
