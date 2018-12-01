@@ -91,7 +91,7 @@ simulated function AltFire(float F)
     }
     FireMode[0].NextFireTime = Level.TimeSeconds + 0.70;
     FireMode[1].NextFireTime = Level.TimeSeconds + 0.70;
-    
+
     bScopeAttached = !bScopeAttached;
     if (bAimingRifle)
     {
@@ -103,7 +103,7 @@ simulated function AltFire(float F)
     }
     if ( Level.NetMode != NM_DedicatedServer )
     {
-        PlayAnim('ScopeAttach',1.0,0.2); 
+        PlayAnim('ScopeAttach',1.0,0.2);
     }
 	Player = Level.GetLocalPlayerController();
 	if ( Player != None )
@@ -115,19 +115,19 @@ simulated function AltFire(float F)
 		else
         {
             Player.ReceiveLocalizedMessage(class'ScrnRPGSwitchMessage',1);
-        }        
-	} 
+        }
+	}
 }
 
 //anim notify in 'ScopeAttach'
 simulated function Notify_UpdateScope()
-{   
+{
     ApplyScopeStatus();
 }
 
 
 simulated function BringUp(optional Weapon PrevWeapon)
-{   
+{
     super.BringUp(PrevWeapon);
     ApplyScopeStatus();
     if (AmmoAmount(0) <= 0)
@@ -141,7 +141,7 @@ simulated function BringUp(optional Weapon PrevWeapon)
 }
 
 simulated function ApplyScopeStatus()
-{   
+{
     if ( Level.NetMode != NM_DedicatedServer )
     {
         if (bScopeAttached)
@@ -149,14 +149,14 @@ simulated function ApplyScopeStatus()
             SetBoneScale(2, 1.0, 'PGO7_optimized'); //show scope
             ZoomedViewOffset.Y = 0;
             ZoomedViewOffset.Z = 0.05;
-            PlayerViewOffset.Y = default.PlayerViewOffset.Y - 8.72;  
-            PlayerViewOffset.Z = default.PlayerViewOffset.Z - 0.5;  
+            PlayerViewOffset.Y = default.PlayerViewOffset.Y - 8.72;
+            PlayerViewOffset.Z = default.PlayerViewOffset.Z - 0.5;
             PlayerIronSightFOV = default.ZoomedFOVWithScope;
             ZoomedDisplayFOV = default.ZoomedDisplayFOV;
             SetBoneRotation( 'frontsight', SightFlipRotation, , 100 ); //flip down sights
             SetBoneRotation( 'rearsight', -1*SightFlipRotation, , 100 ); //flip down sights
-            
-            
+
+
         }
         else
         {
@@ -165,14 +165,14 @@ simulated function ApplyScopeStatus()
             //ZoomedViewOffset=(X=0.000000,Y=-8.5500000,Z=-0.50000) //new sight alignment fix
             ZoomedViewOffset.Y = -8.72;
             ZoomedViewOffset.Z = -0.5;
-            PlayerViewOffset.Y = default.PlayerViewOffset.Y;  
-            PlayerViewOffset.Z = default.PlayerViewOffset.Z;  
+            PlayerViewOffset.Y = default.PlayerViewOffset.Y;
+            PlayerViewOffset.Z = default.PlayerViewOffset.Z;
             ZoomedDisplayFOV = default.ZoomedDisplayFOV;
             PlayerIronSightFOV = default.PlayerIronSightFOV;
             SetBoneRotation( 'frontsight', SightFlipRotation, , 0); //flip up sights
             SetBoneRotation( 'rearsight', SightFlipRotation, , 0); //flip up sights
-        }       
-    } 
+        }
+    }
     UpdateScopeMode();
 }
 
@@ -265,7 +265,7 @@ simulated function UpdateScopeMode()
 	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
 	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
 	        }
-            
+
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;
@@ -282,13 +282,13 @@ simulated function UpdateScopeMode()
 
             bInitializedScope = true;
         }
-        
+
         else if( KFScopeDetail == KF_ModelScopeHigh )
         {
             scopePortalFOV = scopePortalFOVHigh;
             //ZoomedDisplayFOV = default.ZoomedDisplayFOVHigh;
             ZoomedDisplayFOV = default.ZoomedFOVWithScope;
-            
+
             if( ScopeScriptedTexture == none )
                 ScopeScriptedTexture = ScriptedTexture(Level.ObjectPool.AllocateObject(class'ScriptedTexture'));
             ScopeScriptedTexture.FallBackMaterial = ScriptedTextureFallback;
@@ -314,7 +314,7 @@ simulated function UpdateScopeMode()
 	            ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
 	            ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
 	        }
-            
+
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;
@@ -418,8 +418,8 @@ simulated function ZoomIn(bool bAnimateTransition)
         {
             PlayAnim('Raise',RaiseAnimRate,0.1);
         }
-    } 
-    
+    }
+
     if (!bScopeAttached)
     {
         KFPlayerController(Instigator.Controller).TransitionFOV(PlayerIronSightFOV+(KFPlayerController(Instigator.Controller).DefaultFOV-PlayerIronSightFOV)*0.5,ZoomTime); //modified because reasons
@@ -447,7 +447,7 @@ simulated function ZoomOut(bool bAnimateTransition)
             PlayOwnedSound(AimOutSound, SLOT_Misc,,,,, false);
         }
 	}
-    
+
     //KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
     if ( bScopeAttached && KFScopeDetail == KF_TextureScope )
     {
@@ -457,7 +457,7 @@ simulated function ZoomOut(bool bAnimateTransition)
     {
         KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,ZoomTime);
     }
-    
+
     if( Level.TimeSeconds > FireMode[0].NextFireTime )
     {
         TweenAnim(IdleAnim,FastZoomOutTime);
@@ -598,7 +598,7 @@ simulated event RenderOverlays(Canvas Canvas)
         Canvas.DrawTile(ZoomMat, 0.5*(Canvas.SizeX - Canvas.SizeY)+(0.15*Canvas.SizeY), Canvas.SizeY, 0.0, 0.0, 8, 8); //left bar
         Canvas.SetPos(Canvas.SizeX, 0);
         Canvas.DrawTile(ZoomMat, -0.5*(Canvas.SizeX - Canvas.SizeY)-(0.15*Canvas.SizeY), Canvas.SizeY, 0.0, 0.0, 8, 8); //right bar
-        
+
         Canvas.SetPos(0, 0);
         Canvas.DrawTile(ZoomMat, Canvas.SizeX, 0.15*Canvas.SizeY, 0.0, 0.0, 8, 8); //top bar
         Canvas.SetPos(0, Canvas.SizeY);
@@ -735,21 +735,21 @@ simulated function HideRocket()
 {
     if ( Level.NetMode != NM_DedicatedServer )
     {
-        SetBoneScale(1, 0.0, 'Rocket'); 
+        SetBoneScale(1, 0.0, 'Rocket');
     }
-}   
+}
 
 
 simulated function Notify_ShowRocket()
 {
     if ( Level.NetMode != NM_DedicatedServer )
     {
-        SetBoneScale(1, 1.0, 'Rocket'); 
+        SetBoneScale(1, 1.0, 'Rocket');
     }
-}   
+}
 
 defaultproperties
-{    
+{
      SleeveNum=0
      //SkinRefs(0)=" " //sleeves
      SkinRefs(1)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Launcher_cmb" //Texture'ScrnRPG7_Tex.ScrnRPG7_T.ScrnRPG7_Launcher_D'
@@ -757,7 +757,7 @@ defaultproperties
      SkinRefs(3)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7_cmb" //Texture'ScrnRPG7_Tex.ScrnRPG7_T.ScrnRPG7_PGO7_D'
      SkinRefs(4)="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7Eyecup" //"ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_PGO7Eyecup_D"
      SkinRefs(5)="KF_Weapons_Trip_T.Rifles.CBLens_cmb" //Combiner'KF_Weapons_Trip_T.Rifles.CBLens_cmb'
-     
+
      //scope stuff
      IllumTexRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_ReticleIlluminated"
      CrosshairTexRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Reticle" //3d scope
@@ -768,19 +768,19 @@ defaultproperties
      SelectSoundRef="KF_LAWSnd.LAW_Select"
      HudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_unselected"
      SelectedHudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_selected"
-     
+
      AttachmentClass=Class'ScrnWeaponPack.ScrnRPGAttachment'
-     
+
      //ScriptedTextureFallbackRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Rocket_D"//Material'Weapons1st_tex.Zoomscope.LensShader' //"KF_Weapons_Trip_T.CBLens_cmb"
 
      lenseMaterialID=5
-     
+
      scopePortalFOVHigh=15.000000
      scopePortalFOV=15.000000
 
      bHasScope=True //allows switching scope mode via menu ingame
      ZoomedFOVWithScope=45 //50
-     
+
      ZoomedDisplayFOVHigh=45.000000
      ZoomedDisplayFOV=65 //64
      PlayerIronSightFOV=65 //default for pistols, set to 30 if texture scope
@@ -790,7 +790,7 @@ defaultproperties
      FastZoomOutTime=0.2
      ForceZoomOutOnFireTime=0.3
      //ForceZoomOutOnFireTime=0.1
-     Weight=12.000000
+     Weight=11
      FireModeClass(0)=Class'ScrnWeaponPack.ScrnRPGFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      IdleAimAnim="AimIdle"

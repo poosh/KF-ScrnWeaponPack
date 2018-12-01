@@ -2,7 +2,7 @@ class ScrnRPGPickup extends LAWPickup;
 
 defaultproperties
 {
-     Weight=12.000000
+     Weight=11
      cost=4000
      AmmoCost=40
      BuyClipSize=1

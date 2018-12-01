@@ -35,18 +35,18 @@ copy /y readme.txt  %outputdir%
 copy /y changes.txt  %outputdir%
 
 
-echo Compressing to .uz2...
-%KFDIR%\system\ucc compress %KFDIR%\system\ScrnWeaponPack.u
-%KFDIR%\system\ucc compress %STEAMDIR%\Animations\ScrnWeaponPack_A.ukx
-%KFDIR%\system\ucc compress %STEAMDIR%\Sounds\ScrnWeaponPack_SND.uax
-%KFDIR%\system\ucc compress %STEAMDIR%\StaticMeshes\ScrnWeaponPack_SM.usx
-%KFDIR%\system\ucc compress %STEAMDIR%\Textures\ScrnWeaponPack_T.utx
-
-move /y %KFDIR%\system\ScrnWeaponPack.u.uz2 %outputdir%\uz2
-move /y %STEAMDIR%\Animations\ScrnWeaponPack_A.ukx.uz2 %outputdir%\uz2
-move /y %STEAMDIR%\Sounds\ScrnWeaponPack_SND.uax.uz2 %outputdir%\uz2
-move /y %STEAMDIR%\StaticMeshes\ScrnWeaponPack_SM.usx.uz2 %outputdir%\uz2
-move /y %STEAMDIR%\Textures\ScrnWeaponPack_T.utx.uz2 %outputdir%\uz2
+REM echo Compressing to .uz2...
+REM %KFDIR%\system\ucc compress %KFDIR%\system\ScrnWeaponPack.u
+REM %KFDIR%\system\ucc compress %STEAMDIR%\Animations\ScrnWeaponPack_A.ukx
+REM %KFDIR%\system\ucc compress %STEAMDIR%\Sounds\ScrnWeaponPack_SND.uax
+REM %KFDIR%\system\ucc compress %STEAMDIR%\StaticMeshes\ScrnWeaponPack_SM.usx
+REM %KFDIR%\system\ucc compress %STEAMDIR%\Textures\ScrnWeaponPack_T.utx
+REM
+REM move /y %KFDIR%\system\ScrnWeaponPack.u.uz2 %outputdir%\uz2
+REM move /y %STEAMDIR%\Animations\ScrnWeaponPack_A.ukx.uz2 %outputdir%\uz2
+REM move /y %STEAMDIR%\Sounds\ScrnWeaponPack_SND.uax.uz2 %outputdir%\uz2
+REM move /y %STEAMDIR%\StaticMeshes\ScrnWeaponPack_SM.usx.uz2 %outputdir%\uz2
+REM move /y %STEAMDIR%\Textures\ScrnWeaponPack_T.utx.uz2 %outputdir%\uz2
 
 echo Release is ready!
 
