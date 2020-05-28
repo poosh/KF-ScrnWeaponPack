@@ -1,17 +1,10 @@
-//=============================================================================
-// LAW Ammo.
-//=============================================================================
 class RPGAmmo extends KFAmmunition;
-
-#EXEC OBJ LOAD FILE=KillingFloorHUD.utx
-#EXEC OBJ LOAD FILE=ScrnWeaponPack_T.utx
 
 defaultproperties
 {
-     AmmoPickupAmount=2
+     AmmoPickupAmount=3
      MaxAmmo=12
      InitialAmount=6
-     IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
-     IconCoords=(X1=458,Y1=34,X2=511,Y2=78)
-     ItemName="RPG Rockets"
+     PickupClass=Class'ScrnWeaponPack.RPGAmmoPickup'
+     ItemName="RPG-7 Rockets"
 }

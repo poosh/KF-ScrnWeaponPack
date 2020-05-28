@@ -1,4 +1,4 @@
-class ScrnRPGMuzzleFlash extends MuzzleFlash1stKar;
+class RPGMuzzleFlash extends MuzzleFlash1stKar;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {

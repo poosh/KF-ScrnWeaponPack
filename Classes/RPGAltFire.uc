@@ -1,4 +1,4 @@
-class ScrnRPGAltFire extends NoFire;
+class RPGAltFire extends NoFire;
 //currently unused 
 
 defaultproperties

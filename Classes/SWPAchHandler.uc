@@ -17,25 +17,20 @@ struct SDamageInstigators {
 var array<SDamageInstigators> ScrakeHealers;
 
 
-function FindGameRules()
+function ApplyGameRules()
 {
     local int i;
 
-    if ( GameRules != none )
-        return;
+    super.ApplyGameRules();
 
-    super.FindGameRules();
-
-    if ( GameRules != none ) {
-        i = GameRules.SovietDamageTypes.length;
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK12AssaultRifle';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK74AssaultRifle';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSaiga12c';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVD';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVDm';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVALDT';
-        GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVSSDT';
-    }
+    i = GameRules.SovietDamageTypes.length;
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK12AssaultRifle';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK74AssaultRifle';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSaiga12c';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVD';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVDm';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVALDT';
+    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVSSDT';
 }
 
 function WaveStarted(byte WaveNum)

@@ -1,4 +1,4 @@
-class ScrnRPGBackblast extends Emitter;
+class RPGBackblast extends Emitter;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
@@ -7,8 +7,8 @@ simulated function Trigger(Actor Other, Pawn EventInstigator)
 }
 
 defaultproperties
-{   
-    Begin Object Class=SpriteEmitter Name=ScrnRPGBackblastEmitter
+{
+    Begin Object Class=SpriteEmitter Name=RPGBackblastEmitter
         UseColorScale=True
         RespawnDeadParticles=False
         UseSizeScale=True
@@ -20,7 +20,7 @@ defaultproperties
         ColorScale(1)=(RelativeTime=0.250000,Color=(B=180,G=180,R=180,A=200))
         ColorScale(2)=(RelativeTime=1.000000,Color=(B=200,G=200,R=200))
         MaxParticles=50
-        Name="ScrnRPGBackblastEmitter"
+        Name="RPGBackblastEmitter"
         StartLocationShape=PTLS_Sphere
         MeshScaleRange=(X=(Min=0.500000,Max=0.500000),Y=(Min=0.500000,Max=0.500000),Z=(Min=0.500000,Max=0.500000))
         SpinsPerSecondRange=(X=(Max=1.000000))
@@ -37,7 +37,7 @@ defaultproperties
         LifetimeRange=(Min=0.500000,Max=1.500000)
         StartVelocityRange=(X=(Max=25.000000),Y=(Min=200.000000,Max=350.000000),Z=(Max=25.000000)) //(X=(Min=200.000000,Max=350.000000),Y=(Max=25.000000),Z=(Max=25.000000))
     End Object
-    Emitters(0)=SpriteEmitter'ScrnRPGBackblastEmitter'
+    Emitters(0)=SpriteEmitter'RPGBackblastEmitter'
 
 	AutoDestroy=True
     bUnlit=false

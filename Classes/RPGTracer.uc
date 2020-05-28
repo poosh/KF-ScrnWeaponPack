@@ -1,4 +1,4 @@
-class ScrnRPGTracer extends Emitter;
+class RPGTracer extends Emitter;
 
 defaultproperties
 {

@@ -1,4 +1,4 @@
-class ScrnRPGSwitchMessage extends CriticalEventPlus;
+class RPGSwitchMessage extends CriticalEventPlus;
 
 var() localized string SwitchMessage[10];
 
