@@ -19,8 +19,8 @@ simulated function PostBeginPlay()
         if ( FakedHealDartAttach != none ) {
             FakedHealDartAttach.SetDrawScale(4.0); //scale
             AttachToBone(FakedHealDartAttach, 'body'); //attach to the CZ805M main bone, 'body'
-			FakedHealDartAttach.SetRelativeRotation(rot(-250,-16834,0)); //pitch yaw roll
-			FakedHealDartAttach.SetRelativeLocation(vect(1.14, 9.5, 1.13)); //x y z
+            FakedHealDartAttach.SetRelativeRotation(rot(-250,-16834,0)); //pitch yaw roll
+            FakedHealDartAttach.SetRelativeLocation(vect(1.14, 9.5, 1.13)); //x y z
         }
     }
 }
@@ -41,7 +41,7 @@ simulated function Notify_HideBullets()
     
     //don't do any of this stuff on servers
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
-		return;
+        return;
     
     MyAmmos = MagAmmoRemaining;
     if (MyAmmos > 9)
@@ -118,7 +118,7 @@ simulated function Notify_ReloadStarted()
     local float AmmoFloat;
     
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
-		return;
+        return;
     
     MyAmmos = AmmoAmount(0);
     MagFloat = float(MagAmmoRemaining-10)/(MagCapacity-10);
@@ -284,7 +284,7 @@ simulated function Notify_ReloadStarted()
 simulated function Notify_ShowMag2Bullets()
 {
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
-		return;
+        return;
 
     SetBoneScale(31, 1.0, 'mag2b1');
     SetBoneScale(32, 1.0, 'mag2b2');

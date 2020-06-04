@@ -242,7 +242,7 @@ simulated function UpdateScopeMode()
                 ScriptedScopeStatic.CombineOperation = CO_Add;
                 ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
                 ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
-	        }
+            }
             
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
@@ -291,7 +291,7 @@ simulated function UpdateScopeMode()
                 ScriptedScopeStatic.CombineOperation = CO_Add;
                 ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
                 ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
-	        }
+            }
             
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));

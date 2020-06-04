@@ -34,7 +34,7 @@ defaultproperties
         UniformSize=True
         AutomaticInitialSpawning=False
         Opacity=0.100000
-	DrawStyle=PTDS_Brighten
+    DrawStyle=PTDS_Brighten
         MaxParticles=1
         Name="SpriteEmitter60"
         StartSizeRange=(X=(Min=35.000000,Max=35.000000)) //50, 50

@@ -2,8 +2,8 @@ class RPGMuzzleFlash extends MuzzleFlash1stKar;
 
 simulated function Trigger(Actor Other, Pawn EventInstigator)
 {
-	Emitters[0].SpawnParticle(15);
-	//Emitters[1].SpawnParticle(1);
+    Emitters[0].SpawnParticle(15);
+    //Emitters[1].SpawnParticle(1);
 }
 
 defaultproperties

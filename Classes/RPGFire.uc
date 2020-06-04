@@ -10,25 +10,25 @@ function DoFireEffect()
     local Actor Other;
     local int p, SpawnCount;
 
-	Instigator.MakeNoise(1.0);
-	Weapon.GetViewAxes(X,Y,Z);
+    Instigator.MakeNoise(1.0);
+    Weapon.GetViewAxes(X,Y,Z);
 
-	StartTrace = Instigator.Location + Instigator.EyePosition();
-	StartProj = StartTrace + X*ProjSpawnOffset.X;
-	if ( !Weapon.WeaponCentered() && !KFWeap.bAimingRifle )
-		StartProj = StartProj + Weapon.Hand * Y*ProjSpawnOffset.Y + Z*ProjSpawnOffset.Z;
-	Other = Weapon.Trace(HitLocation, HitNormal, StartProj, StartTrace, false);
-	
-	if (Other != None)
-	{
-		StartProj = HitLocation;
-	}
-
-	Aim = AdjustAim(StartProj, AimError);
-
-	Aim.Pitch += 250;
+    StartTrace = Instigator.Location + Instigator.EyePosition();
+    StartProj = StartTrace + X*ProjSpawnOffset.X;
+    if ( !Weapon.WeaponCentered() && !KFWeap.bAimingRifle )
+        StartProj = StartProj + Weapon.Hand * Y*ProjSpawnOffset.Y + Z*ProjSpawnOffset.Z;
+    Other = Weapon.Trace(HitLocation, HitNormal, StartProj, StartTrace, false);
     
-	SpawnCount = Max(1, ProjPerFire * int(Load));
+    if (Other != None)
+    {
+        StartProj = HitLocation;
+    }
+
+    Aim = AdjustAim(StartProj, AimError);
+
+    Aim.Pitch += 250;
+    
+    SpawnCount = Max(1, ProjPerFire * int(Load));
 
     switch (SpreadStyle)
     {
@@ -39,34 +39,34 @@ function DoFireEffect()
             R.Yaw = Spread * (FRand()-0.5);
             R.Pitch = Spread * (FRand()-0.5);
             R.Roll = Spread * (FRand()-0.5);
-			SpawnProjectile(StartProj, Rotator(X >> R));
+            SpawnProjectile(StartProj, Rotator(X >> R));
         }
         break;
     }
 
-	if (Instigator != none )
-	{
-		if( Instigator.Physics != PHYS_Falling  )
-		{
-			Instigator.AddVelocity(KickMomentum >> Instigator.GetViewRotation());
-		}
-		else if( Instigator.Physics == PHYS_Falling
-			&& Instigator.PhysicsVolume.Gravity.Z > class'PhysicsVolume'.default.Gravity.Z)
-		{
-			Instigator.AddVelocity((KickMomentum * LowGravKickMomentumScale) >> Instigator.GetViewRotation());
-		}
-	}
+    if (Instigator != none )
+    {
+        if( Instigator.Physics != PHYS_Falling  )
+        {
+            Instigator.AddVelocity(KickMomentum >> Instigator.GetViewRotation());
+        }
+        else if( Instigator.Physics == PHYS_Falling
+            && Instigator.PhysicsVolume.Gravity.Z > class'PhysicsVolume'.default.Gravity.Z)
+        {
+            Instigator.AddVelocity((KickMomentum * LowGravKickMomentumScale) >> Instigator.GetViewRotation());
+        }
+    }
 }
 
 function ModeDoFire()
 {
-	bFiringLastRound = Weapon.AmmoAmount(0) <= AmmoPerFire;
+    bFiringLastRound = Weapon.AmmoAmount(0) <= AmmoPerFire;
     super.ModeDoFire();
 }
 
 function ServerPlayFiring()
 {
-	Super(KFShotgunFire).ServerPlayFiring();
+    Super(KFShotgunFire).ServerPlayFiring();
     if (bFiringLastRound)
     {
         Weapon.PlayAnim(FireLastAnim, FireAnimRate, TweenTime);
@@ -75,7 +75,7 @@ function ServerPlayFiring()
 
 function PlayFiring()
 {
-	Super(KFShotgunFire).PlayFiring();
+    Super(KFShotgunFire).PlayFiring();
     if (bFiringLastRound)
     {
         Weapon.PlayAnim(FireLastAnim, FireAnimRate, TweenTime);

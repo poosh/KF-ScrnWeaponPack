@@ -46,7 +46,7 @@ simulated function Destroyed()
     {
         Tracer.Destroy();
     }
-	Super.Destroyed();
+    Super.Destroyed();
 }
 
 function float ScaleMonsterDamage(KFMonster Victim)
