@@ -90,7 +90,7 @@ defaultproperties
     SelectForce="SwitchToAssaultRifle"
     AIRating=0.650000
     CurrentRating=0.650000
-    Description="The Dragunov sniper rifle (formally Russian: Snayperskaya Vintovka Dragunova, SVD) is a semi-automatic sniper rifle/designated marksman rifle chambered in 7.62x54mmR and developed in the Soviet Union."
+    Description="The Dragunov sniper rifle (formally Russian: Snayperskaya Vintovka Dragunova, SVD) is a semi-automatic sniper rifle/designated marksman rifle chambered in 7H1 sniper rounds and developed in the Soviet Union."
     DisplayFOV=65.000000
     Priority=190
     CustomCrosshair=11

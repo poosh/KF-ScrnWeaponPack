@@ -19,11 +19,11 @@ defaultproperties
 
     FlashBoneName="tip"
     MagCapacity=30
-    ReloadRate=3.0
+    ReloadRate=3.6
     ReloadAnim="Reload"
     ReloadShortAnim="Reload_LLI"
-    ReloadShortRate=2.0
-    ReloadAnimRate=1.0
+    ReloadShortRate=2.5
+    ReloadAnimRate=0.75
     WeaponReloadAnim="Reload_AK47"
     SelectAnimRate=1.30
     Weight=6

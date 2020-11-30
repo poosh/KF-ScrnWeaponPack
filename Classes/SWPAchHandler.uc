@@ -241,6 +241,11 @@ function MonsterDamaged(int Damage, KFMonster Victim, ScrnPlayerInfo SPI,
     local KFPlayerReplicationInfo KFPRI;
     local class<KFVeterancyTypes> Perk;
 
+    if ( GameRules.BossClass == Victim.class ) {
+        bBossFlareOnly = bBossFlareOnly && ( ClassIsChildOf(DamType, class'DamTypeFlareRevolver')
+            || ClassIsChildOf(DamType, class'DamTypeFlareProjectileImpact') );
+    }
+
     index = GameRules.GetMonsterIndex(Victim);
     WeapIdx = SPI.FindWeaponInfoByDamType(DamType);
     if ( index == -1 || WeapIdx == -1 )
@@ -325,10 +330,6 @@ function MonsterDamaged(int Damage, KFMonster Victim, ScrnPlayerInfo SPI,
             TW_ScrakeHealers(Victim, SPI);
         else if ( !Victim.bDecapitated && !bIsHeadshot && ClassIsChildOf(DamType, class'DamTypeMedicPistol') )
             AddDamageInstigator(ScrakeHealers, Victim, SPI);
-    }
-    else if ( GameRules.BossClass == Victim.class ) {
-        bBossFlareOnly = bBossFlareOnly && ( ClassIsChildOf(DamType, class'DamTypeFlareRevolver')
-            || ClassIsChildOf(DamType, class'DamTypeFlareProjectileImpact') );
     }
 }
 

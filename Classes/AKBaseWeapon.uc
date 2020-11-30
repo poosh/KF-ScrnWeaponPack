@@ -39,7 +39,7 @@ function byte BestMode()
 
 simulated function int MaxAmmo(int mode)
 {
-    if ( Ammo[mode] != none )   
+    if ( Ammo[mode] != none )
         return Ammo[mode].MaxAmmo;
     if ( AmmoClass[mode] != None )
         return AmmoClass[mode].default.MaxAmmo * GetAmmoMulti();
@@ -131,19 +131,19 @@ simulated function Destroyed()
     super.Destroyed();
 }
 
-exec simulated function SetMaxAmmo()
+simulated function SetMaxAmmo()
 {
     local Inventory Inv;
     local AKBaseWeapon W;
     local int c, NewMaxAmmo;
     local Actor MyOwner;
-    local Ammunition MyAmmo; 
-    
+    local Ammunition MyAmmo;
+
     if ( Instigator == none )
         MyOwner = Instigator;
-    else 
+    else
         MyOwner = Owner;
-    
+
     if ( GetOwnerPRI() != none ) {
         LastClientVeteranSkill = OwnerPRI.ClientVeteranSkill;
         LastClientVeteranSkillLevel = OwnerPRI.ClientVeteranSkillLevel;
@@ -152,11 +152,11 @@ exec simulated function SetMaxAmmo()
         LastClientVeteranSkill = none;
     if ( LastClientVeteranSkill != none )
         LastAmmoResult = LastClientVeteranSkill.static.AddExtraAmmoFor(OwnerPRI, FireMode[0].AmmoClass);
-    else 
+    else
         LastAmmoResult = 1.0;
-    
+
     MyAmmo = Ammo[0];
-    
+
     if ( bSharedAmmoPool ) {
         if ( PendingPickup == none && !bPendingDelete )
             NewMaxAmmo = OriginalMaxAmmo;
@@ -174,7 +174,7 @@ exec simulated function SetMaxAmmo()
     }
     if ( NewMaxAmmo == 0 )
         NewMaxAmmo = FireMode[0].AmmoClass.default.MaxAmmo;
-    
+
     if ( MyAmmo != none ) {
         MyAmmo.MaxAmmo = NewMaxAmmo * LastAmmoResult;
         LastAmmoResult = float(MyAmmo.MaxAmmo) / MyAmmo.default.MaxAmmo; //used in GetAmmoMulti()
@@ -204,9 +204,9 @@ simulated function float GetAmmoMulti()
         LastClientVeteranSkill = none;
         return 1.0;
     }
-    if ( OwnerPRI.ClientVeteranSkill != LastClientVeteranSkill || OwnerPRI.ClientVeteranSkillLevel != LastClientVeteranSkillLevel ) 
+    if ( OwnerPRI.ClientVeteranSkill != LastClientVeteranSkill || OwnerPRI.ClientVeteranSkillLevel != LastClientVeteranSkillLevel )
          SetMaxAmmo();
-        
+
     return LastAmmoResult;
 }
 
@@ -217,7 +217,7 @@ simulated function KFPlayerReplicationInfo GetOwnerPRI()
             OwnerPRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
         if ( OwnerPRI == none && Pawn(Owner) != none )
             OwnerPRI = KFPlayerReplicationInfo(Pawn(Owner).PlayerReplicationInfo);
-    }        
+    }
     return OwnerPRI;
 }
 
@@ -226,11 +226,11 @@ simulated function CheckSharedMags()
 {
     local int MaxMagAmmo, c;
     local Inventory Inv;
-    local AKBaseWeapon W;   
-    
+    local AKBaseWeapon W;
+
     if ( !bSharedAmmoPool || Instigator == none || Ammo[0] == none )
         return;
-    
+
     MaxMagAmmo = AmmoAmount(0) - MagAmmoRemaining;
     for( Inv = Instigator.Inventory; Inv!=none && (++c)<1000; Inv=Inv.Inventory ) {
         W = AKBaseWeapon(Inv);
@@ -241,7 +241,7 @@ simulated function CheckSharedMags()
             if ( MaxMagAmmo < 0)
                 MaxMagAmmo = 0;
         }
-    }    
+    }
 }
 
 simulated function GetAmmoCount(out float MaxAmmoPrimary, out float CurAmmoPrimary)
@@ -352,7 +352,7 @@ simulated function bool AllowReload()
 exec function ReloadMeNow()
 {
     local float ReloadMulti;
-    
+
     if(!AllowReload())
         return;
     if ( bHasAimingMode && bAimingRifle )
@@ -378,7 +378,7 @@ exec function ReloadMeNow()
         ReloadRate = Default.ReloadShortRate / ReloadMulti;
     else
         ReloadRate = Default.ReloadRate / ReloadMulti;
-        
+
     if( bHoldToReload )
     {
         NumLoadedThisReload = 0;
@@ -422,13 +422,13 @@ simulated function ClientReload()
 function AddReloadedAmmo()
 {
     local int a;
-    
+
     UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
     a = MagCapacity;
     if ( bShortReload )
         a++; // 1 bullet already bolted
-    
+
     if ( AmmoAmount(0) >= a )
         MagAmmoRemaining = a;
     else
@@ -458,5 +458,5 @@ defaultproperties
     OriginalMaxAmmo=300
     bSharedAmmoPool=True
     ReloadShortAnim="Reload"
-    ReloadShortRate=3.0      
+    ReloadShortRate=3.0
 }

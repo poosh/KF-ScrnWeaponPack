@@ -10,5 +10,5 @@ defaultproperties
      PickupClass=Class'ScrnWeaponPack.VSSDTAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
      IconCoords=(X1=338,Y1=40,X2=393,Y2=79)
-     ItemName="9x39mm round SP-5"
+     ItemName="9x39mm SP-5"
 }

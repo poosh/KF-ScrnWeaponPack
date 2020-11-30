@@ -12,7 +12,7 @@ defaultproperties
      Description="The VSS (Special Sniper Rifle), also called the Vintorez (thread cutter), is a suppressed sniper rifle developed in the late 1980s by TsNIITochMash and manufactured by the Tula Arsenal. It is issued primarily to Spetsnaz units for undercover or clandestine operations, a role made evident by its ability to be stripped down for transport in a specially fitted briefcase."
      ItemName="VSS (Vintorez) SE"
      ItemShortName="VSS SE"
-     AmmoItemName="Rifle bullets"
+     AmmoItemName="9x39mm SP-5"
      CorrespondingPerkIndex=2
      EquipmentCategoryID=2
      InventoryType=Class'ScrnWeaponPack.VSSDT'
