@@ -341,7 +341,7 @@ simulated function bool AllowReload()
 
 
     if( FireMode[0].IsFiring() || FireMode[1].IsFiring() ||
-           bIsReloading || MagAmmoRemaining >= MagCapacity ||
+           bIsReloading || MagAmmoRemaining > MagCapacity ||
            ClientState == WS_BringUp ||
            AmmoAmount(0) <= MagAmmoRemaining ||
                    (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 )
