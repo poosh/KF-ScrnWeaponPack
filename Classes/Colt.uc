@@ -97,7 +97,7 @@ simulated function bool AllowReload()
     if ( MagAmmoRemaining >= MagCapacity )
         return false;
 
-    if( KFInvasionBot(Instigator.Controller) != none || KFFriendlyAI(Instigator.Controller) != none )
+    if( !Instigator.IsHumanControlled() )
         return true;
 
     return !FireMode[0].IsFiring() && !FireMode[1].IsFiring()

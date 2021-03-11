@@ -12,7 +12,7 @@ var transient bool  bShortReload;
 simulated function PostBeginPlay()
 {
     super.PostBeginPlay();
-    
+
     if ( Level.NetMode != NM_DedicatedServer ) {
         if ( FakedHealDartAttach == none )
         FakedHealDartAttach = spawn(class'MedicDartAttachment',self);
@@ -25,7 +25,7 @@ simulated function PostBeginPlay()
     }
 }
 
-//destroy it 
+//destroy it
 simulated function Destroyed()
 {
     if ( FakedHealDartAttach != None )
@@ -36,13 +36,13 @@ simulated function Destroyed()
 //hides mag1 bullets when firing, bullets 1 to 10 are in the magwell so you'll never see them though, bullets 11 to 30 are scaled according to magazine size
 simulated function Notify_HideBullets()
 {
-    local float MagFloat; 
+    local float MagFloat;
     local int MyAmmos;
-    
+
     //don't do any of this stuff on servers
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
         return;
-    
+
     MyAmmos = MagAmmoRemaining;
     if (MyAmmos > 9)
     {
@@ -67,7 +67,7 @@ simulated function Notify_HideBullets()
     if (MyAmmos < 9)
     SetBoneScale(9, 0.0, 'mag1b9');
     if (MyAmmos < 10)
-    SetBoneScale(10, 0.0, 'mag1b10'); 
+    SetBoneScale(10, 0.0, 'mag1b10');
     if (MagFloat < 0.05)
     SetBoneScale(11, 0.0, 'mag1b11');
     if (MagFloat < 0.1)
@@ -75,55 +75,55 @@ simulated function Notify_HideBullets()
     if (MagFloat < 0.15)
     SetBoneScale(13, 0.0, 'mag1b13');
     if (MagFloat < 0.2)
-    SetBoneScale(14, 0.0, 'mag1b14'); 
+    SetBoneScale(14, 0.0, 'mag1b14');
     if (MagFloat < 0.25)
-    SetBoneScale(15, 0.0, 'mag1b15'); 
+    SetBoneScale(15, 0.0, 'mag1b15');
     if (MagFloat < 0.3)
-    SetBoneScale(16, 0.0, 'mag1b16'); 
+    SetBoneScale(16, 0.0, 'mag1b16');
     if (MagFloat < 0.35)
-    SetBoneScale(17, 0.0, 'mag1b17'); 
+    SetBoneScale(17, 0.0, 'mag1b17');
     if (MagFloat < 0.40)
-    SetBoneScale(18, 0.0, 'mag1b18'); 
+    SetBoneScale(18, 0.0, 'mag1b18');
     if (MagFloat < 0.45)
-    SetBoneScale(19, 0.0, 'mag1b19'); 
+    SetBoneScale(19, 0.0, 'mag1b19');
     if (MagFloat < 0.50)
-    SetBoneScale(20, 0.0, 'mag1b20'); 
+    SetBoneScale(20, 0.0, 'mag1b20');
     if (MagFloat < 0.55)
-    SetBoneScale(21, 0.0, 'mag1b21'); 
+    SetBoneScale(21, 0.0, 'mag1b21');
     if (MagFloat < 0.60)
-    SetBoneScale(22, 0.0, 'mag1b22'); 
+    SetBoneScale(22, 0.0, 'mag1b22');
     if (MagFloat < 0.65)
-    SetBoneScale(23, 0.0, 'mag1b23'); 
+    SetBoneScale(23, 0.0, 'mag1b23');
     if (MagFloat < 0.70)
-    SetBoneScale(24, 0.0, 'mag1b24'); 
+    SetBoneScale(24, 0.0, 'mag1b24');
     if (MagFloat < 0.75)
-    SetBoneScale(25, 0.0, 'mag1b25'); 
+    SetBoneScale(25, 0.0, 'mag1b25');
     if (MagFloat < 0.80)
-    SetBoneScale(26, 0.0, 'mag1b26'); 
+    SetBoneScale(26, 0.0, 'mag1b26');
     if (MagFloat < 0.85)
-    SetBoneScale(27, 0.0, 'mag1b27'); 
+    SetBoneScale(27, 0.0, 'mag1b27');
     if (MagFloat < 0.90)
-    SetBoneScale(28, 0.0, 'mag1b28'); 
+    SetBoneScale(28, 0.0, 'mag1b28');
     if (MagFloat < 0.95)
-    SetBoneScale(29, 0.0, 'mag1b29'); 
+    SetBoneScale(29, 0.0, 'mag1b29');
     if (MagFloat < 1.00)
-    SetBoneScale(30, 0.0, 'mag1b30'); 
+    SetBoneScale(30, 0.0, 'mag1b30');
 }
 
-//mag2 gets mag1 bullets on reload start and mag1 gets fresh bullets 
+//mag2 gets mag1 bullets on reload start and mag1 gets fresh bullets
 simulated function Notify_ReloadStarted()
 {
-    local float MagFloat; 
+    local float MagFloat;
     local int MyAmmos;
     local float AmmoFloat;
-    
+
     if ( (Level.NetMode == NM_DedicatedServer) || (AIController(Instigator.Controller) != None) )
         return;
-    
+
     MyAmmos = AmmoAmount(0);
     MagFloat = float(MagAmmoRemaining-10)/(MagCapacity-10);
     AmmoFloat = float(AmmoAmount(0)-10)/(MagCapacity-10);
-    
+
     if (MagAmmoRemaining < 1)
     SetBoneScale(31, 0.0, 'mag2b1');
     if (MagAmmoRemaining < 2)
@@ -143,7 +143,7 @@ simulated function Notify_ReloadStarted()
     if (MagAmmoRemaining < 9)
     SetBoneScale(39, 0.0, 'mag2b9');
     if (MagAmmoRemaining < 10)
-    SetBoneScale(40, 0.0, 'mag2b10'); 
+    SetBoneScale(40, 0.0, 'mag2b10');
     if (MagFloat < 0.05)
     SetBoneScale(41, 0.0, 'mag2b11');
     if (MagFloat < 0.1)
@@ -151,40 +151,40 @@ simulated function Notify_ReloadStarted()
     if (MagFloat < 0.15)
     SetBoneScale(43, 0.0, 'mag2b13');
     if (MagFloat < 0.2)
-    SetBoneScale(44, 0.0, 'mag2b14'); 
+    SetBoneScale(44, 0.0, 'mag2b14');
     if (MagFloat < 0.25)
-    SetBoneScale(45, 0.0, 'mag2b15'); 
+    SetBoneScale(45, 0.0, 'mag2b15');
     if (MagFloat < 0.3)
-    SetBoneScale(46, 0.0, 'mag2b16'); 
+    SetBoneScale(46, 0.0, 'mag2b16');
     if (MagFloat < 0.35)
-    SetBoneScale(47, 0.0, 'mag2b17'); 
+    SetBoneScale(47, 0.0, 'mag2b17');
     if (MagFloat < 0.40)
-    SetBoneScale(48, 0.0, 'mag2b18'); 
+    SetBoneScale(48, 0.0, 'mag2b18');
     if (MagFloat < 0.45)
-    SetBoneScale(49, 0.0, 'mag2b19'); 
+    SetBoneScale(49, 0.0, 'mag2b19');
     if (MagFloat < 0.50)
-    SetBoneScale(50, 0.0, 'mag2b20'); 
+    SetBoneScale(50, 0.0, 'mag2b20');
     if (MagFloat < 0.55)
-    SetBoneScale(51, 0.0, 'mag2b21'); 
+    SetBoneScale(51, 0.0, 'mag2b21');
     if (MagFloat < 0.60)
-    SetBoneScale(52, 0.0, 'mag2b22'); 
+    SetBoneScale(52, 0.0, 'mag2b22');
     if (MagFloat < 0.65)
-    SetBoneScale(53, 0.0, 'mag2b23'); 
+    SetBoneScale(53, 0.0, 'mag2b23');
     if (MagFloat < 0.70)
-    SetBoneScale(54, 0.0, 'mag2b24'); 
+    SetBoneScale(54, 0.0, 'mag2b24');
     if (MagFloat < 0.75)
-    SetBoneScale(55, 0.0, 'mag2b25'); 
+    SetBoneScale(55, 0.0, 'mag2b25');
     if (MagFloat < 0.80)
-    SetBoneScale(56, 0.0, 'mag2b26'); 
+    SetBoneScale(56, 0.0, 'mag2b26');
     if (MagFloat < 0.85)
-    SetBoneScale(57, 0.0, 'mag2b27'); 
+    SetBoneScale(57, 0.0, 'mag2b27');
     if (MagFloat < 0.90)
-    SetBoneScale(58, 0.0, 'mag2b28'); 
+    SetBoneScale(58, 0.0, 'mag2b28');
     if (MagFloat < 0.95)
-    SetBoneScale(59, 0.0, 'mag2b29'); 
+    SetBoneScale(59, 0.0, 'mag2b29');
     if (MagFloat < 1.00)
-    SetBoneScale(60, 0.0, 'mag2b30'); 
-    
+    SetBoneScale(60, 0.0, 'mag2b30');
+
     //show all mag 1 bullets first
     SetBoneScale(1, 1.0, 'mag1b1');
     SetBoneScale(2, 1.0, 'mag1b2');
@@ -195,28 +195,28 @@ simulated function Notify_ReloadStarted()
     SetBoneScale(7, 1.0, 'mag1b7');
     SetBoneScale(8, 1.0, 'mag1b8');
     SetBoneScale(9, 1.0, 'mag1b9');
-    SetBoneScale(10, 1.0, 'mag1b10'); 
+    SetBoneScale(10, 1.0, 'mag1b10');
     SetBoneScale(11, 1.0, 'mag1b11');
     SetBoneScale(12, 1.0, 'mag1b12');
     SetBoneScale(13, 1.0, 'mag1b13');
-    SetBoneScale(14, 1.0, 'mag1b14'); 
-    SetBoneScale(15, 1.0, 'mag1b15'); 
-    SetBoneScale(16, 1.0, 'mag1b16'); 
-    SetBoneScale(17, 1.0, 'mag1b17'); 
-    SetBoneScale(18, 1.0, 'mag1b18'); 
-    SetBoneScale(19, 1.0, 'mag1b19'); 
-    SetBoneScale(20, 1.0, 'mag1b20'); 
-    SetBoneScale(21, 1.0, 'mag1b21'); 
-    SetBoneScale(22, 1.0, 'mag1b22'); 
-    SetBoneScale(23, 1.0, 'mag1b23'); 
-    SetBoneScale(24, 1.0, 'mag1b24'); 
-    SetBoneScale(25, 1.0, 'mag1b25'); 
-    SetBoneScale(26, 1.0, 'mag1b26'); 
-    SetBoneScale(27, 1.0, 'mag1b27'); 
-    SetBoneScale(28, 1.0, 'mag1b28'); 
+    SetBoneScale(14, 1.0, 'mag1b14');
+    SetBoneScale(15, 1.0, 'mag1b15');
+    SetBoneScale(16, 1.0, 'mag1b16');
+    SetBoneScale(17, 1.0, 'mag1b17');
+    SetBoneScale(18, 1.0, 'mag1b18');
+    SetBoneScale(19, 1.0, 'mag1b19');
+    SetBoneScale(20, 1.0, 'mag1b20');
+    SetBoneScale(21, 1.0, 'mag1b21');
+    SetBoneScale(22, 1.0, 'mag1b22');
+    SetBoneScale(23, 1.0, 'mag1b23');
+    SetBoneScale(24, 1.0, 'mag1b24');
+    SetBoneScale(25, 1.0, 'mag1b25');
+    SetBoneScale(26, 1.0, 'mag1b26');
+    SetBoneScale(27, 1.0, 'mag1b27');
+    SetBoneScale(28, 1.0, 'mag1b28');
     SetBoneScale(29, 1.0, 'mag1b29');
-    SetBoneScale(30, 1.0, 'mag1b30'); 
-    
+    SetBoneScale(30, 1.0, 'mag1b30');
+
     //hide mag1 bullets depending on AmmoAmount(0)
     if (MyAmmos < 1)
     SetBoneScale(1, 0.0, 'mag1b1');
@@ -237,7 +237,7 @@ simulated function Notify_ReloadStarted()
     if (MyAmmos < 9)
     SetBoneScale(9, 0.0, 'mag1b9');
     if (MyAmmos < 10)
-    SetBoneScale(10, 0.0, 'mag1b10'); 
+    SetBoneScale(10, 0.0, 'mag1b10');
     if (AmmoFloat < 0.05)
     SetBoneScale(11, 0.0, 'mag1b11');
     if (AmmoFloat < 0.1)
@@ -245,39 +245,39 @@ simulated function Notify_ReloadStarted()
     if (AmmoFloat < 0.15)
     SetBoneScale(13, 0.0, 'mag1b13');
     if (AmmoFloat < 0.2)
-    SetBoneScale(14, 0.0, 'mag1b14'); 
+    SetBoneScale(14, 0.0, 'mag1b14');
     if (AmmoFloat < 0.25)
-    SetBoneScale(15, 0.0, 'mag1b15'); 
+    SetBoneScale(15, 0.0, 'mag1b15');
     if (AmmoFloat < 0.3)
-    SetBoneScale(16, 0.0, 'mag1b16'); 
+    SetBoneScale(16, 0.0, 'mag1b16');
     if (AmmoFloat < 0.35)
-    SetBoneScale(17, 0.0, 'mag1b17'); 
+    SetBoneScale(17, 0.0, 'mag1b17');
     if (AmmoFloat < 0.40)
-    SetBoneScale(18, 0.0, 'mag1b18'); 
+    SetBoneScale(18, 0.0, 'mag1b18');
     if (AmmoFloat < 0.45)
-    SetBoneScale(19, 0.0, 'mag1b19'); 
+    SetBoneScale(19, 0.0, 'mag1b19');
     if (AmmoFloat < 0.50)
-    SetBoneScale(20, 0.0, 'mag1b20'); 
+    SetBoneScale(20, 0.0, 'mag1b20');
     if (AmmoFloat < 0.55)
-    SetBoneScale(21, 0.0, 'mag1b21'); 
+    SetBoneScale(21, 0.0, 'mag1b21');
     if (AmmoFloat < 0.60)
-    SetBoneScale(22, 0.0, 'mag1b22'); 
+    SetBoneScale(22, 0.0, 'mag1b22');
     if (AmmoFloat < 0.65)
-    SetBoneScale(23, 0.0, 'mag1b23'); 
+    SetBoneScale(23, 0.0, 'mag1b23');
     if (AmmoFloat < 0.70)
-    SetBoneScale(24, 0.0, 'mag1b24'); 
+    SetBoneScale(24, 0.0, 'mag1b24');
     if (AmmoFloat < 0.75)
-    SetBoneScale(25, 0.0, 'mag1b25'); 
+    SetBoneScale(25, 0.0, 'mag1b25');
     if (AmmoFloat < 0.80)
-    SetBoneScale(26, 0.0, 'mag1b26'); 
+    SetBoneScale(26, 0.0, 'mag1b26');
     if (AmmoFloat < 0.85)
-    SetBoneScale(27, 0.0, 'mag1b27'); 
+    SetBoneScale(27, 0.0, 'mag1b27');
     if (AmmoFloat < 0.90)
-    SetBoneScale(28, 0.0, 'mag1b28'); 
+    SetBoneScale(28, 0.0, 'mag1b28');
     if (AmmoFloat < 0.95)
-    SetBoneScale(29, 0.0, 'mag1b29'); 
+    SetBoneScale(29, 0.0, 'mag1b29');
     if (AmmoFloat < 1.00)
-    SetBoneScale(30, 0.0, 'mag1b30'); 
+    SetBoneScale(30, 0.0, 'mag1b30');
 }
 
 //this function is called somewhere in the reload and on select when mag2 is offscreen, this is needed so subsequent reloads may get full bullets again and just unhides all Mag2 Bullets
@@ -299,31 +299,43 @@ simulated function Notify_ShowMag2Bullets()
     SetBoneScale(41, 1.0, 'mag2b11');
     SetBoneScale(42, 1.0, 'mag2b12');
     SetBoneScale(43, 1.0, 'mag2b13');
-    SetBoneScale(44, 1.0, 'mag2b14'); 
-    SetBoneScale(45, 1.0, 'mag2b15'); 
-    SetBoneScale(46, 1.0, 'mag2b16'); 
-    SetBoneScale(47, 1.0, 'mag2b17'); 
-    SetBoneScale(48, 1.0, 'mag2b18'); 
-    SetBoneScale(49, 1.0, 'mag2b19'); 
-    SetBoneScale(50, 1.0, 'mag2b20'); 
-    SetBoneScale(51, 1.0, 'mag2b21'); 
-    SetBoneScale(52, 1.0, 'mag2b22'); 
-    SetBoneScale(53, 1.0, 'mag2b23'); 
-    SetBoneScale(54, 1.0, 'mag2b24'); 
-    SetBoneScale(55, 1.0, 'mag2b25'); 
-    SetBoneScale(56, 1.0, 'mag2b26'); 
-    SetBoneScale(57, 1.0, 'mag2b27'); 
-    SetBoneScale(58, 1.0, 'mag2b28'); 
-    SetBoneScale(59, 1.0, 'mag2b29'); 
-    SetBoneScale(60, 1.0, 'mag2b30'); 
+    SetBoneScale(44, 1.0, 'mag2b14');
+    SetBoneScale(45, 1.0, 'mag2b15');
+    SetBoneScale(46, 1.0, 'mag2b16');
+    SetBoneScale(47, 1.0, 'mag2b17');
+    SetBoneScale(48, 1.0, 'mag2b18');
+    SetBoneScale(49, 1.0, 'mag2b19');
+    SetBoneScale(50, 1.0, 'mag2b20');
+    SetBoneScale(51, 1.0, 'mag2b21');
+    SetBoneScale(52, 1.0, 'mag2b22');
+    SetBoneScale(53, 1.0, 'mag2b23');
+    SetBoneScale(54, 1.0, 'mag2b24');
+    SetBoneScale(55, 1.0, 'mag2b25');
+    SetBoneScale(56, 1.0, 'mag2b26');
+    SetBoneScale(57, 1.0, 'mag2b27');
+    SetBoneScale(58, 1.0, 'mag2b28');
+    SetBoneScale(59, 1.0, 'mag2b29');
+    SetBoneScale(60, 1.0, 'mag2b30');
 }
 
+// copy-pasted to add (MagCapacity+1)
+simulated function bool AllowReload()
+{
+    UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
+    if( !Instigator.IsHumanControlled() ) {
+        return !bIsReloading && MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining;
+    }
+
+    return !( FireMode[0].IsFiring() || FireMode[1].IsFiring() || bIsReloading || ClientState == WS_BringUp
+            || MagAmmoRemaining >= MagCapacity + 1 || AmmoAmount(0) <= MagAmmoRemaining
+            || (FireMode[0].NextFireTime - Level.TimeSeconds) > 0.1 );
+}
 
 exec function ReloadMeNow()
 {
     local float ReloadMulti;
-    
+
     if(!AllowReload())
         return;
     if ( bHasAimingMode && bAimingRifle )
@@ -334,12 +346,12 @@ exec function ReloadMeNow()
         if( Role < ROLE_Authority)
             ServerZoomOut(false);
     }
-    
+
     if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
         ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
     else
         ReloadMulti = 1.0;
-        
+
     bIsReloading = true;
     ReloadTimer = Level.TimeSeconds;
     bShortReload = MagAmmoRemaining > 0;
@@ -347,7 +359,7 @@ exec function ReloadMeNow()
         ReloadRate = Default.ReloadShortRate / ReloadMulti;
     else
         ReloadRate = Default.ReloadRate / ReloadMulti;
-        
+
     if( bHoldToReload )
     {
         NumLoadedThisReload = 0;
@@ -373,12 +385,12 @@ simulated function ClientReload()
         if( Role < ROLE_Authority)
             ServerZoomOut(false);
     }
-    
+
     if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
         ReloadMulti = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetReloadSpeedModifier(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo), self);
     else
         ReloadMulti = 1.0;
-        
+
     bIsReloading = true;
     if (MagAmmoRemaining <= 0)
     {
@@ -393,13 +405,13 @@ simulated function ClientReload()
 function AddReloadedAmmo()
 {
     local int a;
-    
+
     UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
     a = MagCapacity;
     if ( bShortReload )
         a++; // 1 bullet already bolted
-    
+
     if ( AmmoAmount(0) >= a )
         MagAmmoRemaining = a;
     else
@@ -454,7 +466,7 @@ simulated function SetZoomBlendColor(Canvas c)
 simulated function Tick(float dt)
 {
     super(KFWeapon).Tick(dt);
-    
+
     if ( Level.NetMode!=NM_Client && HealAmmoCharge < MaxHealAmmo && RegenTimer<Level.TimeSeconds )    {
         RegenTimer = Level.TimeSeconds + AmmoRegenRate;
 
@@ -480,12 +492,12 @@ defaultproperties
      SelectSoundRef="ScrnWeaponPack_SND.cz805.foldback"
      HudImageRef="ScrnWeaponPack_T.cz805.UnselectCZ805"
      SelectedHudImageRef="ScrnWeaponPack_T.cz805.SelectCZ805"
-     
+
      MaxHealAmmo=625
      AmmoRegenRate=0.300000
-     
+
      ReloadShortAnim="Reload"
-     ReloadShortRate=1.83 //2.11   
+     ReloadShortRate=1.83 //2.11
      MagCapacity=30
      ReloadRate=3.250000 //3.3
      ReloadAnim="Reload"
@@ -499,7 +511,7 @@ defaultproperties
      SleeveNum=2
      TraderInfoTexture=Texture'ScrnWeaponPack_T.cz805.TraderCZ805'
      bIsTier2Weapon=True
-     
+
      PlayerIronSightFOV=65.000000
      ZoomedDisplayFOV=32.000000
      FireModeClass(0)=Class'ScrnWeaponPack.CZ805MFire'

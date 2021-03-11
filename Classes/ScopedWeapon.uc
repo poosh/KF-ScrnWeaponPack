@@ -243,7 +243,7 @@ simulated function UpdateScopeMode()
                 ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
                 ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
             }
-            
+
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;
@@ -292,7 +292,7 @@ simulated function UpdateScopeMode()
                 ScriptedScopeStatic.AlphaOperation = AO_Use_Mask;
                 ScriptedScopeStatic.Material2 = ScriptedScopeCombiner;
             }
-            
+
             if( ScopeScriptedShader == none ) {
                 ScopeScriptedShader = Shader(Level.ObjectPool.AllocateObject(class'Shader'));
                 ScopeScriptedShader.Diffuse = ScriptedScopeCombiner;
@@ -672,7 +672,7 @@ simulated function bool AllowReload()
 {
     UpdateMagCapacity(Instigator.PlayerReplicationInfo);
 
-    if( !Other.IsHumanControlled() ) {
+    if( !Instigator.IsHumanControlled() ) {
         return !bIsReloading && MagAmmoRemaining <= MagCapacity && AmmoAmount(0) > MagAmmoRemaining;
     }
 
