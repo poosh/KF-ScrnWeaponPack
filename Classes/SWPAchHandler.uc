@@ -460,7 +460,7 @@ function MonsterKilled(KFMonster Victim, ScrnPlayerInfo KillerInfo, class<KFWeap
     }
     else {
         if ( ClassIsChildOf(DamType, class'DamTypeAK12AssaultRifle') ) {
-            if ( !Victim.bDamagedAPlayer && Victim.IsA('ZombieBrute') )
+            if ( !Victim.bDamagedAPlayer && Victim.IsA('Brute') )
                 KillerInfo.ProgressAchievement('BruteSCAR', 1);
             KillerInfo.ProgressAchievement('AK2012', 1);
         }
