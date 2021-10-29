@@ -42,7 +42,7 @@ defaultproperties
     AIRating=0.550000
     CurrentRating=0.550000
     bShowChargingBar=True
-    Description="The Kalashnikov AK-12 (formerly AK-200) is the newest derivative of the Soviet/Russian AK-47 series of assault rifles and was proposed for possible general issue to the Russian Army. This version uses the 5.45x39mm ammo (the same as AK-74)"
+    Description="The Kalashnikov AK-12 (formerly AK-400) is the newest derivative of the Soviet/Russian AK-74 series of assault rifles and was proposed for possible general issue to the Russian Army. This version uses the 5.45x39mm ammo (the same as AK-74)"
     EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
     Priority=145
     CustomCrosshair=11

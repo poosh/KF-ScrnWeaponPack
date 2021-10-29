@@ -186,7 +186,7 @@ defaultproperties
      FireLoopAnim="Fire"
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
-     FireRate=0.230000
+     FireRate=0.15
      AmmoClass=Class'ScrnWeaponPack.HK417Ammo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)

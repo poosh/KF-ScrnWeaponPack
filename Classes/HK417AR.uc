@@ -183,7 +183,7 @@ defaultproperties
      StandardDisplayFOV=65.000000
      DisplayFOV=65.000000
 
-     MagCapacity=16
+     MagCapacity=20
      ReloadShortAnim="Reload"
      ReloadShortRate=2.57
      ReloadRate=3.15
@@ -204,7 +204,7 @@ defaultproperties
      SelectForce="SwitchToAssaultRifle"
      AIRating=0.650000
      CurrentRating=0.650000
-     Description="The Heckler&Koch HK417 is a gas-operated, selective fire rifle with a rotating bolt and is essentially an enlarged HK416 assault rifle. Chambered for the full power 7.62x51mm AP NATO round, instead of a less powerful intermediate cartridge, the HK417 is intended for use as a designated marksman rifle, and in other roles where the greater penetrative power and range of the 7.62x51mm NATO round are required."
+     Description="The Heckler&Koch HK417 is a designated marksman rifle. Uses 7.62x51mm NATO Armor-Piercing rounds."
      Priority=100
      CustomCrosshair=11
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"

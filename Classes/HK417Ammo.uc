@@ -4,8 +4,8 @@ class HK417Ammo extends KFAmmunition;
 
 defaultproperties
 {
-     AmmoPickupAmount=16
-     MaxAmmo=192 //200
+     AmmoPickupAmount=20
+     MaxAmmo=200
      InitialAmount=80
      PickupClass=Class'ScrnWeaponPack.HK417AmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

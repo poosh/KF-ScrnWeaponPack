@@ -3,7 +3,7 @@ class Saiga12cPickup extends KFWeaponPickup;
 defaultproperties
 {
      Weight=8.000000
-     cost=2500
+     cost=3000
      AmmoCost=40
      BuyClipSize=8
      PowerValue=87
