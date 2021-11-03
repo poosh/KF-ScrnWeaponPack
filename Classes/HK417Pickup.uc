@@ -10,7 +10,7 @@ function ShowDeagleInfo(Canvas C)
 
 defaultproperties
 {
-     Weight=8 // 6
+     Weight=7 // 6
      cost=3500
      AmmoCost=25
      BuyClipSize=16

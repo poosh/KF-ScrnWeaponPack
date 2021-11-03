@@ -236,7 +236,7 @@ simulated function ApplyLaserState()
     if( Role < ROLE_Authority  )
         ServerSetLaserType(LaserType);
 
-    if ( ThirdPersonActor != none )
+    if ( ScrnLaserWeaponAttachment(ThirdPersonActor) != none )
         ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
 
     if ( !Instigator.IsLocallyControlled() )
@@ -319,7 +319,8 @@ simulated function TurnOffLaser()
 function ServerSetLaserType(byte NewLaserType)
 {
     LaserType = NewLaserType;
-    ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
+    if ( ScrnLaserWeaponAttachment(ThirdPersonActor) != none )
+        ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
 }
 
 

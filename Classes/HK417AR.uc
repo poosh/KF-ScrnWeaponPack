@@ -190,7 +190,7 @@ defaultproperties
      ReloadAnim="Reload"
      ReloadAnimRate=1.0
      WeaponReloadAnim="Reload_M4"
-     Weight=8 //6
+     Weight=7 //6
      bHasAimingMode=True
      IdleAimAnim="Iron_Idle"
      bModeZeroCanDryFire=True
