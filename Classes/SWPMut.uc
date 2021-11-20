@@ -1,16 +1,13 @@
-class SWPMut extends Mutator;
+class SWPMut extends ScrnAchMutator;
 
-function PostBeginPlay()
-{
-    class'ScrnAchievements'.static.RegisterAchievements(class'SWPAch');
-    Level.Game.Spawn(class'SWPAchHandler');
-    Destroy();
-}
 
 defaultproperties
 {
-    bAddToServerPackages=True
-    GroupName="KF-SWPAch"
+    VersionNumber=96801
+    AchClass=class'ScrnWeaponPack.SWPAch'
+    AchHandler=class'ScrnWeaponPack.SWPAchHandler'
+
+    GroupName="KF-SWP"
     FriendlyName="ScrN Weapon Pack"
     Description="Adds weapon-specific achievements for ScrN Weapon Pack"
 }

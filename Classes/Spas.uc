@@ -85,9 +85,10 @@ defaultproperties
      MeshRef="ScrnWeaponPack_A.spas12_1st"
 
      MagCapacity=8
-     ReloadRate=0.666667
+     ReloadRate=0.44444444
      ReloadAnim="Reload"
-     ReloadAnimRate=0.92 //0.94
+     ReloadAnimRate=1.38
+     WeaponReloadAnim="Reload_Shotgun"
      bHasSecondaryAmmo=False
      bReduceMagAmmoOnSecondaryFire=True
      IdleAimAnim=Idle_Iron
@@ -96,7 +97,7 @@ defaultproperties
      FireModeClass(0)=Class'ScrnWeaponPack.SpasFire'
      FireModeClass(1)=Class'ScrnWeaponPack.SpasAltFire'
      PutDownAnim="PutDown"
-     
+
      bShowChargingBar=False
      Description="The Franchi SPAS12 is a combat shotgun manufactured by Italian firearms company Franchi from 1979 to 2000. The SPAS12 is a dual-mode shotgun, adjustable for semi-automatic or pump-action operation."
 

@@ -106,8 +106,7 @@ function GameWon(string MapName)
     local ScrnPlayerInfo SPI;
     local ScrnPlayerInfo TopKillsSPI;
     local class<KFWeaponDamageType> DamType;
-    local bool bAKOnly;
-    local int i, PlayerCount;
+    local int i, PlayerCount, KillsAK;
 
     if (bBossFlareOnly)
         Ach2All('FlarryMen', 1);
@@ -120,20 +119,19 @@ function GameWon(string MapName)
         }
     }
 
-    bAKOnly = true;
-    for ( i=0; i<TopKillsSPI.WeapInfos.length; ++i ) {
-        DamType = TopKillsSPI.WeapInfos[i].DamType;
-        if ( TopKillsSPI.WeapInfos[i].TotalKills > 0
-                && !ClassIsChildOf(DamType, Class'DamTypeAK47AssaultRifle')
-                && !ClassIsChildOf(DamType, Class'DamTypeAK74AssaultRifle')
-                && !ClassIsChildOf(DamType, Class'DamTypeAK12AssaultRifle') )
-        {
-            bAKOnly = false;
-            break;
-        }
+    if ( PlayerCount >= 3 ) {
+        for ( i=0; i<TopKillsSPI.WeapInfos.length; ++i ) {
+            DamType = TopKillsSPI.WeapInfos[i].DamType;
+            if ( ClassIsChildOf(DamType, Class'DamTypeAK47AssaultRifle')
+                    || ClassIsChildOf(DamType, Class'DamTypeAK74AssaultRifle')
+                    || ClassIsChildOf(DamType, Class'DamTypeAK12AssaultRifle') )
+                {
+                    KillsAK += TopKillsSPI.WeapInfos[i].TotalKills;
+                }
+            }
+            if ( KillsAK >= SPI.PlayerOwner.PlayerReplicationInfo.Kills * 8 / 10 )
+                TopKillsSPI.ProgressAchievement('AKFan', 1);
     }
-    if ( bAKOnly && PlayerCount >= 3 )
-        TopKillsSPI.ProgressAchievement('AKFan', 1);
 }
 
 function BossSpawned(KFMonster EndGameBoss)
