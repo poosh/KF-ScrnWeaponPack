@@ -129,7 +129,7 @@ function GameWon(string MapName)
                     KillsAK += TopKillsSPI.WeapInfos[i].TotalKills;
                 }
             }
-            if ( KillsAK >= SPI.PlayerOwner.PlayerReplicationInfo.Kills * 8 / 10 )
+            if ( KillsAK >= TopKillsSPI.PlayerOwner.PlayerReplicationInfo.Kills * 8 / 10 )
                 TopKillsSPI.ProgressAchievement('AKFan', 1);
     }
 }

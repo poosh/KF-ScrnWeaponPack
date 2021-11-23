@@ -8,5 +8,6 @@ defaultproperties
     MaxSpeed=4500.000000
     Damage=625.000000
     DamageRadius=400
+    ArmDistSquared=160000
     DrawScale=0.35  //smalller projectile
 }

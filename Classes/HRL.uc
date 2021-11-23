@@ -17,7 +17,7 @@ simulated function PostBeginPlay()
     if ( Level.NetMode == NM_DedicatedServer )
         return;
 
-    SetBoneScale(1, 0.70, 'Rocket'); //make the LAW rocket smoler by 30%
+    SetBoneScale(1, 0.70, 'Rocket'); //make the LAW rocket smaller by 30%
 
     if( !bHasScope )
     {
