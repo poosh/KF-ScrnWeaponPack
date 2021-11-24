@@ -84,7 +84,7 @@ defaultproperties
      MinFudgeScale=0.35 //start with reduced velocity
      LifeSpan=10.000000 //10
 
-     ImpactDamage=400
+     ImpactDamage=500
      Damage=1500.000000
      DamageRadius=300.000000
      MomentumTransfer=2000.000000

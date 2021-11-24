@@ -182,18 +182,6 @@ function int WHeadshotsPerMagazine(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KF
     return IGNORE_STAT;
 }
 
-
-function int WKillsPerMagazine(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KFWeaponDamageType> DamType, int Count)
-{
-    if ( ClassIsChildOf(DamType, class'DamTypeHK417AR') ) {
-        if ( Count == 17 && !SPI.ProgressAchievement('HK417', 1) )
-            return IGNORE_STAT; // if achievement already earned, then ProgressAchievement() returns false, meaning no need to track it anymore
-        return 17;
-    }
-    return IGNORE_STAT;
-}
-
-
 function int WDamagePerShot(ScrnPlayerInfo SPI, KFWeapon Weapon, class<KFWeaponDamageType> DamType, int Damage, float DeltaTime)
 {
     if ( HopMineLchr(Weapon) != none ) {
@@ -465,6 +453,10 @@ function MonsterKilled(KFMonster Victim, ScrnPlayerInfo KillerInfo, class<KFWeap
         else if ( ClassIsChildOf(DamType, class'DamTypeCZ805M') ) {
             if ( Level.TimeSeconds - GameRules.MonsterInfos[index].PlayerKillTime < 15 )
                 KillerInfo.ProgressAchievement('CZ805M_Kill', 1);
+        }
+        else if ( ClassIsChildOf(DamType, class'DamTypeHK417AR') ) {
+            if ( Victim.IsA('ZombieFleshpound') || Victim.IsA('FemaleFP') )
+                KillerInfo.ProgressAchievement('HK417', 1);
         }
     }
 }
