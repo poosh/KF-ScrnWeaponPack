@@ -36,6 +36,12 @@ simulated function AddSmoke()
     SmokeTrail.SetRelativeRotation(rot(32768,0,0));
 }
 
+simulated function PreBeginPlay()
+{
+    super.PreBeginPlay();
+    SetCollisionSize(0, 0);  // prevents blocking by bBlockNonZeroExtentTraces (e.g., BlockingVolume)
+}
+
 simulated function PostBeginPlay()
 {
     Velocity = speed * vector(Rotation);
@@ -264,6 +270,7 @@ state OnWall
             SmokeTrail = None;
         }
         bCollideWorld = False;
+        SetCollisionSize(default.CollisionRadius, default.CollisionHeight);
         bFixedRotationDir = false;
         RotationRate = rot(0,0,0);
         if( Level.NetMode!=NM_DedicatedServer )
@@ -296,6 +303,7 @@ state OnWall
 
     simulated function EndState()
     {
+        SetCollisionSize(0, 0);
         if( Level.NetMode!=NM_Client )
         {
             SetTimer(0,false);
