@@ -63,14 +63,16 @@ simulated function Destroyed()
 
 simulated function PostNetBeginPlay()
 {
+    if ( Level.NetMode != NM_Client )
+        return;
+
     bNetNotify = true;
     if( Physics==PHYS_None )
         GoToState('OnWall');
     else if( Physics==PHYS_Projectile || RepLaunchPos!=vect(0,0,0) )
         GoToState('LaunchMine');
-    else if ( Level.NetMode!=NM_DedicatedServer )
-    {
-        AddSmoke();
+    else {
+        // AddSmoke();
         TweenAnim('Up',0.01f);
         PlaySound(Sound'ScrnWeaponPack_SND.mine.blade_in');
         RandSpin(65000.f);

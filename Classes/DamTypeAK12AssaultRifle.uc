@@ -4,7 +4,7 @@ class DamTypeAK12AssaultRifle extends ScrnDamTypeCommando
 
 defaultproperties
 {
-    HeadShotDamageMult=1.3
+    HeadShotDamageMult=1.2
     WeaponClass=Class'ScrnWeaponPack.AK12AssaultRifle'
     DeathString="%k killed %o (AK-12)."
     FemaleSuicide="%o shot herself in the foot."
