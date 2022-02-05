@@ -1,5 +1,5 @@
 class DamTypeSaiga12c extends KFProjectileWeaponDamageType
-	abstract;
+    abstract;
 
 defaultproperties
 {

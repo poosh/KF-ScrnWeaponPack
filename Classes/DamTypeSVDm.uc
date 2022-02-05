@@ -1,5 +1,5 @@
 class DamTypeSVDm extends KFWeaponDamageType
-	abstract;
+    abstract;
 
 defaultproperties
 {
