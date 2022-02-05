@@ -44,7 +44,7 @@ defaultproperties
      TraderInfoTexture=Texture'ScrnWeaponPack_T.Protecta.Protecta_Trader'
      PlayerIronSightFOV=70.000000
      ZoomedDisplayFOV=40.000000
-     FireModeClass(0)=Class'ScrnWeaponPack.ProtectaFire'
+     FireModeClass(0)=class'ProtectaFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      AIRating=0.600000
@@ -55,10 +55,10 @@ defaultproperties
      Priority=199
      InventoryGroup=4
      GroupOffset=9
-     PickupClass=Class'ScrnWeaponPack.ProtectaPickup'
+     PickupClass=class'ProtectaPickup'
      PlayerViewOffset=(X=25.000000,Y=20.000000,Z=-7.000000)
      BobDamping=5.000000
-     AttachmentClass=Class'ScrnWeaponPack.ProtectaAttachment'
+     AttachmentClass=class'ProtectaAttachment'
      IconCoords=(X1=169,Y1=172,X2=245,Y2=208)
      ItemName="Flare Shotgun 'Protecta' SE"
      TransientSoundVolume=1.250000

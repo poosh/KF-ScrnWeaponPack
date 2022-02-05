@@ -12,6 +12,6 @@ function Projectile SpawnProjectile(Vector Start, Rotator Dir)
 
 defaultproperties
 {
-     AmmoClass=Class'ScrnWeaponPack.HopMineAmmo'
-     ProjectileClass=Class'ScrnWeaponPack.HopMineProj'
+     AmmoClass=class'HopMineAmmo'
+     ProjectileClass=class'HopMineProj'
 }

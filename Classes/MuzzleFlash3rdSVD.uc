@@ -41,6 +41,6 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.500000,RelativeVelocity=(X=0.200000,Y=0.200000,Z=0.200000))
          VelocityScale(2)=(RelativeTime=1.000000)
      End Object
-     Emitters(1)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdSVD.SpriteEmitter5'
+     Emitters(1)=SpriteEmitter5
 
 }

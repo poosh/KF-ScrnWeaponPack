@@ -23,7 +23,7 @@ defaultproperties
      AmmoItemName="7.62x51mm NATO AP"
      CorrespondingPerkIndex=3
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.HK417AR'
+     InventoryType=class'HK417AR'
      PickupMessage="You've got a HK417"
      PickupSound=Sound'ScrnWeaponPack_SND.HK417AR.HK417_pickup'
      PickupForce="AssaultRiflePickup"

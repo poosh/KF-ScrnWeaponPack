@@ -41,7 +41,7 @@ defaultproperties
          LifetimeRange=(Min=0.200000,Max=0.200000)
          StartVelocityRange=(X=(Min=10.000000,Max=30.000000))
      End Object
-     Emitters(0)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter0'
+     Emitters(0)=SpriteEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter1
          FadeOut=True
@@ -75,7 +75,7 @@ defaultproperties
          LifetimeRange=(Min=0.200000,Max=0.200000)
          InitialDelayRange=(Min=0.050000,Max=0.050000)
      End Object
-     Emitters(1)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter1'
+     Emitters(1)=SpriteEmitter1
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter2
          FadeOut=True
@@ -108,7 +108,7 @@ defaultproperties
          SubdivisionScale(0)=0.500000
          LifetimeRange=(Min=0.200000,Max=0.200000)
      End Object
-     Emitters(2)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter2'
+     Emitters(2)=SpriteEmitter2
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter3
          RespawnDeadParticles=False
@@ -120,7 +120,7 @@ defaultproperties
          Texture=Texture'Effects_Tex.BulletHits.glowfinal'
          LifetimeRange=(Min=0.100000,Max=0.100000)
      End Object
-     Emitters(3)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter3'
+     Emitters(3)=SpriteEmitter3
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter4
          FadeOut=True
@@ -150,7 +150,7 @@ defaultproperties
          StartVelocityRange=(X=(Max=40.000000),Z=(Min=10.000000,Max=20.000000))
          VelocityLossRange=(X=(Max=2.000000))
      End Object
-     Emitters(4)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter4'
+     Emitters(4)=SpriteEmitter4
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter5
          UseColorScale=True
@@ -182,6 +182,6 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.500000,RelativeVelocity=(X=0.200000,Y=0.200000,Z=0.200000))
          VelocityScale(2)=(RelativeTime=1.000000)
      End Object
-     Emitters(5)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash3rdVALDT.SpriteEmitter5'
+     Emitters(5)=SpriteEmitter5
 
 }

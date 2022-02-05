@@ -514,8 +514,8 @@ defaultproperties
 
      PlayerIronSightFOV=65.000000
      ZoomedDisplayFOV=32.000000
-     FireModeClass(0)=Class'ScrnWeaponPack.CZ805MFire'
-     FireModeClass(1)=Class'ScrnWeaponPack.CZ805MAltFire'
+     FireModeClass(0)=class'CZ805MFire'
+     FireModeClass(1)=class'CZ805MAltFire'
      PutDownAnim="Put_Down"
      //BringUpTime=0.33
      //SelectAnimRate=5
@@ -531,10 +531,10 @@ defaultproperties
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
      InventoryGroup=3
      GroupOffset=7
-     PickupClass=Class'ScrnWeaponPack.CZ805MPickup'
+     PickupClass=class'CZ805MPickup'
      PlayerViewOffset=(X=10.000000,Y=12.000000,Z=-3.500000) //(X=10.000000,Y=15.000000,Z=-3.000000)
      BobDamping=5.000000
-     AttachmentClass=Class'ScrnWeaponPack.CZ805MAttachment'
+     AttachmentClass=class'CZ805MAttachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
      ItemName="CZ-805M Medic/Assault Rifle SE"
      TransientSoundVolume=1.250000

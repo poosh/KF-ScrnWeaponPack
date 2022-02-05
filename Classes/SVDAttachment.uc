@@ -122,9 +122,9 @@ simulated event ThirdPersonEffects()
 
 defaultproperties
 {
-     mMuzFlashClass=Class'ScrnWeaponPack.MuzzleFlash3rdSVD'
+     mMuzFlashClass=class'MuzzleFlash3rdSVD'
      mTracerClass=Class'KFMod.KFNewTracer'
-     mShellCaseEmitterClass=Class'ScrnWeaponPack.KFShellSpewerSVD'
+     mShellCaseEmitterClass=class'KFShellSpewerSVD'
      MovementAnims(0)="JogF_AK47"
      MovementAnims(1)="JogB_AK47"
      MovementAnims(2)="JogL_AK47"

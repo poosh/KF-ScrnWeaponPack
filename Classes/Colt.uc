@@ -456,7 +456,7 @@ defaultproperties
      SleeveNum=0
      TraderInfoTexture=Texture'ScrnWeaponPack_T.Colt.Trader_WColt'
      ZoomedDisplayFOV=65.000000
-     FireModeClass(0)=Class'ScrnWeaponPack.ColtFire'
+     FireModeClass(0)=class'ColtFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      SelectSound=Sound'KF_9MMSnd.9mm_Select'
@@ -468,10 +468,10 @@ defaultproperties
      Priority=110 // 5
      InventoryGroup=2
      GroupOffset=1
-     PickupClass=Class'ScrnWeaponPack.ColtPickup'
+     PickupClass=class'ColtPickup'
      PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnWeaponPack.ColtAttachment'
+     AttachmentClass=class'ColtAttachment'
      IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
      ItemName="Colt Python SE"
 }

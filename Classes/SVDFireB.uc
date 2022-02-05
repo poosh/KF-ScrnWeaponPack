@@ -24,9 +24,9 @@ defaultproperties
      weaponRange=70
      DamagedelayMin=0.16
      DamagedelayMax=0.16
-     hitDamageClass=Class'ScrnWeaponPack.DamTypeSVDm'
+     hitDamageClass=class'DamTypeSVDm'
      MeleeHitSounds(0)=Sound'KF_AxeSnd.AxeImpactBase.Axe_HitFlesh4'
-     HitEffectClass=Class'ScrnWeaponPack.SVDHitEffect'
+     HitEffectClass=class'SVDHitEffect'
      bWaitForRelease=True
      FireAnim="MeleeAttack"
      FireRate=1.100000

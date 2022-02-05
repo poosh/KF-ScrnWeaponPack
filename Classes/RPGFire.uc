@@ -90,8 +90,8 @@ function PlayFiring()
 
 defaultproperties
 {
-    AmmoClass=Class'ScrnWeaponPack.RPGAmmo'
-    ProjectileClass=Class'ScrnWeaponPack.RPGProj'
+    AmmoClass=class'RPGAmmo'
+    ProjectileClass=class'RPGProj'
      
     KickMomentum=(X=-45.000000,Z=25.000000)
     ProjSpawnOffset=(X=50.000000,Z=0) //doesn't seem to do anything, since it should be 0 when fired while aimed
@@ -114,7 +114,7 @@ defaultproperties
     ShakeRotRate=(X=12500.0,Y=12500.0,Z=12500.0)
     ShakeRotTime=1.0
     BotRefireRate=3.250000
-    FlashEmitterClass=Class'ScrnWeaponPack.RPGMuzzleFlash'
+    FlashEmitterClass=class'RPGMuzzleFlash'
     Spread=0.1
     SpreadStyle=SS_Random
     ProjPerFire=1

@@ -42,7 +42,7 @@ defaultproperties
          StartVelocityRange=(X=(Min=-20.000000,Max=-20.000000),Y=(Min=-20.000000,Max=-20.000000),Z=(Min=-20.000000,Max=20.000000))
          VelocityLossRange=(X=(Min=-20.000000,Max=-20.000000),Y=(Min=-20.700001,Max=-20.700001),Z=(Min=-20.700001,Max=-20.700001))
      End Object
-     Emitters(0)=MeshEmitter'ScrnWeaponPack.RGPBackFlashEmitter.MeshEmitterDT4'
+     Emitters(0)=MeshEmitterDT4
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitterDT24
          UseColorScale=True
@@ -80,6 +80,6 @@ defaultproperties
          StartVelocityRange=(X=(Min=-400.000000,Max=-600.000000),Y=(Min=-20.000000,Max=20.000000),Z=(Min=-20.000000,Max=20.000000))
          VelocityLossRange=(X=(Min=0.700000,Max=0.700000),Y=(Min=0.700000,Max=0.700000),Z=(Min=0.700000,Max=0.700000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnWeaponPack.RGPBackFlashEmitter.SpriteEmitterDT24'
+     Emitters(2)=SpriteEmitterDT24
 
 }

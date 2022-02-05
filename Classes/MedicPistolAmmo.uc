@@ -10,7 +10,7 @@ defaultproperties
      AmmoPickupAmount=14
      MaxAmmo=98
      InitialAmount=21
-     PickupClass=Class'ScrnWeaponPack.MedicPistolAmmoPickup'
+     PickupClass=class'MedicPistolAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
      IconCoords=(X1=413,Y1=82,X2=457,Y2=125)
      ItemName="Healing Darts"

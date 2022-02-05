@@ -16,7 +16,7 @@ defaultproperties
      AmmoMesh=StaticMesh'KillingFloorStatics.DualiesAmmo'
      CorrespondingPerkIndex=0
      EquipmentCategoryID=1
-     InventoryType=Class'ScrnWeaponPack.MedicPistol'
+     InventoryType=class'MedicPistol'
      PickupMessage="You got the Medic Pistol"
      PickupSound=Sound'KF_9MMSnd.9mm_Pickup'
      PickupForce="AssaultRiflePickup"

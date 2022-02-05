@@ -4,7 +4,7 @@ class DamTypeAK74AssaultRifle extends ScrnDamTypeCommando
 
 defaultproperties
 {
-     WeaponClass=Class'ScrnWeaponPack.AKC74AssaultRifle'
+     WeaponClass=class'AKC74AssaultRifle'
      DeathString="%k killed %o (AK-74)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

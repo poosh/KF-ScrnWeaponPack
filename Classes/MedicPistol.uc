@@ -477,8 +477,8 @@ defaultproperties
      SleeveNum=0
      ZoomedDisplayFOV=65.000000
      TraderInfoTexture=Texture'ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected'
-     FireModeClass(0)=Class'ScrnWeaponPack.MedicPistolFire'
-     FireModeClass(1)=Class'ScrnWeaponPack.MedicPistolLightFire'
+     FireModeClass(0)=class'MedicPistolFire'
+     FireModeClass(1)=class'MedicPistolLightFire'
      PutDownAnim="PutDown"
      AIRating=0.250000
      CurrentRating=0.250000
@@ -488,10 +488,10 @@ defaultproperties
      Priority=60
      InventoryGroup=2
      GroupOffset=1
-     PickupClass=Class'ScrnWeaponPack.MedicPistolPickup'
+     PickupClass=class'MedicPistolPickup'
      PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnWeaponPack.MedicPistolAttachment'
+     AttachmentClass=class'MedicPistolAttachment'
      IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
      ItemName="KF2 Medic Pistol SE"
      bNetNotify=True

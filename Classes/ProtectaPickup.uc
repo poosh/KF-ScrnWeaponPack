@@ -15,7 +15,7 @@ defaultproperties
      AmmoItemName="12 Gauge"
      CorrespondingPerkIndex=5
      EquipmentCategoryID=3
-     InventoryType=Class'ScrnWeaponPack.Protecta'
+     InventoryType=class'Protecta'
      PickupMessage="You got the Protecta"
      PickupSound=Sound'ScrnWeaponPack_SND.Protecta.striker_pickup'
      PickupForce="AssaultRiflePickup"

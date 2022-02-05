@@ -3,6 +3,6 @@ class RPGAmmoPickup extends KFAmmoPickup;
 defaultproperties
 {
      AmmoAmount=3
-     InventoryType=Class'ScrnWeaponPack.RPGAmmo'
+     InventoryType=class'RPGAmmo'
      PickupMessage="PG7VL Rockets"
 }

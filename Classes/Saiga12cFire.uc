@@ -55,14 +55,14 @@ defaultproperties
      TransientSoundVolume=2.000000
      TransientSoundRadius=500.000000
      FireRate=0.600000
-     AmmoClass=Class'ScrnWeaponPack.Saiga12cAmmo'
+     AmmoClass=class'Saiga12cAmmo'
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=400.000000)
      ShakeRotRate=(X=12500.000000,Y=12500.000000,Z=12500.000000)
      ShakeRotTime=5.000000
      ShakeOffsetMag=(X=6.000000,Y=2.000000,Z=10.000000)
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=3.000000
-     ProjectileClass=Class'ScrnWeaponPack.Saiga12cBullet'
+     ProjectileClass=class'Saiga12cBullet'
      BotRefireRate=0.250000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
      aimerror=1.000000

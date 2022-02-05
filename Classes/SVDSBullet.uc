@@ -7,8 +7,8 @@ simulated function int AdjustZedDamage( int Damage, KFMonster Victim, bool bHead
 
 defaultproperties
 {
-    DamageTypeHeadShot=Class'ScrnWeaponPack.DamTypeSVD'
-    MyDamageType=Class'ScrnWeaponPack.DamTypeSVD'
+    DamageTypeHeadShot=class'DamTypeSVD'
+    MyDamageType=class'DamTypeSVD'
     HeadShotDamageMult=4.000000
     Speed=14000.000000
     MaxSpeed=14000.000000

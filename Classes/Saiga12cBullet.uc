@@ -8,6 +8,6 @@ defaultproperties
      HeadShotDamageMult=1.000000
      Damage=66
      MomentumTransfer=60000.000000
-     MyDamageType=Class'ScrnWeaponPack.DamTypeSaiga12c'
+     MyDamageType=class'DamTypeSaiga12c'
      DrawScale=1.500000
 }

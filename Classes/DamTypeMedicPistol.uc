@@ -5,7 +5,7 @@ defaultproperties
 {
      HeadShotDamageMult=4.0
      bSniperWeapon=True
-     WeaponClass=Class'ScrnWeaponPack.MedicPistol'
+     WeaponClass=class'MedicPistol'
      DeathString="%k killed %o (healing darts)."
      FemaleSuicide="%o overdosed healing injections."
      MaleSuicide="%o overdosed healing injections."

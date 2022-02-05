@@ -11,7 +11,7 @@ defaultproperties
     ItemName="HopMine Launcher SE"
     ItemShortName="HopMine SE"
     AmmoItemName="HopMines"
-    InventoryType=Class'ScrnWeaponPack.HopMineLchr'
+    InventoryType=class'HopMineLchr'
     PickupMessage="You got the HopMine Launcher."
     CorrespondingPerkIndex=6
 }

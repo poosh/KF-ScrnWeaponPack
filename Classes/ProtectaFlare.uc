@@ -8,6 +8,6 @@ defaultproperties
     ImpactDamage=115
     bTrueBallistics=false
     bInitialAcceleration=false
-    ImpactDamageType=Class'ScrnWeaponPack.ScrnDamTypeProtectaImpact'
-    MyDamageType=Class'ScrnWeaponPack.ScrnDamTypeProtectaFlare'
+    ImpactDamageType=class'ScrnDamTypeProtectaImpact'
+    MyDamageType=class'ScrnDamTypeProtectaFlare'
 }

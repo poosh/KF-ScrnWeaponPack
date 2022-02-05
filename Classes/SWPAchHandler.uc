@@ -24,13 +24,13 @@ function ApplyGameRules()
     super.ApplyGameRules();
 
     i = GameRules.SovietDamageTypes.length;
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK12AssaultRifle';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeAK74AssaultRifle';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSaiga12c';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVD';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeSVDm';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVALDT';
-    GameRules.SovietDamageTypes[i++] = class'ScrnWeaponPack.DamTypeVSSDT';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeAK12AssaultRifle';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeAK74AssaultRifle';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeSaiga12c';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeSVD';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeSVDm';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeVALDT';
+    GameRules.SovietDamageTypes[i++] = class'DamTypeVSSDT';
 }
 
 function WaveStarted(byte WaveNum)

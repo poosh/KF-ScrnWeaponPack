@@ -40,7 +40,7 @@ defaultproperties
     SelectSoundRef="ScrnWeaponPack_SND.SVD.SVD_select"
     HudImageRef="ScrnWeaponPack_T.SVDS.SVD-cUnselected"
     SelectedHudImageRef="ScrnWeaponPack_T.SVDS.SVD-cSelected"
-    FireModeClass(0)=Class'ScrnWeaponPack.SVDSFire'
+    FireModeClass(0)=class'SVDSFire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"
     SelectForce="SwitchToAssaultRifle"
@@ -53,10 +53,10 @@ defaultproperties
     CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
     InventoryGroup=4
     GroupOffset=3
-    PickupClass=Class'ScrnWeaponPack.SVDSPickup'
+    PickupClass=class'SVDSPickup'
     PlayerViewOffset=(X=7.000000,Y=9.000000,Z=-4.000000)
     BobDamping=5.000000
-    AttachmentClass=Class'ScrnWeaponPack.SVDSAttachment'
+    AttachmentClass=class'SVDSAttachment'
     IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
     ItemName="SVDS SE"
 }

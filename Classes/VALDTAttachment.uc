@@ -91,7 +91,7 @@ simulated function WeaponLight()
 
 defaultproperties
 {
-     mMuzFlashClass=Class'ScrnWeaponPack.MuzzleFlash3rdVALDT'
+     mMuzFlashClass=class'MuzzleFlash3rdVALDT'
      mTracerClass=Class'KFMod.KFNewTracer'
      mShellCaseEmitterClass=Class'KFMod.KFShellSpewer'
      ShellEjectBoneName="Shell_eject"

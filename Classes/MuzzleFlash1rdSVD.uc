@@ -36,7 +36,7 @@ defaultproperties
          StartVelocityRange=(Y=(Min=-30.000000,Max=30.000000))
          VelocityLossRange=(X=(Max=2.000000))
      End Object
-     Emitters(0)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash1rdSVD.SpriteEmitter4'
+     Emitters(0)=SpriteEmitter4
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter5
          UseColorScale=True
@@ -69,6 +69,6 @@ defaultproperties
          VelocityScale(1)=(RelativeTime=0.500000,RelativeVelocity=(X=0.200000,Y=0.200000,Z=0.200000))
          VelocityScale(2)=(RelativeTime=1.000000)
      End Object
-     Emitters(1)=SpriteEmitter'ScrnWeaponPack.MuzzleFlash1rdSVD.SpriteEmitter5'
+     Emitters(1)=SpriteEmitter5
 
 }

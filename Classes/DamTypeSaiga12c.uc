@@ -4,7 +4,7 @@ class DamTypeSaiga12c extends KFProjectileWeaponDamageType
 defaultproperties
 {
      bIsPowerWeapon=True
-     WeaponClass=Class'ScrnWeaponPack.Saiga12c'
+     WeaponClass=class'Saiga12c'
      DeathString="%k killed %o (Saiga12c)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

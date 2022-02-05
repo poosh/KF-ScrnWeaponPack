@@ -32,7 +32,7 @@ defaultproperties
     SelectedHudImageRef="ScrnWeaponPack_T.saiga.Saiga_selected"
     PlayerIronSightFOV=65.000000
     ZoomedDisplayFOV=32.000000
-    FireModeClass(0)=Class'ScrnWeaponPack.Saiga12cFire'
+    FireModeClass(0)=class'Saiga12cFire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"
     SelectForce="SwitchToAssaultRifle"
@@ -44,10 +44,10 @@ defaultproperties
     Priority=160
     InventoryGroup=4
     GroupOffset=10
-    PickupClass=Class'ScrnWeaponPack.Saiga12cPickup'
+    PickupClass=class'Saiga12cPickup'
     PlayerViewOffset=(X=10.000000,Y=8.000000,Z=-4.000000)
     BobDamping=4.000000
-    AttachmentClass=Class'ScrnWeaponPack.Saiga12cAttachment'
+    AttachmentClass=class'Saiga12cAttachment'
     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
     ItemName="Saiga-12s SE"
     DrawScale=0.850000

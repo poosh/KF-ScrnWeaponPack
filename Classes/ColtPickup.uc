@@ -18,7 +18,7 @@ defaultproperties
      ItemShortName="Colt SE"
      AmmoItemName=".357"
      EquipmentCategoryID=1
-     InventoryType=Class'ScrnWeaponPack.Colt'
+     InventoryType=class'Colt'
      PickupMessage="You got the Colt Python handgun"
      PickupSound=Sound'KF_9MMSnd.9mm_Pickup'
      PickupForce="AssaultRiflePickup"

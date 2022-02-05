@@ -88,8 +88,8 @@ defaultproperties
      TransientSoundRadius=500.000000
      FireRate=0.965
      FireAnimRate=0.95
-     AmmoClass=Class'ScrnWeaponPack.SpasAmmo'
-     ProjectileClass=Class'ScrnWeaponPack.SpasBullet'
+     AmmoClass=class'SpasAmmo'
+     ProjectileClass=class'SpasBullet'
      BotRefireRate=1.500000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
      aimerror=1.000000

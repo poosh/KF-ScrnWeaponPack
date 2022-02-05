@@ -15,7 +15,7 @@ defaultproperties
      AmmoItemName="12-gauge explosive shells"
      CorrespondingPerkIndex=6
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.MTS255Shotgun'
+     InventoryType=class'MTS255Shotgun'
      PickupMessage="You got the MTs-255 Explosive Shotgun"
      PickupSound=Sound'KF_M4ShotgunSnd.foley.WEP_Benelli_Foley_Pickup'
      PickupForce="AssaultRiflePickup"

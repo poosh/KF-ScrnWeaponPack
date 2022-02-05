@@ -6,5 +6,5 @@ defaultproperties
      MaxAmmo=120
      InitialAmount=36
      ItemName="Liquid-Gas Shells"
-     PickupClass=Class'ScrnWeaponPack.ProtectaAmmoPickup'
+     PickupClass=class'ProtectaAmmoPickup'
 }

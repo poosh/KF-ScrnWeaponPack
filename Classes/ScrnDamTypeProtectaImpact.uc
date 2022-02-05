@@ -2,6 +2,6 @@ class ScrnDamTypeProtectaImpact extends ScrnDamTypeFlareProjectileImpact;
 
 defaultproperties
 {
-    WeaponClass=Class'ScrnWeaponPack.Protecta'
+    WeaponClass=class'Protecta'
     HeadShotDamageMult=2.0
 }

@@ -4,6 +4,6 @@ defaultproperties
 {
     AmmoAmount=10
     PickupMessage="Explosive 12-gauge Shells"
-    InventoryType=Class'ScrnWeaponPack.MTS255Ammo'
+    InventoryType=class'MTS255Ammo'
 }
 

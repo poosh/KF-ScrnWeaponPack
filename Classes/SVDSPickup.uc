@@ -19,7 +19,7 @@ defaultproperties
      //showMesh=SkeletalMesh'svd-c_A.SVD3rd'
      CorrespondingPerkIndex=2
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.SVDS'
+     InventoryType=class'SVDS'
      PickupMessage="You've got the Dragunov Sniper Rifle (SVDS)"
      PickupSoundSound'ScrnWeaponPack_SND.SVD.SVD_pickup'
      PickupForce="AssaultRiflePickup"

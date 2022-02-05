@@ -174,7 +174,7 @@ defaultproperties
      maxHorizontalRecoilAngle=100
      ShellEjectClass=Class'ROEffects.KFShellEjectAK'
      ShellEjectBoneName="Shell_eject"
-     DamageType=Class'ScrnWeaponPack.DamTypeHK417AR'
+     DamageType=class'DamTypeHK417AR'
      DamageMin=80
      DamageMax=80
      PenDmgReduction=0.65
@@ -187,7 +187,7 @@ defaultproperties
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
      FireRate=0.15
-     AmmoClass=Class'ScrnWeaponPack.HK417Ammo'
+     AmmoClass=class'HK417Ammo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
      ShakeRotRate=(X=9500.000000,Y=9500.000000,Z=9500.000000)

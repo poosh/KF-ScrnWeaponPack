@@ -122,9 +122,9 @@ defaultproperties
     Weight=6
     MaximumMines=254
     MinesText="Mines: "
-    FireModeClass(0)=Class'ScrnWeaponPack.HopMineFire'
+    FireModeClass(0)=class'HopMineFire'
      Description="The prototype of Hopmine launcher. Alpha version. Have some serious bugs like mines are detonated by each other. But still can be very useful."
-    PickupClass=Class'ScrnWeaponPack.HopMineLPickup'
+    PickupClass=class'HopMineLPickup'
     ItemName="HopMine Launcher SE"
     AppID=0
 }

@@ -879,7 +879,7 @@ defaultproperties
      HudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_unselected"
      SelectedHudImageRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_selected"
 
-     AttachmentClass=Class'ScrnWeaponPack.RPGAttachment'
+     AttachmentClass=class'RPGAttachment'
 
      //ScriptedTextureFallbackRef="ScrnWeaponPack_T.ScrnRPG7.ScrnRPG7_Rocket_D"//Material'Weapons1st_tex.Zoomscope.LensShader' //"KF_Weapons_Trip_T.CBLens_cmb"
 
@@ -901,7 +901,7 @@ defaultproperties
      ForceZoomOutOnFireTime=0.3
      //ForceZoomOutOnFireTime=0.1
      Weight=11
-     FireModeClass(0)=Class'ScrnWeaponPack.RPGFire'
+     FireModeClass(0)=class'RPGFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      IdleAimAnim="AimIdle"
      bHoldToReload=false // to show correct ammo amount on classic hud
@@ -914,7 +914,7 @@ defaultproperties
      RaiseAnimRate=2.7 //2,7
      //ZoomTime=0.25
      Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius and rockets drop over distance. Use Altfire to toggle scope."
-     PickupClass=Class'ScrnWeaponPack.RPGPickup'
+     PickupClass=class'RPGPickup'
      ItemName="RPG-7 SE"
      SightFlipRotation=(Pitch=-160,Yaw=0,Roll=0)
 

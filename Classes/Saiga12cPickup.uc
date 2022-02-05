@@ -16,7 +16,7 @@ defaultproperties
      //showMesh=SkeletalMesh'ScrnWeaponPack_A.saigac3rd'
      CorrespondingPerkIndex=1
      EquipmentCategoryID=3
-     InventoryType=Class'ScrnWeaponPack.Saiga12c'
+     InventoryType=class'Saiga12c'
      PickupMessage="You've got Saiga-12s"
      PickupSound=Sound'KF_AA12Snd.AA12_Pickup'
      PickupForce="AssaultRiflePickup"

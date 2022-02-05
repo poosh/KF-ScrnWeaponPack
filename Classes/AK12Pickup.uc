@@ -16,7 +16,7 @@ defaultproperties
     AmmoMesh=StaticMesh'KillingFloorStatics.L85Ammo'
     CorrespondingPerkIndex=3
     EquipmentCategoryID=2
-    InventoryType=Class'ScrnWeaponPack.AK12AssaultRifle'
+    InventoryType=class'AK12AssaultRifle'
     PickupMessage="You got the AK-12"
     PickupSound=Sound'ScrnWeaponPack_SND.AK12.AK12_select'
     PickupForce="AssaultRiflePickup"

@@ -220,7 +220,7 @@ defaultproperties
     bIsTier2Weapon=True
     PlayerIronSightFOV=65.000000
     ZoomedDisplayFOV=32.000000
-    FireModeClass(0)=Class'ScrnWeaponPack.VALDTFire'
+    FireModeClass(0)=class'VALDTFire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"
     SelectForce="SwitchToAssaultRifle"
@@ -235,10 +235,10 @@ defaultproperties
     CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
     InventoryGroup=3
     GroupOffset=7
-    PickupClass=Class'ScrnWeaponPack.VALDTPickup'
+    PickupClass=class'VALDTPickup'
     PlayerViewOffset=(X=10.000000,Y=10.000000,Z=-5.000000)
     BobDamping=5.000000
-    AttachmentClass=Class'ScrnWeaponPack.VALDTAttachment'
+    AttachmentClass=class'VALDTAttachment'
     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
     ItemName="AS 'VAL' SE"
     TransientSoundVolume=1.250000

@@ -108,7 +108,7 @@ defaultproperties
      NoAmmoSoundRef="ScrnWeaponPack_SND.SVD.SVD_empty"
      TransientSoundVolume=3.800000
 
-     ShellEjectClass=Class'ScrnWeaponPack.KFShellEjectSVD'
+     ShellEjectClass=class'KFShellEjectSVD'
      ShellEjectBoneName="Shell_eject"
 
      RecoilRate=0.200000
@@ -122,7 +122,7 @@ defaultproperties
      FireLoopAnim="Fire"
      FireForce="ShockRifleFire"
      FireRate=0.750000
-     AmmoClass=Class'ScrnWeaponPack.SVDSAmmo'
+     AmmoClass=class'SVDSAmmo'
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=2.000000
@@ -131,9 +131,9 @@ defaultproperties
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //recoil shake disabled for 3d scopes
      ShakeOffsetTime=2.000000
-     ProjectileClass=Class'ScrnWeaponPack.SVDSBullet'
+     ProjectileClass=class'SVDSBullet'
      BotRefireRate=0.550000
-     FlashEmitterClass=Class'ScrnWeaponPack.MuzzleFlash1rdSVD'
+     FlashEmitterClass=class'MuzzleFlash1rdSVD'
      aimerror=0.000000
      Spread=0.000000
 }

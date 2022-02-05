@@ -104,7 +104,7 @@ defaultproperties
      PlayerIronSightFOV=65.000000
      ZoomedDisplayFOV=42.000000 //32.000000
      OriginalMaxAmmo=360
-     FireModeClass(0)=Class'ScrnWeaponPack.AKC74Fire'
+     FireModeClass(0)=class'AKC74Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      SelectAnimRate=1.000000
@@ -120,10 +120,10 @@ defaultproperties
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
      InventoryGroup=3
      GroupOffset=7
-     PickupClass=Class'ScrnWeaponPack.AKC74Pickup'
+     PickupClass=class'AKC74Pickup'
      PlayerViewOffset=(X=35.000000,Y=22.000000,Z=-6.000000) //(X=18.000000,Y=22.000000,Z=-6.000000)
      BobDamping=5.000000
-     AttachmentClass=Class'ScrnWeaponPack.AKC74Attachment'
+     AttachmentClass=class'AKC74Attachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
      ItemName="AKS-74 SE"
      TransientSoundVolume=1.250000

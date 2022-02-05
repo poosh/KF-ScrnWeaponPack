@@ -17,7 +17,7 @@ defaultproperties
      ItemShortName="SPAS-12 SE"
      AmmoItemName="12-gauge shells"
      AmmoMesh=none
-     InventoryType=Class'ScrnWeaponPack.Spas'
+     InventoryType=class'Spas'
      PickupMessage="You got the spas-12."
      PickupForce="AssaultRiflePickup"
      StaticMesh=StaticMesh'ScrnWeaponPack_SM.spas12_pickup'

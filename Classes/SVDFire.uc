@@ -11,13 +11,13 @@ defaultproperties
      FireForce="AssaultRifleFire"
      FireRate=0.70 //0.350000
      FireAnimRate=0.70
-     AmmoClass=Class'ScrnWeaponPack.SVDAmmo'
+     AmmoClass=class'SVDAmmo'
      BotRefireRate=1.2
      FireAimedAnim="Fire_Iron"
      RecoilRate=0.15 // 0.3
      maxVerticalRecoilAngle=1500
      maxHorizontalRecoilAngle=250
-     ProjectileClass=Class'ScrnWeaponPack.SVDBullet'
+     ProjectileClass=class'SVDBullet'
      FireLoopAnim="Fire"
      TweenTime=0.025000
 }

@@ -148,7 +148,7 @@ defaultproperties
      RecoilRate=0.100000
      maxVerticalRecoilAngle=800
      maxHorizontalRecoilAngle=250
-     DamageType=Class'ScrnWeaponPack.DamTypeHuntingRifle'
+     DamageType=class'DamTypeHuntingRifle'
      DamageMin=190
      DamageMax=220
      Momentum=18000.000000
@@ -160,7 +160,7 @@ defaultproperties
      FireEndAnim=
      FireForce="ShockRifleFire"
      FireRate=1.900000
-     AmmoClass=Class'ScrnWeaponPack.HuntingRifleAmmo'
+     AmmoClass=class'HuntingRifleAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)

@@ -145,7 +145,7 @@ function DoTrace(Vector Start, Rotator Dir)
 
 defaultproperties
 {
-     StereoFireSoundRef="ScrnWeaponPack_SND.Colt.ScrnWeaponPack.357_fire3_ST"
+     StereoFireSoundRef="ScrnWeaponPack_SND.Colt.357_fire3_ST"
      FireSoundRef="ScrnWeaponPack_SND.Colt.357_fire3"
      NoAmmoSoundRef="KF_HandcannonSnd.50AE_DryFire"
 
@@ -154,7 +154,7 @@ defaultproperties
      RecoilRate=0.400000 //0.85
      maxVerticalRecoilAngle=3000 //300
      maxHorizontalRecoilAngle=500 //50
-     DamageType=Class'ScrnWeaponPack.DamTypeColt'
+     DamageType=class'DamTypeColt'
      DamageMin=350
      DamageMax=350
      Momentum=10000.000000
@@ -166,7 +166,7 @@ defaultproperties
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
      FireRate=0.900000
-     AmmoClass=Class'ScrnWeaponPack.ColtAmmo'
+     AmmoClass=class'ColtAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=75.000000,Y=75.000000,Z=400.000000)
      ShakeRotRate=(X=12500.000000,Y=12500.000000,Z=10000.000000)

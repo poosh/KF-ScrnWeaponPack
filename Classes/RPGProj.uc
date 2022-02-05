@@ -60,8 +60,8 @@ function float ScaleMonsterDamage(KFMonster Victim)
 defaultproperties
 {
      SmokeTrailClass=Class'ROEffects.PanzerfaustTrail'
-     ExplosionClass=Class'ScrnWeaponPack.RpgExplosion'
-     TracerClass=Class'ScrnWeaponPack.RPGTracer'
+     ExplosionClass=class'RpgExplosion'
+     TracerClass=class'RPGTracer'
      ShakeRotMag=(X=512.000000,Y=400.000000)
      ShakeRotRate=(X=3000.000000,Y=3000.000000)
      ShakeOffsetMag=(X=20.000000,Y=30.000000,Z=30.000000)

@@ -17,7 +17,7 @@ defaultproperties
      AmmoMesh=StaticMesh'KillingFloorStatics.L85Ammo'
      CorrespondingPerkIndex=3
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.VALDTAssaultRifle'
+     InventoryType=class'VALDTAssaultRifle'
      PickupMessage="You've got a AS 'VAL'"
      PickupSound=Sound'KF_AK47Snd.AK47_Pickup'
      PickupForce="AssaultRiflePickup"

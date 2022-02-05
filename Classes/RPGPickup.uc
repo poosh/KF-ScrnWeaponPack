@@ -12,6 +12,6 @@ defaultproperties
      AmmoItemName="RPG-7 Rockets"
      PickupMessage="You got the RPG-7"
      PickupSound=Sound'KF_LAWSnd.LAW_Pickup'
-     InventoryType=Class'ScrnWeaponPack.RPG'
+     InventoryType=class'RPG'
      StaticMesh=StaticMesh'ScrnWeaponPack_SM.ScrnRPG_Pickup'
 }

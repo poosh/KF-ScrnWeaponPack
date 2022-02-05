@@ -122,7 +122,7 @@ defaultproperties
      FireLoopAnim=
      FireForce="ShockRifleFire"
      FireRate=0.120000
-     AmmoClass=Class'ScrnWeaponPack.VSSDTAmmo'
+     AmmoClass=class'VSSDTAmmo'
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
      ShakeRotTime=1.000000
@@ -131,9 +131,9 @@ defaultproperties
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scopes
      ShakeOffsetTime=1.000000
-     ProjectileClass=Class'ScrnWeaponPack.VSSDTBullet'
+     ProjectileClass=class'VSSDTBullet'
      BotRefireRate=0.650000
-     FlashEmitterClass=Class'ScrnWeaponPack.MuzzleFlash3rdVSSDT'
+     FlashEmitterClass=class'MuzzleFlash3rdVSSDT'
      aimerror=1.000000
      Spread=0.000000
 }

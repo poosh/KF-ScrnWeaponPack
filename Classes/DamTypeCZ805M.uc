@@ -18,7 +18,7 @@ static function AwardDamage(KFSteamStatsAndAchievements KFStatsAndAchievements, 
 defaultproperties
 {
      HeadShotDamageMult=1.2
-     WeaponClass=Class'ScrnWeaponPack.CZ805M'
+     WeaponClass=class'CZ805M'
      DeathString="%k killed %o (CZ 805)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

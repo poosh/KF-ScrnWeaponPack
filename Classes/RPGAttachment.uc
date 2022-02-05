@@ -36,7 +36,7 @@ defaultproperties
 {
     MeshRef="ScrnWeaponPack_A.ScrnRPG_3rd"
     mMuzFlashBone="Reartip"
-    mMuzFlashClass=Class'ScrnWeaponPack.RPGBackblast'
+    mMuzFlashClass=class'RPGBackblast'
     bNetNotify=true
     bScopeAttached=true
     MovementAnims(0)="JogF_LAW"

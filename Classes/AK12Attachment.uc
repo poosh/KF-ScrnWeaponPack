@@ -7,7 +7,7 @@ defaultproperties
      MeshRef="ScrnWeaponPack_A.AK12_3rd"
 
      ShellEjectBoneName="Shellport"
-     mMuzFlashClass=Class'ScrnWeaponPack.MuzzleFlashAK12AR'
+     mMuzFlashClass=class'MuzzleFlashAK12AR'
      mTracerClass=Class'KFMod.KFNewTracer'
      mShellCaseEmitterClass=Class'KFMod.KFShellSpewer'
      MovementAnims(0)="JogF_AK47"

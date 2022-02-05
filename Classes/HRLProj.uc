@@ -2,7 +2,7 @@ class HRLProj extends ScrnLAWProj;
 
 defaultproperties
 {
-    ExplosionClass=Class'ScrnWeaponPack.HRLExplosion'
+    ExplosionClass=class'HRLExplosion'
     ImpactDamage=275
     Speed=3900.000000
     MaxSpeed=4500.000000

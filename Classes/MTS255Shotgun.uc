@@ -33,7 +33,7 @@ defaultproperties
      TraderInfoTexture=Texture'ScrnWeaponPack_T.MTS.MTS255_Trader'
      PlayerIronSightFOV=80.000000
      ZoomedDisplayFOV=45.000000
-     FireModeClass(0)=Class'ScrnWeaponPack.MTS255Fire'
+     FireModeClass(0)=class'MTS255Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      
@@ -47,10 +47,10 @@ defaultproperties
      Priority=200
      InventoryGroup=3
      GroupOffset=10
-     PickupClass=Class'ScrnWeaponPack.MTS255Pickup'
+     PickupClass=class'MTS255Pickup'
      PlayerViewOffset=(X=19.700001,Y=18.750000,Z=-7.500000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnWeaponPack.MTS255Attachment'
+     AttachmentClass=class'MTS255Attachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
      ItemName="MTs-255 Shotgun SE"
      TransientSoundVolume=1.250000

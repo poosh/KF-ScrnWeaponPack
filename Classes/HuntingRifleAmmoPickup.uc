@@ -6,7 +6,7 @@ class HuntingRifleAmmoPickup extends KFAmmoPickup;
 defaultproperties
 {
      AmmoAmount=10
-     InventoryType=Class'ScrnWeaponPack.HuntingRifleAmmo'
+     InventoryType=class'HuntingRifleAmmo'
      PickupMessage=".308 rounds"
      StaticMesh=None
 }

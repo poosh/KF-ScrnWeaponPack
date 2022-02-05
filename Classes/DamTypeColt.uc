@@ -41,7 +41,7 @@ defaultproperties
 {
     HeadShotDamageMult=1.15
      bSniperWeapon=True
-     WeaponClass=Class'ScrnWeaponPack.Colt'
+     WeaponClass=class'Colt'
      DeathString="%k 'colted' %o."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

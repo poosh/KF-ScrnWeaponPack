@@ -15,7 +15,7 @@ defaultproperties
      AmmoItemName="9x39mm SP-5"
      CorrespondingPerkIndex=2
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.VSSDT'
+     InventoryType=class'VSSDT'
      PickupMessage="You've got Vintorez"
      PickupSound=Sound'KF_RifleSnd.RifleBase.Rifle_Pickup'
      PickupForce="AssaultRiflePickup"

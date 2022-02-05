@@ -4,8 +4,8 @@ class SWPMut extends ScrnAchMutator;
 defaultproperties
 {
     VersionNumber=96910
-    AchClass=class'ScrnWeaponPack.SWPAch'
-    AchHandler=class'ScrnWeaponPack.SWPAchHandler'
+    AchClass=class'SWPAch'
+    AchHandler=class'SWPAchHandler'
 
     GroupName="KF-SWP"
     FriendlyName="ScrN Weapon Pack"

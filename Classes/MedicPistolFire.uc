@@ -235,8 +235,8 @@ defaultproperties
     HealAmount=20
     HealBoost=3
     DamageMax=23
-    DamageType=Class'ScrnWeaponPack.DamTypeMedicPistol'
-    AmmoClass=Class'ScrnWeaponPack.MedicPistolAmmo'
+    DamageType=class'DamTypeMedicPistol'
+    AmmoClass=class'MedicPistolAmmo'
     PenDmgReduction=0.50
     MaxPenetrations=0
     bWaitForRelease=True

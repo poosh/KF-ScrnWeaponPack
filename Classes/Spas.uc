@@ -94,8 +94,8 @@ defaultproperties
      IdleAimAnim=Idle_Iron
      Weight=9
      bModeZeroCanDryFire=True
-     FireModeClass(0)=Class'ScrnWeaponPack.SpasFire'
-     FireModeClass(1)=Class'ScrnWeaponPack.SpasAltFire'
+     FireModeClass(0)=class'SpasFire'
+     FireModeClass(1)=class'SpasAltFire'
      PutDownAnim="PutDown"
 
      bShowChargingBar=False
@@ -104,10 +104,10 @@ defaultproperties
      Priority=135
      InventoryGroup=3
      GroupOffset=2
-     PickupClass=Class'ScrnWeaponPack.SpasPickup'
+     PickupClass=class'SpasPickup'
 
      BobDamping=7.000000
-     AttachmentClass=Class'ScrnWeaponPack.SpasAttachment'
+     AttachmentClass=class'SpasAttachment'
      IconCoords=(X1=169,Y1=172,X2=245,Y2=208)
      ItemName="SPAS-12 SE"
      TransientSoundVolume=1.000000

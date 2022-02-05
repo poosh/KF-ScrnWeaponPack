@@ -82,8 +82,8 @@ defaultproperties
     bModeZeroCanDryFire=True
 
     PlayerIronSightFOV=22.000000
-    FireModeClass(0)=Class'ScrnWeaponPack.SVDFire'
-    FireModeClass(1)=Class'ScrnWeaponPack.SVDFireB'
+    FireModeClass(0)=class'SVDFire'
+    FireModeClass(1)=class'SVDFireB'
     PutDownAnim="PutDown"
     //BringUpTime=0.930000
 
@@ -97,10 +97,10 @@ defaultproperties
     CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
     InventoryGroup=4
     GroupOffset=3
-    PickupClass=Class'ScrnWeaponPack.SVDPickup'
+    PickupClass=class'SVDPickup'
     PlayerViewOffset=(X=6.000000,Y=22.000000,Z=-12.000000)
     BobDamping=6.000000
-    AttachmentClass=Class'ScrnWeaponPack.SVDAttachment'
+    AttachmentClass=class'SVDAttachment'
     IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
     ItemName="SVD (Dragunov) SE"
 

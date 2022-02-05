@@ -10,7 +10,7 @@ defaultproperties
      ItemName="HRL-1 Rocket Launcher SE"
      ItemShortName="HRL-1 SE"
      AmmoItemName="HRL-1 Rockets"
-     InventoryType=Class'ScrnWeaponPack.HRL'
+     InventoryType=class'HRL'
      PickupMessage="You got the HRL-1 Rocket Launcher"
      StaticMesh=StaticMesh'ScrnWeaponPack_SM.HRL_Pickup'
 }

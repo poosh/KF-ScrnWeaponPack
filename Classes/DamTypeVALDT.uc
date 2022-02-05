@@ -5,7 +5,7 @@ class DamTypeVALDT extends ScrnDamTypeCommando
 defaultproperties
 {
     HeadShotDamageMult=1.1
-     WeaponClass=Class'ScrnWeaponPack.VALDTAssaultRifle'
+     WeaponClass=class'VALDTAssaultRifle'
      DeathString="%k killed %o (VAL)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

@@ -196,7 +196,7 @@ defaultproperties
      bModeZeroCanDryFire=True
      SleeveNum=0
      TraderInfoTexture=Texture'ScrnWeaponPack_T.HK417AR.HK417_Trader'
-     FireModeClass(0)=Class'ScrnWeaponPack.HK417Fire'
+     FireModeClass(0)=class'HK417Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      SelectAnimRate=1.000000
@@ -210,10 +210,10 @@ defaultproperties
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
      InventoryGroup=4
      GroupOffset=3
-     PickupClass=Class'ScrnWeaponPack.HK417Pickup'
+     PickupClass=class'HK417Pickup'
      PlayerViewOffset=(X=14.000000,Y=7.000000,Z=-4.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnWeaponPack.HK417Attachment'
+     AttachmentClass=class'HK417Attachment'
      IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
      ItemName="HK417 AP"
 }

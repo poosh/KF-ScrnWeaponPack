@@ -16,10 +16,10 @@ defaultproperties
      AmmoMesh=StaticMesh'KillingFloorStatics.L85Ammo'
      CorrespondingPerkIndex=0
      EquipmentCategoryID=3
-     InventoryType=Class'ScrnWeaponPack.CZ805M'
+     InventoryType=class'CZ805M'
      PickupMessage="You got the CZ-805M"
      PickupSound=Sound'KF_SCARSnd.SCAR_Pickup'
-     PickupForce="ScrnWeaponPack.cz805bPickup"
+     PickupForce="AssaultRiflePickup"
      StaticMesh=StaticMesh'ScrnWeaponPack_SM.CZ805Bren_P'
      CollisionRadius=25.000000
      CollisionHeight=5.000000

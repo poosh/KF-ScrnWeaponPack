@@ -3,7 +3,7 @@ class ScrnDamTypeProtectaFlare extends ScrnDamTypeFlare
 
 defaultproperties
 {
-     WeaponClass=Class'ScrnWeaponPack.Protecta'
+     WeaponClass=class'Protecta'
      MinBurnTime=5
      MaxBurnTime=8
 }

@@ -25,7 +25,7 @@ defaultproperties
      AmmoItemName="Rifle bullets"
      CorrespondingPerkIndex=2
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.HuntingRifle'
+     InventoryType=class'HuntingRifle'
      PickupMessage="You got the Hunting Rifle"
      PickupSound=Sound'KF_RifleSnd.RifleBase.Rifle_Pickup'
      PickupForce="AssaultRiflePickup"

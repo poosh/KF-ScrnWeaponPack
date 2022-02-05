@@ -14,7 +14,7 @@ defaultproperties
      FireSoundRef="ScrnWeaponPack_SND.AK74.akc74_shoot_mono"
      StereoFireSoundRef="ScrnWeaponPack_SND.AK74.akc74_shoot_stereo"
      NoAmmoSoundRef="ScrnWeaponPack_SND.AK74.akc74__empty"
-     DamageType=Class'ScrnWeaponPack.DamTypeAK74AssaultRifle'
+     DamageType=class'DamTypeAK74AssaultRifle'
      DamageMin=38
      DamageMax=38
      Momentum=9500.000000
@@ -24,7 +24,7 @@ defaultproperties
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
      FireRate=0.104000
-     AmmoClass=Class'ScrnWeaponPack.AK545Ammo'
+     AmmoClass=class'AK545Ammo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=350.000000)
      ShakeRotRate=(X=5000.000000,Y=5000.000000,Z=5000.000000)

@@ -5,7 +5,7 @@ defaultproperties
 {
      HeadShotDamageMult=1.0
      bIsMeleeDamage=True
-     WeaponClass=Class'ScrnWeaponPack.SVD'
+     WeaponClass=class'SVD'
      DeathString="%k killed %o (SVD)."
      PawnDamageSounds(0)=Sound'KFPawnDamageSound.MeleeDamageSounds.axehitflesh'
      KDamageImpulse=1500.000000

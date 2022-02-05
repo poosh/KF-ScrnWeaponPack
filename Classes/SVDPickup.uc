@@ -18,7 +18,7 @@ defaultproperties
      AmmoItemName="7H1 Sniper Rounds"
      CorrespondingPerkIndex=2
      EquipmentCategoryID=2
-     InventoryType=Class'ScrnWeaponPack.SVD'
+     InventoryType=class'SVD'
      PickupMessage="You've got the Dragunov Sniper Rifle (SVD)"
      PickupSound=Sound'ScrnWeaponPack_SND.SVD.SVD_pickup'
      PickupForce="AssaultRiflePickup"

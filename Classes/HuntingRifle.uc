@@ -34,7 +34,7 @@ defaultproperties
     TraderInfoTexture=Texture'ScrnWeaponPack_T.BDHR.huntingrifle_Trader'
     PlayerIronSightFOV=32.000000
     ZoomedDisplayFOV=60.000000
-    FireModeClass(0)=Class'ScrnWeaponPack.HuntingRifleFire'
+    FireModeClass(0)=class'HuntingRifleFire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"
     SelectForce="SwitchToAssaultRifle"
@@ -47,10 +47,10 @@ defaultproperties
     CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
     InventoryGroup=4
     GroupOffset=3
-    PickupClass=Class'ScrnWeaponPack.HuntingRiflePickup'
+    PickupClass=class'HuntingRiflePickup'
     PlayerViewOffset=(X=15.000000,Y=16.000000,Z=-4.000000)
     BobDamping=6.000000
-    AttachmentClass=Class'ScrnWeaponPack.HuntingRifleAttachment'
+    AttachmentClass=class'HuntingRifleAttachment'
     IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
     ItemName="Hunting Rifle SE"
 }

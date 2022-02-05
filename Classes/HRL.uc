@@ -106,11 +106,11 @@ defaultproperties
      ZoomTime=0.26000 //Reverted back from 0.180000 because only ZoomTime only affects FOV zoom and fire time for the default LAW
      ZoomedDisplayFOV=40.000000
      PlayerIronSightFOV=70 //Added ironsight zoom
-     FireModeClass(0)=Class'ScrnWeaponPack.HRLFire'
+     FireModeClass(0)=class'HRLFire'
      Description="Horzine's modification of L.A.W. Smaller and lighter rockets not only allowing to carry more of them, but also are much easier to reload."
      Priority=190
-     PickupClass=Class'ScrnWeaponPack.HRLPickup'
-     AttachmentClass=Class'ScrnWeaponPack.HRLAttachment'
+     PickupClass=class'HRLPickup'
+     AttachmentClass=class'HRLAttachment'
      ItemName="HRL-1 Rocket Launcher SE"
      bHoldToReload=false // to show correct ammo amount on classic hud
 }

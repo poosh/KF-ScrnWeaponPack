@@ -7,7 +7,7 @@ class DamTypeHuntingRifle extends DamTypeKFSnipe
 defaultproperties
 {
      HeadShotDamageMult=2.100000
-     WeaponClass=Class'ScrnWeaponPack.HuntingRifle'
+     WeaponClass=class'HuntingRifle'
      DeathString="%k killed %o (Hunting Rifle)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

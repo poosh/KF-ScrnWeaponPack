@@ -45,7 +45,7 @@ defaultproperties
      FireRate=0.300000
      RecoilRate=0.05
      FireAnimRate=1.75 
-     AmmoClass=Class'ScrnWeaponPack.ProtectaAmmo'
+     AmmoClass=class'ProtectaAmmo'
      KickMomentum=(X=0,Y=0,Z=0)
      ShakeOffsetMag=(X=6.0,Y=2.0,Z=6.0)
      ShakeOffsetRate=(X=1000.0,Y=1000.0,Z=1000.0)
@@ -53,7 +53,7 @@ defaultproperties
      ShakeRotMag=(X=50.0,Y=50.0,Z=250.0)
      ShakeRotRate=(X=12500.0,Y=12500.0,Z=12500.0)
      ShakeRotTime=3.0
-     ProjectileClass=Class'ScrnWeaponPack.ProtectaFlare'
+     ProjectileClass=class'ProtectaFlare'
      BotRefireRate=0.250000
      FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
      aimerror=2.000000

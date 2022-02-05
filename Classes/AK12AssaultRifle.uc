@@ -36,7 +36,7 @@ defaultproperties
     bIsTier3Weapon=True
     DrawScale=1.0
     OriginalMaxAmmo=360
-    FireModeClass(0)=Class'ScrnWeaponPack.AK12Fire'
+    FireModeClass(0)=class'AK12Fire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"
     SelectForce="SwitchToAssaultRifle"
@@ -56,10 +56,10 @@ defaultproperties
     ZoomTime=0.25
     FastZoomOutTime=0.2
     ZoomedDisplayFOV=20
-    PickupClass=Class'ScrnWeaponPack.AK12Pickup'
+    PickupClass=class'AK12Pickup'
     PlayerViewOffset=(X=-0.500000,Y=20.000000,Z=-3.000000)
     BobDamping=6.000000
-    AttachmentClass=Class'ScrnWeaponPack.AK12Attachment'
+    AttachmentClass=class'AK12Attachment'
     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
     ItemName="AK-12 SE"
     TransientSoundVolume=1.250000

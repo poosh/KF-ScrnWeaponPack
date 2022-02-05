@@ -25,7 +25,7 @@ defaultproperties
          LifetimeRange=(Min=5.000000,Max=5.000000)
          StartVelocityRange=(X=(Min=100.000000,Max=100.000000),Z=(Min=100.000000,Max=150.000000))
      End Object
-     Emitters(0)=MeshEmitter'ScrnWeaponPack.KFShellEjectAK12AR.MeshEmitter0'
+     Emitters(0)=MeshEmitter0
 
      Begin Object Class=SpriteEmitter Name=SpriteEmitter0
          UseDirectionAs=PTDU_Up
@@ -62,8 +62,8 @@ defaultproperties
          LifetimeRange=(Min=1.500000,Max=1.500000)
          StartVelocityRange=(X=(Min=-100.000000,Max=100.000000),Y=(Min=50.000000,Max=100.000000),Z=(Min=50.000000,Max=100.000000))
      End Object
-     Emitters(1)=SpriteEmitter'ScrnWeaponPack.KFShellEjectAK12AR.SpriteEmitter0'
-     
+     Emitters(1)=SpriteEmitter0
+
     Begin Object Class=SpriteEmitter Name=SpriteEmitter4
          FadeOut=True
          FadeIn=True
@@ -92,5 +92,5 @@ defaultproperties
          StartVelocityRange=(X=(Max=40.000000),Z=(Min=10.000000,Max=30.000000))
          VelocityLossRange=(X=(Max=2.000000))
      End Object
-     Emitters(2)=SpriteEmitter'ScrnWeaponPack.KFShellEjectAK12AR.SpriteEmitter4'
+     Emitters(2)=SpriteEmitter4
 }

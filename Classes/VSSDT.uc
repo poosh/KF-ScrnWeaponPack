@@ -57,7 +57,7 @@ defaultproperties
      SelectSoundRef="ScrnWeaponPack_SND.VSS.VSS_Draw"
      HudImageRef="ScrnWeaponPack_T.VSS.vssDT_Unselected"
      SelectedHudImageRef="ScrnWeaponPack_T.VSS.vssDT_selected"
-     FireModeClass(0)=Class'ScrnWeaponPack.VSSDTFire'
+     FireModeClass(0)=class'VSSDTFire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
      SelectForce="SwitchToAssaultRifle"
@@ -70,10 +70,10 @@ defaultproperties
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
      InventoryGroup=3
      GroupOffset=3
-     PickupClass=Class'ScrnWeaponPack.VSSDTPickup'
+     PickupClass=class'VSSDTPickup'
      PlayerViewOffset=(X=12.000000,Y=12.000000,Z=-3.000000)
      BobDamping=6.000000
-     AttachmentClass=Class'ScrnWeaponPack.VSSDTAttachment'
+     AttachmentClass=class'VSSDTAttachment'
      IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
      ItemName="VSS (Vintorez) SE"
 }

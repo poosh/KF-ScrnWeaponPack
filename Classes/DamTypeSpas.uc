@@ -3,7 +3,7 @@ class DamTypeSpas extends KFProjectileWeaponDamageType
 
 defaultproperties
 {
-     WeaponClass=Class'ScrnWeaponPack.Spas'
+     WeaponClass=class'Spas'
      DeathString="%k killed %o (SPAS-12)."
      FemaleSuicide="%o shot herself in the foot."
      MaleSuicide="%o shot himself in the foot."

@@ -10,10 +10,10 @@ defaultproperties
      maxVerticalRecoilAngle=150
      maxHorizontalRecoilAngle=75
      //ShellEjectClass=Class'ROEffects.KFShellEjectSCAR'
-     ShellEjectClass=class'ScrnWeaponPack.CZ805MShellEject' //changed to m4
+     ShellEjectClass=class'CZ805MShellEject' //changed to m4
      ShellEjectBoneName="Shell_eject"
      bAccuracyBonusForSemiAuto=True
-     DamageType=Class'ScrnWeaponPack.DamTypeCZ805M'
+     DamageType=class'DamTypeCZ805M'
      DamageMax=41
      Momentum=12500.000000
      bPawnRapidFireAnim=True
@@ -22,7 +22,7 @@ defaultproperties
      TweenTime=0.025000
      FireForce="AssaultRifleFire"
      FireRate=0.09000 //0.096000
-     AmmoClass=Class'ScrnWeaponPack.CZ805MAmmo'
+     AmmoClass=class'CZ805MAmmo'
      AmmoPerFire=1
      ShakeRotMag=(X=50.000000,Y=50.000000,Z=300.000000)
      ShakeRotRate=(X=7500.000000,Y=7500.000000,Z=7500.000000)
@@ -31,7 +31,7 @@ defaultproperties
      ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
      ShakeOffsetTime=1.150000
      BotRefireRate=0.990000
-     FlashEmitterClass=Class'ScrnWeaponPack.CZ805MMuzzleFlash'
+     FlashEmitterClass=class'CZ805MMuzzleFlash'
      aimerror=42.000000
      Spread=0.007500
      SpreadStyle=SS_Random
