@@ -215,5 +215,5 @@ defaultproperties
      BobDamping=6.000000
      AttachmentClass=Class'ScrnWeaponPack.HK417Attachment'
      IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
-     ItemName="HK417 SE"
+     ItemName="HK417 AP"
 }

@@ -4,7 +4,6 @@ defaultproperties
 {
      AmmoAmount=30
      InventoryType=Class'ScrnWeaponPack.CZ805MAmmo'
-     PickupMessage="Rounds 5.56mm"
+     PickupMessage="5.56x45mm NATO"
      StaticMesh=StaticMesh'KillingFloorStatics.L85Ammo'
 }
-

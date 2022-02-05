@@ -15,8 +15,8 @@ defaultproperties
      StereoFireSoundRef="ScrnWeaponPack_SND.AK74.akc74_shoot_stereo"
      NoAmmoSoundRef="ScrnWeaponPack_SND.AK74.akc74__empty"
      DamageType=Class'ScrnWeaponPack.DamTypeAK74AssaultRifle'
-     DamageMin=42
-     DamageMax=42
+     DamageMin=38
+     DamageMax=38
      Momentum=9500.000000
      bPawnRapidFireAnim=True
      TransientSoundVolume=1.800000

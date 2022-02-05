@@ -446,7 +446,7 @@ simulated function ActuallyFinishReloading()
 
 defaultproperties
 {
-    OriginalMaxAmmo=300
+    OriginalMaxAmmo=360
     bSharedAmmoPool=True
     ReloadShortAnim="Reload"
     ReloadShortRate=3.0

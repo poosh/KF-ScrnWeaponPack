@@ -35,6 +35,7 @@ defaultproperties
     bIsTier2Weapon=False
     bIsTier3Weapon=True
     DrawScale=1.0
+    OriginalMaxAmmo=360
     FireModeClass(0)=Class'ScrnWeaponPack.AK12Fire'
     FireModeClass(1)=Class'KFMod.NoFire'
     PutDownAnim="PutDown"

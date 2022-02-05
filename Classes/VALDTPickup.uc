@@ -10,7 +10,7 @@ defaultproperties
      SpeedValue=95
      RangeValue=50
      Description="The AS VAL (Avtomat Specialnyj Val or Special Assault Rifle) is a Soviet designed assault rifle featuring an integrated suppressor. It was developed during the late 1980s by TsNIITochMash (Central Institute for Precision Machine Building) and is used by Russian Spetsnaz special forces and select units of the Russian Army. Loaded with a lower-cost version of 9x39mm rounds: PAB-9."
-     ItemName="AS 'VAL' SE"
+     ItemName="AS VAL SE"
      ItemShortName="VAL SE"
      AmmoItemName="9x39mm PAB-9"
      //showMesh=SkeletalMesh'ScrnWeaponPack_T.VAL.ValDT3rd'

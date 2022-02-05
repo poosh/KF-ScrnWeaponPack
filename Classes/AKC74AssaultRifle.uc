@@ -82,16 +82,17 @@ defaultproperties
      ReloadRate=3.000000
      ReloadAnim="Reload"
      ReloadShortAnim="Reload"
-     ReloadShortRate=2.0     
+     ReloadShortRate=2.0
      ReloadAnimRate=1.000000
      WeaponReloadAnim="Reload_AK47"
-     Weight=5.000000
+     Weight=4
      bHasAimingMode=True
      IdleAimAnim="Iron_Idle"
      StandardDisplayFOV=65.000000
      bModeZeroCanDryFire=True
      TraderInfoTexture=Texture'ScrnWeaponPack_T.AK74.ScrnWeaponPack_T.AKC74_Trader'
-     bIsTier2Weapon=True
+     bIsTier2Weapon=false
+     bIsTier3Weapon=false
      MeshRef="ScrnWeaponPack_A.akc74mesh"
      SkinRefs(0)="ScrnWeaponPack_T.AK74.wpn_ak74"
      SkinRefs(1)="KF_Weapons_Trip_T.hands.hands_1stP_military_cmb"
@@ -102,6 +103,7 @@ defaultproperties
      SelectedHudImageRef="ScrnWeaponPack_T.AK74.AKC74_selected"
      PlayerIronSightFOV=65.000000
      ZoomedDisplayFOV=42.000000 //32.000000
+     OriginalMaxAmmo=360
      FireModeClass(0)=Class'ScrnWeaponPack.AKC74Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
@@ -110,7 +112,7 @@ defaultproperties
      AIRating=0.550000
      CurrentRating=0.550000
      bShowChargingBar=True
-     Description="The AK-74 is an assault rifle developed in the early 1970s in the Soviet Union as the replacement for the earlier AKM (itself a refined version of the AK-47). It uses a smaller intermediate cartridge, the 5.45x39mm, replacing the 7.62x39mm chambering of earlier Kalashnikov-pattern weapons. Smaller ammunition lowers damage, but makes weapon lighter."
+     Description="A variant of the AK-74 equipped with a side-folding metal shoulder stock."
      EffectOffset=(X=100.000000,Y=25.000000,Z=-10.000000)
      DisplayFOV=65.000000
      Priority=100
@@ -123,6 +125,6 @@ defaultproperties
      BobDamping=5.000000
      AttachmentClass=Class'ScrnWeaponPack.AKC74Attachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
-     ItemName="AK-74 SE"
+     ItemName="AKS-74 SE"
      TransientSoundVolume=1.250000
 }

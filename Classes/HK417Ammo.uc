@@ -4,11 +4,11 @@ class HK417Ammo extends KFAmmunition;
 
 defaultproperties
 {
-     AmmoPickupAmount=20
-     MaxAmmo=200
-     InitialAmount=80
-     PickupClass=Class'ScrnWeaponPack.HK417AmmoPickup'
-     IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
-     IconCoords=(X1=338,Y1=40,X2=393,Y2=79)
-     ItemName="7.62x51mm NATO AP"
+    ItemName="7.62x51mm NATO AP"
+    MaxAmmo=240
+    InitialAmount=80
+    AmmoPickupAmount=20
+    PickupClass=Class'ScrnWeaponPack.HK417AmmoPickup'
+    IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
+    IconCoords=(X1=338,Y1=40,X2=393,Y2=79)
 }
