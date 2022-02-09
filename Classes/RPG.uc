@@ -685,7 +685,7 @@ simulated event RenderOverlays(Canvas Canvas)
         Canvas.DrawTile(ZoomMat, Canvas.SizeY * 0.7, Canvas.SizeY * 0.7, 0.0, 0.0, 512, 512);
 
         if ( AimTarget != none ) {
-            Canvas.Font =class'ScrnBalanceSrv.ScrnHUD'.static.LoadSmallFontStatic(5);
+            Canvas.Font =class'ScrnHUD'.static.LoadSmallFontStatic(5);
             Canvas.SetDrawColor(200, 64, 0);
             if ( Pawn(AimTarget) != none ) {
                 s = Pawn(AimTarget).GetHumanReadableName();

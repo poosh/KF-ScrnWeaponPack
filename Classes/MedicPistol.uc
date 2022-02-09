@@ -456,8 +456,8 @@ defaultproperties
      SkinRefs(3)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
      SkinRefs(4)="ScrnWeaponPack_T.MedicPistol.Slide_shd"
 
-     LaserAttachmentClass=Class'ScrnBalanceSrv.ScrnLaserAttachmentFirstPerson'
-     LaserDotClass=Class'ScrnBalanceSrv.ScrnLocalLaserDot'
+     LaserAttachmentClass=Class'ScrnLaserAttachmentFirstPerson'
+     LaserDotClass=Class'ScrnLocalLaserDot'
 
      MagCapacity=7
      ReloadRate=2.000000

@@ -11,7 +11,7 @@ static function AwardKill(KFSteamStatsAndAchievements KFStatsAndAchievements, KF
 
     stats = SRStatsBase(KFStatsAndAchievements);
     if( stats !=None && stats.Rep!=None )
-        stats.Rep.ProgressCustomValue(Class'ScrnBalanceSrv.ScrnPistolKillProgress',1);
+        stats.Rep.ProgressCustomValue(Class'ScrnPistolKillProgress',1);
 }
 
 static function ScoredHeadshot(KFSteamStatsAndAchievements KFStatsAndAchievements, class<KFMonster> MonsterClass, bool bLaserSightedM14EBRKill)
@@ -24,7 +24,7 @@ static function ScoredHeadshot(KFSteamStatsAndAchievements KFStatsAndAchievement
             
         stats = SRStatsBase(KFStatsAndAchievements);
         if( stats !=None && stats.Rep!=None )
-            stats.Rep.ProgressCustomValue(Class'ScrnBalanceSrv.ScrnPistolKillProgress',1);
+            stats.Rep.ProgressCustomValue(Class'ScrnPistolKillProgress',1);
     }
 }
 
@@ -34,7 +34,7 @@ static function AwardDamage(KFSteamStatsAndAchievements KFStatsAndAchievements, 
     
     stats = SRStatsBase(KFStatsAndAchievements);
     if( stats !=None && stats.Rep!=None )
-        stats.Rep.ProgressCustomValue(Class'ScrnBalanceSrv.ScrnPistolDamageProgress',Amount);
+        stats.Rep.ProgressCustomValue(Class'ScrnPistolDamageProgress',Amount);
 }
     
 defaultproperties
