@@ -1,5 +1,62 @@
 class AK12AssaultRifle extends AKBaseWeapon;
 
+var byte FireModeEx; // 0 - F/A, 1 - S/A, 2 - 2 bullet fire
+var byte FireModeExCount;
+
+replication
+{
+    reliable if(Role < ROLE_Authority)
+        ServerChangeFireModeEx;
+}
+
+// Toggle burst/auto fire
+simulated function DoToggle ()
+{
+    local PlayerController Player;
+
+    Player = Level.GetLocalPlayerController();
+    if ( Player!=None ) {
+        FireModeEx = 2 - FireModeEx; // toggle between 0 and 2
+        if (FireModeEx >= FireModeExCount) FireModeEx = 0;
+        FireMode[0].bWaitForRelease = FireModeEx == 1;
+        Player.ReceiveLocalizedMessage(class'ScrnFireModeSwitchMessage',FireModeEx);
+    }
+
+    ServerChangeFireModeEx(FireModeEx);
+}
+
+// Set the new fire mode on the server
+function ServerChangeFireModeEx(byte NewFireModeEx)
+{
+    FireModeEx = NewFireModeEx;
+    FireMode[0].bWaitForRelease = NewFireModeEx == 1;
+}
+
+    simulated function bool StartFire(int Mode)
+{
+    if ( FireModeEx <= 1 || Mode != 0 )
+        return super.StartFire(Mode);
+
+    if (FireMode[Mode].IsInState('WaitingForFireButtonRelease'))
+        return false;
+
+    if( !super(KFWeapon).StartFire(Mode) )  // returns false when mag is empty
+       return false;
+
+    if( !FireMode[Mode].IsInState('FireBurst') && AmmoAmount(0) > 0 ) {
+        FireMode[Mode].GotoState('FireBurst');
+        return true;
+    }
+
+    return false;
+}
+
+simulated function StopFire(int Mode)
+{
+    super.StopFire(Mode);
+    if (FireMode[Mode].IsInState('WaitingForFireButtonRelease'))
+        FireMode[Mode].GotoState('');
+}
 
 defaultproperties
 {
@@ -27,6 +84,7 @@ defaultproperties
     WeaponReloadAnim="Reload_AK47"
     SelectAnimRate=1.30
     Weight=6
+    FireModeExCount=3
     bHasAimingMode=True
     IdleAimAnim="Idle_Iron"
     bModeZeroCanDryFire=True
