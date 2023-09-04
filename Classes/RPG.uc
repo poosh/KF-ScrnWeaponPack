@@ -1,11 +1,10 @@
-class RPG extends LAW;
+class RPG extends ScrnLAW;
 //Scrn RPG has a more powerful warhead with enhanced ballistic behaviour, a scope is attached by default and altfire toggles attaching and detaching the scope.
 
 //altfire plays an anim and changes the bScopeAttached bool value, a notify in the anim performs the changeover when the launcher is offscreen
 //this bool is also read in BringUp
 
 var bool bScopeAttached;
-var     float       RaiseAnimRate; //multiplier for Raise anim rate
 var vector ZoomedViewOffset; //for handling different zoom positions depending on scope attach status
 var byte ZoomedFOVWithScope;
 var rotator SightFlipRotation;
@@ -40,7 +39,6 @@ var string CrosshairTexRef;
 var texture IllumTex;
 var string IllumTexRef;
 
-var const bool bDebugMode;  // flag for whether debug commands can be run
 var float ScopeOffsetY;
 
 var transient Actor AimTarget;
@@ -184,32 +182,6 @@ simulated function ApplyScopeStatus()
         }
     }
     UpdateScopeMode();
-}
-
-exec function pfov(int thisFOV)
-{
-    if( !bDebugMode )
-        return;
-
-    scopePortalFOV = thisFOV;
-    scopePortalFOVHigh = thisFOV;
-}
-
-exec function zfov(int thisFOV)
-{
-    if( !bDebugMode )
-        return;
-
-    default.ZoomedDisplayFOV = thisFOV;
-    default.ZoomedDisplayFOVHigh = thisFOV;
-}
-
-simulated exec function TexSize(int i, int j)
-{
-    if( !bDebugMode )
-        return;
-
-    ScopeScriptedTexture.SetSize(i, j);
 }
 
 simulated function bool ShouldDrawPortal()
@@ -360,8 +332,6 @@ simulated event RenderTexture(ScriptedTexture Tex)
         Tex.DrawPortal(0,0,Tex.USize,Tex.VSize,Owner,(Instigator.Location + Instigator.EyePosition()), RollMod,  scopePortalFOV );
 }
 
-
-
 simulated function SetZoomBlendColor(Canvas c)
 {
     local Byte    val;
@@ -400,39 +370,31 @@ simulated function SetZoomBlendColor(Canvas c)
  */
 simulated function ZoomIn(bool bAnimateTransition)
 {
-    if( Level.TimeSeconds < FireMode[0].NextFireTime )
-    {
-        return;
-    }
-    super(BaseKFWeapon).ZoomIn(bAnimateTransition);
+    local KFPlayerController KFPC;
 
+    if( Level.TimeSeconds < FireMode[0].NextFireTime )
+        return;
+
+    super(BaseKFWeapon).ZoomIn(bAnimateTransition);
     bAimingRifle = True;
 
     if( KFHumanPawn(Instigator)!=None )
         KFHumanPawn(Instigator).SetAiming(True);
 
-    if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
-    {
-        if( AimInSound != none )
-        {
-            PlayOwnedSound(AimInSound, SLOT_Interact,,,,, false);
-        }
-    }
-    if( bAnimateTransition )
-    {
-        if( bZoomOutInterrupted )
-        {
-            PlayAnim('Raise',RaiseAnimRate,0.1);
-        }
-        else
-        {
-            PlayAnim('Raise',RaiseAnimRate,0.1);
+    if (Level.NetMode != NM_DedicatedServer) {
+        KFPC = KFPlayerController(Instigator.Controller);
+        if (KFPC != none) {
+            if( AimInSound != none ) {
+                PlayOwnedSound(AimInSound, SLOT_Interact,,,,, false);
+            }
+            if (!bScopeAttached) {
+                KFPC.TransitionFOV(PlayerIronSightFOV + (KFPC.DefaultFOV-PlayerIronSightFOV)*0.5, ZoomTime);
+            }
         }
     }
 
-    if (!bScopeAttached)
-    {
-        KFPlayerController(Instigator.Controller).TransitionFOV(PlayerIronSightFOV+(KFPlayerController(Instigator.Controller).DefaultFOV-PlayerIronSightFOV)*0.5,ZoomTime); //modified because reasons
+    if( bAnimateTransition ) {
+        PlayAnim(ZoomAnimName, ZoomAnimRate, 0.1);
     }
 }
 
@@ -444,32 +406,32 @@ simulated function ZoomIn(bool bAnimateTransition)
  */
 simulated function ZoomOut(bool bAnimateTransition)
 {
+    local KFPlayerController KFPC;
+
     super(BaseKFWeapon).ZoomOut(bAnimateTransition);
-    bAimingRifle = False;
+    bZoomingIn = false;
+    bAimingRifle = false;
 
     if( KFHumanPawn(Instigator)!=None )
         KFHumanPawn(Instigator).SetAiming(False);
 
-    if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Instigator.Controller) != none )
-    {
-        if( AimOutSound != none )
-        {
-            PlayOwnedSound(AimOutSound, SLOT_Misc,,,,, false);
+    if (Level.NetMode != NM_DedicatedServer && Instigator != none) {
+        KFPC = KFPlayerController(Instigator.Controller);
+        if (KFPC != none) {
+            if (AimOutSound != none) {
+                PlayOwnedSound(AimOutSound, SLOT_Misc,,,,, false);
+            }
+        }
+
+        if (bScopeAttached && KFScopeDetail == KF_TextureScope) {
+            KFPC.TransitionFOV(KFPC.DefaultFOV, 0.0);
+        }
+        else {
+            KFPC.TransitionFOV(KFPC.DefaultFOV, ZoomTime);
         }
     }
 
-    //KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
-    if ( bScopeAttached && KFScopeDetail == KF_TextureScope )
-    {
-        KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,0.0);
-    }
-    else
-    {
-        KFPlayerController(Instigator.Controller).TransitionFOV(KFPlayerController(Instigator.Controller).DefaultFOV,ZoomTime);
-    }
-
-    if( Level.TimeSeconds > FireMode[0].NextFireTime )
-    {
+    if (bAnimateTransition) {
         TweenAnim(IdleAnim,FastZoomOutTime);
     }
 }
@@ -858,6 +820,26 @@ simulated function Notify_ShowRocket()
     ShowRocket();
 }
 
+
+// DEBUG STUFF. COMMENT BEFORE RELEASE!
+// exec function pfov(int thisFOV)
+// {
+//     scopePortalFOV = thisFOV;
+//     scopePortalFOVHigh = thisFOV;
+// }
+
+// exec function zfov(int thisFOV)
+// {
+//     default.ZoomedDisplayFOV = thisFOV;
+//     default.ZoomedDisplayFOVHigh = thisFOV;
+// }
+
+// exec function TexSize(int i, int j)
+// {
+//     ScopeScriptedTexture.SetSize(i, j);
+// }
+
+
 defaultproperties
 {
      SleeveNum=0
@@ -911,14 +893,13 @@ defaultproperties
      StandardDisplayFOV=65
      //ZoomedDisplayFOV=50
      //PlayerIronSightFOV=65 //give some zoom when aiming
-     RaiseAnimRate=2.7 //2,7
-     //ZoomTime=0.25
+     ZoomAnimRate=3.0
+     ZoomTime=0.3
      Description="RPG-7 Rocket Launcher. Very high damage, but narrow blast radius and rockets drop over distance. Use Altfire to toggle scope."
      PickupClass=class'RPGPickup'
      ItemName="RPG-7 SE"
      SightFlipRotation=(Pitch=-160,Yaw=0,Roll=0)
 
-     bDebugMode = true;
      ScopeOffsetY = 0.047
      AimTargetCounter=50 // remember target for 5 seconds
 }

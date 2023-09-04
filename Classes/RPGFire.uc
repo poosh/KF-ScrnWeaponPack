@@ -1,6 +1,6 @@
-class RPGFire extends LAWFire;
+class RPGFire extends ScrnLAWFire;
 
-var     bool        bFiringLastRound;
+var bool bFiringLastRound;
 var name FireLastAnim;
 
 function DoFireEffect()
@@ -18,7 +18,7 @@ function DoFireEffect()
     if ( !Weapon.WeaponCentered() && !KFWeap.bAimingRifle )
         StartProj = StartProj + Weapon.Hand * Y*ProjSpawnOffset.Y + Z*ProjSpawnOffset.Z;
     Other = Weapon.Trace(HitLocation, HitNormal, StartProj, StartTrace, false);
-    
+
     if (Other != None)
     {
         StartProj = HitLocation;
@@ -27,7 +27,7 @@ function DoFireEffect()
     Aim = AdjustAim(StartProj, AimError);
 
     Aim.Pitch += 250;
-    
+
     SpawnCount = Max(1, ProjPerFire * int(Load));
 
     switch (SpreadStyle)
@@ -66,33 +66,29 @@ function ModeDoFire()
 
 function ServerPlayFiring()
 {
-    Super(KFShotgunFire).ServerPlayFiring();
-    if (bFiringLastRound)
-    {
+    Super.ServerPlayFiring();
+    if (bFiringLastRound) {
         Weapon.PlayAnim(FireLastAnim, FireAnimRate, TweenTime);
-    } 
+    }
 }
 
 function PlayFiring()
 {
-    Super(KFShotgunFire).PlayFiring();
-    if (bFiringLastRound)
-    {
+    Super.PlayFiring();
+    if (bFiringLastRound) {
         Weapon.PlayAnim(FireLastAnim, FireAnimRate, TweenTime);
-    }     
-    if ( RPG(Weapon) != none)
-    {
+    }
+    if (RPG(Weapon) != none) {
         RPG(Weapon).HideRocket();
     }
 }
-
 
 
 defaultproperties
 {
     AmmoClass=class'RPGAmmo'
     ProjectileClass=class'RPGProj'
-     
+
     KickMomentum=(X=-45.000000,Z=25.000000)
     ProjSpawnOffset=(X=50.000000,Z=0) //doesn't seem to do anything, since it should be 0 when fired while aimed
     TransientSoundVolume=1.8

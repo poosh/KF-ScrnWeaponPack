@@ -31,22 +31,13 @@ simulated function PostBeginPlay()
 simulated function ZoomIn(bool bAnimateTransition)
 {
     if( Level.TimeSeconds < FireMode[0].NextFireTime )
-    {
         return;
-    }
 
-    super.ZoomIn(bAnimateTransition);
+    super(KFWeapon).ZoomIn(bAnimateTransition);
 
-    if( bAnimateTransition )
-    {
-        if( bZoomOutInterrupted )
-        {
-            TweenAnim(IdleAimAnim,ZoomTime/2);
-        }
-        else
-        {
-            TweenAnim(IdleAimAnim,ZoomTime/2);
-        }
+    if (bAnimateTransition) {
+        PlayAnim('Raise', 1.0, 0.1);
+        TweenAnim(IdleAimAnim, ZoomTime/2);
     }
 }
 
@@ -82,7 +73,7 @@ simulated function bool StartFire(int Mode)
 //adds a force idle time
 simulated function WeaponTick(float dt)
 {
-    Super.WeaponTick(dt);
+    Super(KFWeapon).WeaponTick(dt);
     if( ForceIdleTime > 0 )
     {
         if( Level.TimeSeconds - ForceIdleTime > 0 )
