@@ -204,7 +204,7 @@ defaultproperties
      SelectForce="SwitchToAssaultRifle"
      AIRating=0.650000
      CurrentRating=0.650000
-     Description="The Heckler&Koch HK417 is a designated marksman rifle. Uses 7.62x51mm NATO Armor-Piercing rounds."
+     Description="The semi-automatic modification of Heckler & Koch HK417 marksman rifle. Uses 7.62x51mm NATO Armor-Piercing rounds."
      Priority=100
      CustomCrosshair=11
      CustomCrossHairTextureName="Crosshairs.HUD.Crosshair_Cross5"
