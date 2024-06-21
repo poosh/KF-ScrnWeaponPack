@@ -494,7 +494,7 @@ defaultproperties
      SelectedHudImageRef="ScrnWeaponPack_T.cz805.SelectCZ805"
 
      MaxHealAmmo=625
-     AmmoRegenRate=0.300000
+     AmmoRegenRate=0.25
 
      ReloadShortAnim="Reload"
      ReloadShortRate=1.83 //2.11

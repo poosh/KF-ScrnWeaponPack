@@ -13,6 +13,12 @@ function PostBeginPlay()
     ScrnWeap = MedicPistol(Weapon);
 }
 
+simulated function DestroyEffects()
+{
+    super.DestroyEffects();
+    ScrnWeap = none;
+}
+
 simulated event ModeDoFire()
 {
     if ( ScrnWeap.bFiringLastRound ) {

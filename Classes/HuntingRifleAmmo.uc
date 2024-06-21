@@ -8,7 +8,7 @@ class HuntingRifleAmmo extends KFAmmunition;
 defaultproperties
 {
      AmmoPickupAmount=10
-     MaxAmmo=50
+     MaxAmmo=70
      InitialAmount=25
      PickupClass=class'HuntingRifleAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

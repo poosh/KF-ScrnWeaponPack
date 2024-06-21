@@ -3,7 +3,7 @@ class SVDAmmo extends KFAmmunition;
 defaultproperties
 {
     AmmoPickupAmount=10
-    MaxAmmo=90
+    MaxAmmo=100
     InitialAmount=30
     PickupClass=class'SVDAmmoPickup'
     IconMaterial=Texture'KillingFloorHUD.Generic.HUD'

@@ -199,8 +199,9 @@ defaultproperties
      FireModeClass(0)=class'HK417Fire'
      FireModeClass(1)=Class'KFMod.NoFire'
      PutDownAnim="PutDown"
-     SelectAnimRate=1.000000
-     BringUpTime=1.000000
+     PutDownAnimRate=2.0
+     SelectAnimRate=2.0
+     // BringUpTime=0.33
      SelectForce="SwitchToAssaultRifle"
      AIRating=0.650000
      CurrentRating=0.650000

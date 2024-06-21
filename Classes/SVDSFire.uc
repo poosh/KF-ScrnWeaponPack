@@ -121,7 +121,8 @@ defaultproperties
      bModeExclusive=False
      FireLoopAnim="Fire"
      FireForce="ShockRifleFire"
-     FireRate=0.750000
+     FireRate=0.50
+     FireAnimRate=1.0
      AmmoClass=class'SVDSAmmo'
      ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
      ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)

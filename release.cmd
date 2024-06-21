@@ -58,6 +58,13 @@ echo.
 echo Updating the bundle...
 xcopy /F /I /Y %RELEASEDIR%\System\*                %BUNDLEDIR%\System\
 
+echo.
+echo Compressing uz2...
+mkdir %RELEASEDIR%\uz2 2>nul
+call :MakeUz2 System\%KFPACKAGE%.u
+echo %RELEASEDIR%\uz2:
+dir /B %RELEASEDIR%\uz2
+
 echo Release is ready!
 
 goto :end
@@ -68,3 +75,8 @@ color 0C
 :end
 endlocal & SET _EC=%ERR%
 exit /b %_EC%
+
+:MakeUz2
+%KFDIR%\System\ucc compress %RELEASEDIR%\%1 && move /y %RELEASEDIR%\%1.uz2 %RELEASEDIR%\uz2\ >nul
+set %~1=%~n2
+exit /b 0
