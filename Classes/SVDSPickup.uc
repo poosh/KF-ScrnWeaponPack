@@ -12,7 +12,7 @@ defaultproperties
      PowerValue=80
      SpeedValue=40
      RangeValue=100
-     Description="The Dragunov sniper rifle with folding stock (formally Russian: Snayperskaya Vintovka Dragunova Skladnaya, SVDS) is a compact variant of the SVD, which was developed in the early 1990s. Uses Horzine's 5-round 7.62x54mmR magazines to reduce weight."
+     Description="The Dragunov sniper rifle with folding stock (formally Russian: Snayperskaya Vintovka Dragunova Skladnaya, SVDS) is a compact variant of the SVD, which was developed in the early 1990s. Uses Horzine's 5-round 7.62x54mmR magazines to reduce weight and improve fire rate."
      ItemName="SVDS SE"
      ItemShortName="SVDS SE"
      AmmoItemName="7.62x54mmR"
