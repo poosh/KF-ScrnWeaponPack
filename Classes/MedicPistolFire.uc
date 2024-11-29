@@ -175,28 +175,17 @@ function DoTrace(Vector Start, Rotator Dir)
 function HealPawn(KFPawn Healed)
 {
     local KFPlayerReplicationInfo PRI;
-    local SRStatsBase Stats;
-    local int MedicReward;
     local float HealPotency, HealSum;
 
     if ( Healed.Health <= 0 )
         return;
 
-    //if( Instigator != none && Healed.Health > 0 && Healed.Health <  Healed.HealthMax ) {
-    PRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-    if ( PRI != none )
-        Stats = SRStatsBase(PRI.SteamStatsAndAchievements);
     HealPotency = 1.0;
 
+    PRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
     if ( PRI != none && PRI.ClientVeteranSkill != none )
         HealPotency = PRI.ClientVeteranSkill.Static.GetHealPotency(PRI);
-
-    MedicReward = HealAmount * HealPotency;
-    HealSum = MedicReward;
-
-    if ( (Healed.Health + Healed.healthToGive + MedicReward) > Healed.HealthMax ) {
-        MedicReward = max(0, Healed.HealthMax - (Healed.Health + Healed.healthToGive));
-    }
+    HealSum = HealAmount * HealPotency;
 
     if ( Healed.Controller != none )
         Healed.Controller.ShakeView(ShakeRotMag, ShakeRotRate, ShakeRotTime, ShakeOffsetMag, ShakeOffsetRate, ShakeOffsetTime);
@@ -208,30 +197,11 @@ function HealPawn(KFPawn Healed)
 
     // instantly raise player health
     Healed.Health += int(HealBoost * HealPotency);
-    if ( Healed.Health > 250 && Stats != none )
-        class'ScrnAchievements'.static.ProgressAchievementByID(Stats.Rep, 'MedicPistol_250', 1);
-
-    if ( PRI != None && Stats != none ) {
-        Stats.AddDamageHealed(MedicReward + int(HealBoost * HealPotency), false, false);
-
-        // Give the medic reward money as a percentage of how much of the person's health they healed
-        MedicReward *= 0.6;
-
-        if ( class'ScrnBalance'.default.Mut.bMedicRewardFromTeam && Healed.PlayerReplicationInfo != none && Healed.PlayerReplicationInfo.Team != none ) {
-            // give money from team budget
-            if ( Healed.PlayerReplicationInfo.Team.Score >= MedicReward ) {
-                Healed.PlayerReplicationInfo.Team.Score -= MedicReward;
-                PRI.Score += MedicReward;
-            }
-        }
-        else
-            PRI.Score += MedicReward;
-
-        if ( KFHumanPawn(Instigator) != none )
-            KFHumanPawn(Instigator).AlphaAmount = 255;
-
-        MedicPistol(Instigator.Weapon).ClientSuccessfulHeal(Healed.PlayerReplicationInfo);
+    if (Healed.Health > 250) {
+        class'ScrnAchCtrl'.static.Ach2Pawn(Instigator, 'MedicPistol_250', 1);
     }
+
+    MedicPistol(Instigator.Weapon).ClientSuccessfulHeal(Healed.PlayerReplicationInfo);
 }
 
 

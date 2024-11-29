@@ -447,52 +447,57 @@ simulated function HitHealTarget(vector HitLocation, rotator HitRotation)
 defaultproperties
 {
     HealSoundRef="KF_MP7Snd.MP7_DartImpact"
-     HudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected"
-     SelectedHudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_Selected"
-     SelectSoundRef="KF_9MMSnd.9mm_Select"
-     MeshRef="ScrnWeaponPack_A.MedicPistol_1st"
-     SkinRefs(1)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
-     SkinRefs(2)="ScrnWeaponPack_T.MedicPistol.Frame_cmb"
-     SkinRefs(3)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
-     SkinRefs(4)="ScrnWeaponPack_T.MedicPistol.Slide_shd"
+    HudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected"
+    SelectedHudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_Selected"
+    SelectSoundRef="KF_9MMSnd.9mm_Select"
+    MeshRef="ScrnWeaponPack_A.MedicPistol_1st"
+    SkinRefs(1)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
+    SkinRefs(2)="ScrnWeaponPack_T.MedicPistol.Frame_cmb"
+    SkinRefs(3)="ScrnWeaponPack_T.MedicPistol.Slide_cmb"
+    SkinRefs(4)="ScrnWeaponPack_T.MedicPistol.Slide_shd"
 
-     LaserAttachmentClass=Class'ScrnLaserAttachmentFirstPerson'
-     LaserDotClass=Class'ScrnLocalLaserDot'
+    LaserAttachmentClass=Class'ScrnLaserAttachmentFirstPerson'
+    LaserDotClass=Class'ScrnLocalLaserDot'
 
-     MagCapacity=7
-     ReloadRate=2.000000
-     ReloadShortRate=1.5
-     ReloadAnim="Reload"
-     ReloadShortAnim="ReloadChambered"
-     ReloadAnimRate=1.000000
-     FlashBoneName="LightBone"
-     WeaponReloadAnim="Reload_Single9mm"
-     ModeSwitchAnim="LightOn"
-     Weight=2.000000
-     bTorchEnabled=True
-     bHasAimingMode=True
-     IdleAimAnim="Idle_Iron"
-     StandardDisplayFOV=70.000000
-     bModeZeroCanDryFire=True
-     SleeveNum=0
-     ZoomedDisplayFOV=65.000000
-     TraderInfoTexture=Texture'ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected'
-     FireModeClass(0)=class'MedicPistolFire'
-     FireModeClass(1)=class'MedicPistolLightFire'
-     PutDownAnim="PutDown"
-     AIRating=0.250000
-     CurrentRating=0.250000
-     bShowChargingBar=True
-     Description="Primary fire shoots healing darts. Darts heal zeds too, but it doesn't help them much, if titanium needle breaks their skulls first. Shooting multiple dart into the same zed may cause overdose. Alternate fire switch between laser and flashlight."
-     DisplayFOV=70.000000
-     Priority=60
-     InventoryGroup=2
-     GroupOffset=1
-     PickupClass=class'MedicPistolPickup'
-     PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
-     BobDamping=6.000000
-     AttachmentClass=class'MedicPistolAttachment'
-     IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
-     ItemName="KF2 Medic Pistol SE"
-     bNetNotify=True
+    MagCapacity=7
+    ReloadRate=2.000000
+    ReloadShortRate=1.5
+    ReloadAnim="Reload"
+    ReloadShortAnim="ReloadChambered"
+    ReloadAnimRate=1.000000
+    FlashBoneName="LightBone"
+    WeaponReloadAnim="Reload_Single9mm"
+    ModeSwitchAnim="LightOn"
+    Weight=2.000000
+    bTorchEnabled=True
+    bHasAimingMode=True
+    IdleAimAnim="Idle_Iron"
+    StandardDisplayFOV=70.000000
+    bModeZeroCanDryFire=True
+    SleeveNum=0
+    ZoomedDisplayFOV=65.000000
+    TraderInfoTexture=Texture'ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected'
+    FireModeClass(0)=class'MedicPistolFire'
+    FireModeClass(1)=class'MedicPistolLightFire'
+    PutDownAnim="PutDown"
+    AIRating=0.250000
+    CurrentRating=0.250000
+    bShowChargingBar=True
+    Description="Primary fire shoots healing darts. Darts heal zeds too, but it doesn't help them much, if titanium needle breaks their skulls first. Shooting multiple dart into the same zed may cause overdose. Alternate fire switch between laser and flashlight."
+    DisplayFOV=70.000000
+    Priority=60
+    InventoryGroup=2
+    GroupOffset=1
+    PickupClass=class'MedicPistolPickup'
+    PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
+    BobDamping=6.000000
+    AttachmentClass=class'MedicPistolAttachment'
+    IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
+    ItemName="KF2 Medic Pistol SE"
+    bNetNotify=True
+
+    PutDownAnimRate=2.4444
+    SelectAnimRate=3.3333
+    BringUpTime=0.15
+    PutDownTime=0.15
 }

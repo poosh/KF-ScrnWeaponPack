@@ -433,45 +433,50 @@ simulated function ShowAllBullets()
 
 defaultproperties
 {
-     MeshRef="ScrnWeaponPack_A.colt_weapon"
-     SkinRefs(1)="ScrnWeaponPack_T.Colt.ColtV2_T"
-     HudImageRef="ScrnWeaponPack_T.Colt.WColt_Unselected"
-     SelectedHudImageRef="ScrnWeaponPack_T.Colt.WColt"
+    MeshRef="ScrnWeaponPack_A.colt_weapon"
+    SkinRefs(1)="ScrnWeaponPack_T.Colt.ColtV2_T"
+    HudImageRef="ScrnWeaponPack_T.Colt.WColt_Unselected"
+    SelectedHudImageRef="ScrnWeaponPack_T.Colt.WColt"
 
 
-     FirstPersonFlashlightOffset=(X=-20.000000,Y=-22.000000,Z=8.000000)
-     MagCapacity=6
-     ReloadRate=5.5 //6.1
-     ReloadAnim="Reload"
-     bHoldToReload=True
-     BulletLoadRate=0.475 // 0.525
-     BulletUnloadRate=1.0 // 1.4
-     ReloadAnimRate=1.200000
-     WeaponReloadAnim="Reload_Revolver"
-     Weight=5 // 3
-     bHasAimingMode=True
-     IdleAimAnim="IronIdle"
-     StandardDisplayFOV=70.000000
-     bModeZeroCanDryFire=True
-     SleeveNum=0
-     TraderInfoTexture=Texture'ScrnWeaponPack_T.Colt.Trader_WColt'
-     ZoomedDisplayFOV=65.000000
-     FireModeClass(0)=class'ColtFire'
-     FireModeClass(1)=Class'KFMod.NoFire'
-     PutDownAnim="PutDown"
-     SelectSound=Sound'KF_9MMSnd.9mm_Select'
-     AIRating=0.250000
-     CurrentRating=0.250000
-     bShowChargingBar=True
-     Description="The Colt Python is a double action handgun chambered for the .357 Magnum cartridge, built on Colt's large I-frame. Pythons have a reputation for accuracy, smooth trigger pull, and a tight cylinder lock-up."
-     DisplayFOV=70.000000
-     Priority=110 // 5
-     InventoryGroup=2
-     GroupOffset=1
-     PickupClass=class'ColtPickup'
-     PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
-     BobDamping=6.000000
-     AttachmentClass=class'ColtAttachment'
-     IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
-     ItemName="Colt Python SE"
+    FirstPersonFlashlightOffset=(X=-20.000000,Y=-22.000000,Z=8.000000)
+    MagCapacity=6
+    ReloadRate=5.5 //6.1
+    ReloadAnim="Reload"
+    bHoldToReload=True
+    BulletLoadRate=0.475 // 0.525
+    BulletUnloadRate=1.0 // 1.4
+    ReloadAnimRate=1.200000
+    WeaponReloadAnim="Reload_Revolver"
+    Weight=5 // 3
+    bHasAimingMode=True
+    IdleAimAnim="IronIdle"
+    StandardDisplayFOV=70.000000
+    bModeZeroCanDryFire=True
+    SleeveNum=0
+    TraderInfoTexture=Texture'ScrnWeaponPack_T.Colt.Trader_WColt'
+    ZoomedDisplayFOV=65.000000
+    FireModeClass(0)=class'ColtFire'
+    FireModeClass(1)=Class'KFMod.NoFire'
+    PutDownAnim="PutDown"
+    SelectSound=Sound'KF_9MMSnd.9mm_Select'
+    AIRating=0.250000
+    CurrentRating=0.250000
+    bShowChargingBar=True
+    Description="Horzine modified Colt Python to .50 xAE expansive Action-Express (xAE) rounds. Horzine xAE rounds combine the best of two worlds (AP+HP): they penetrate armor and weak targets but expand inside strong targets, dealing massive damage."
+    DisplayFOV=70.000000
+    Priority=110 // 5
+    InventoryGroup=2
+    GroupOffset=1
+    PickupClass=class'ColtPickup'
+    PlayerViewOffset=(X=20.000000,Y=25.000000,Z=-10.000000)
+    BobDamping=6.000000
+    AttachmentClass=class'ColtAttachment'
+    IconCoords=(X1=434,Y1=253,X2=506,Y2=292)
+    ItemName="Colt .50 xAE"
+
+    PutDownAnimRate=3.7778
+    SelectAnimRate=3.7778
+    BringUpTime=0.15
+    PutDownTime=0.15
 }

@@ -2,9 +2,9 @@ class ColtAmmoPickup extends KFAmmoPickup;
 
 defaultproperties
 {
-     AmmoAmount=6
+     AmmoAmount=12
      InventoryType=class'ColtAmmo'
      RespawnTime=0.000000
-     PickupMessage=".357 Ammo"
+     PickupMessage=".50 xAP"
      StaticMesh=StaticMesh'KillingFloorStatics.DualiesAmmo'
 }
