@@ -3,7 +3,7 @@ class SWPMut extends ScrnAchMutator;
 
 defaultproperties
 {
-    VersionNumber=97020
+    VersionNumber=97100
     AchClass=class'SWPAch'
     AchHandler=class'SWPAchHandler'
 
