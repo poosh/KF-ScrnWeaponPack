@@ -13,5 +13,5 @@ defaultproperties
      PickupClass=class'HuntingRifleAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
      IconCoords=(X1=338,Y1=40,X2=393,Y2=79)
-     ItemName="Rifle bullets"
+     ItemName=".308 AP"
 }

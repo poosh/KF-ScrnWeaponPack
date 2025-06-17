@@ -7,6 +7,6 @@ defaultproperties
 {
      AmmoAmount=10
      InventoryType=class'HuntingRifleAmmo'
-     PickupMessage=".308 rounds"
+     PickupMessage=".308 AP"
      StaticMesh=None
 }

@@ -40,7 +40,7 @@ defaultproperties
     SelectForce="SwitchToAssaultRifle"
     AIRating=0.650000
     CurrentRating=0.650000
-    Description="A recreational hunting weapon, featuring a firing trigger and a powerful integrated scope. "
+    Description="A recreational hunting weapon, featuring a firing trigger and a powerful integrated scope. Chambered with Armor-Piercing rounds."
     DisplayFOV=65.000000
     Priority=10
     CustomCrosshair=11
@@ -52,5 +52,5 @@ defaultproperties
     BobDamping=6.000000
     AttachmentClass=class'HuntingRifleAttachment'
     IconCoords=(X1=253,Y1=146,X2=333,Y2=181)
-    ItemName="Hunting Rifle SE"
+    ItemName="Hunting Rifle AP"
 }
