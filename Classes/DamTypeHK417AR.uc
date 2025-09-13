@@ -4,7 +4,7 @@ class DamTypeHK417AR extends ScrnDamTypeCommando;
 defaultproperties
 {
      bSniperWeapon=False
-     HeadShotDamageMult=1.75
+     HeadShotDamageMult=2.0
      WeaponClass=class'HK417AR'
      DeathString="%k killed %o (HK-417)."
      bRagdollBullet=True

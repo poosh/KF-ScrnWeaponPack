@@ -201,7 +201,8 @@ function HealPawn(KFPawn Healed)
         class'ScrnAchCtrl'.static.Ach2Pawn(Instigator, 'MedicPistol_250', 1);
     }
 
-    MedicPistol(Instigator.Weapon).ClientSuccessfulHeal(Healed.PlayerReplicationInfo);
+    // Replaced by ScrnHealMessage
+    // MedicPistol(Instigator.Weapon).ClientSuccessfulHeal(Healed.PlayerReplicationInfo);
 }
 
 

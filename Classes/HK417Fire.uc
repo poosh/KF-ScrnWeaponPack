@@ -175,8 +175,8 @@ defaultproperties
      ShellEjectClass=Class'ROEffects.KFShellEjectAK'
      ShellEjectBoneName="Shell_eject"
      DamageType=class'DamTypeHK417AR'
-     DamageMin=80
-     DamageMax=80
+     DamageMin=75
+     DamageMax=75
      PenDmgReduction=0.65
      MaxPenetrations=4
      Momentum=20000.000000

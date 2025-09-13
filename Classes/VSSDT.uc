@@ -4,10 +4,7 @@ class VSSDT extends ScopedWeapon;
 // Use alt fire to switch fire modes
 simulated function AltFire(float F)
 {
-    if(ReadyToFire(0))
-    {
-        DoToggle();
-    }
+    DoToggle();
 }
 
 exec function SwitchModes()
