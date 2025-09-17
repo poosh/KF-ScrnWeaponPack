@@ -5,6 +5,8 @@ Class HopMineProj extends Projectile;
 #exec OBJ LOAD FILE=ScrnWeaponPack_SND.uax
 #exec OBJ LOAD FILE=ScrnWeaponPack_A.ukx
 
+var class<ScrnExplosiveFunc> Func;
+
 var PanzerfaustTrail SmokeTrail;
 var vector RepAttachPos,RepAttachDir,RepLaunchPos;
 var HopMineLight DotLight;
@@ -20,6 +22,7 @@ var float MinSpread; // min distance between placed mines. If placed closer, the
 
 var     int     PlacedTeam;     // TeamIndex of the team that placed this projectile
 
+var float LaunchSpeed;
 
 replication
 {
@@ -138,6 +141,8 @@ simulated function Disintegrate(vector HitLocation, vector HitNormal)
     }
 }
 
+function ProcessTouch(Actor Other, Vector HitLocation);
+
 simulated function Explode(vector HitLocation, vector HitNormal)
 {
     BlowUp(HitLocation);
@@ -163,43 +168,7 @@ simulated function BlowUp(vector HitLocation)
 
 simulated function HurtRadius( float DamageAmount, float DamageRadius, class<DamageType> DamageType, float Momentum, vector HitLocation )
 {
-    local actor Victims;
-    local float damageScale, dist;
-    local vector dir;
-
-    if ( bHurtEntry )
-        return;
-
-    bHurtEntry = true;
-    foreach VisibleCollidingActors( class 'Actor', Victims, DamageRadius, HitLocation )
-    {
-        // don't let blast damage affect fluid - VisibleCollisingActors doesn't really work for them - jag
-        if( (Victims != self) && (Hurtwall != Victims) && (Victims.Role == ROLE_Authority)
-                && !Victims.IsA('FluidSurfaceInfo') && ExtendedZCollision(Victims)==None )
-        {
-            if( Pawn(Victims)!=None && Monster(Victims)==None && Pawn(Victims).Controller!=InstigatorController )
-                continue;
-            dir = Victims.Location - HitLocation;
-            dist = FMax(1,VSize(dir));
-            dir = dir/dist;
-            damageScale = 1 - FMax(0,(dist - Victims.CollisionRadius)/DamageRadius);
-            if ( Instigator == None || Instigator.Controller == None )
-                Victims.SetDelayedDamageInstigatorController( InstigatorController );
-            if( Monster(Victims)==None )
-                damageScale*=0.30; // Make it a lot less lethal to player self inflicted damage.
-            Victims.TakeDamage
-            (
-                damageScale * DamageAmount,
-                Instigator,
-                Victims.Location - 0.5 * (Victims.CollisionHeight + Victims.CollisionRadius) * dir,
-                (damageScale * Momentum * dir),
-                DamageType
-            );
-            if (Vehicle(Victims) != None && Vehicle(Victims).Health > 0)
-                Vehicle(Victims).DriverRadiusDamage(DamageAmount, DamageRadius, InstigatorController, DamageType, Momentum, HitLocation);
-        }
-    }
-    bHurtEntry = false;
+    Func.static.HurtRadius(self, DamageAmount, DamageRadius, DamageType, Momentum, HitLocation, true);
 }
 
 function TakeDamage( int Damage, Pawn InstigatedBy, Vector Hitlocation, Vector Momentum, class<DamageType> damageType, optional int HitIndex)
@@ -316,54 +285,55 @@ state OnWall
 
     function Timer()
     {
-        local Controller C;
         local vector X,Y,Z;
         local float DotP;
         local int ThreatLevel;
         local bool bA,bB;
+        local Pawn P;
 
         GetAxes(Rotation,X,Y,Z);
-        for( C=Level.ControllerList; C!=None; C=C.nextController )
-            if( C.Pawn!=None && C.Pawn.Health>0 && VSizeSquared(C.Pawn.Location-Location)<1000000.f )
-            {
-                X = C.Pawn.Location-Location;
-                DotP = (X Dot Z);
-                if( DotP<0 )
-                    continue;
-                DotP = VSizeSquared(X - (Z * DotP));
-                if( DotP>90000.f || !FastTrace(C.Pawn.Location,Location) )
-                    continue;
-                if( Monster(C.Pawn)!=None )
-                {
-                    bB = true;
-                    if( DotP<35500.f )
-                    {
-                        Y = C.Pawn.Location;
-                        ThreatLevel+=C.Pawn.HealthMax;
-                    }
+
+        foreach CollidingActors(class'Pawn', P, 1000) {
+            if (P.Health <= 0)
+                continue;
+
+            X = P.Location - Location;
+            DotP = X Dot Z;
+            if (DotP < 0)
+                continue;
+            DotP = VSizeSquared(X - (Z * DotP));
+            if (DotP > 90000.f || !FastTrace(P.Location,Location))
+                continue;
+
+            if (Monster(P) != none) {
+                bB = true;
+                if (DotP < 35500.f) {
+                    Y = P.Location + normal(P.Velocity) * P.CollisionRadius;
+                    ThreatLevel += P.HealthMax;
                 }
-                else bA = true;
             }
-        if( bA!=bWarningTarget || bB!=bCriticalTarget )
-        {
+            else bA = true;
+        }
+
+        if (bA!=bWarningTarget || bB!=bCriticalTarget) {
             bWarningTarget = bA;
             bCriticalTarget = bB;
-            if( DotLight!=None )
+            if (DotLight != none)
                 DotLight.SetMode(bA,bB);
             NetUpdateTime = Level.TimeSeconds-1;
         }
-        if( bB && ThreatLevel>400 )
-        {
+
+        if (bB && ThreatLevel > 400) {
             bWarningTarget = false;
             bCriticalTarget = false;
             RepLaunchPos = Y;
             GoToState('LaunchMine');
         }
-        else if( InstigatorController==None || bNeedsDetonate || (WeaponOwner!=None && WeaponOwner.NumMinesOut>WeaponOwner.MaximumMines) )
-        {
+        else if (InstigatorController==None || bNeedsDetonate || (WeaponOwner!=None
+                && WeaponOwner.NumMinesOut>WeaponOwner.MaximumMines)) {
             bWarningTarget = false;
             bCriticalTarget = false;
-            RepLaunchPos = Location + Z*(150.f+FRand()*250.f);
+            RepLaunchPos = Location + Z * (150.f + FRand() * 250.f);
             GoToState('LaunchMine');
         }
     }
@@ -437,7 +407,7 @@ state LaunchMine
             }
             bCollideWorld = true;
             SetPhysics(PHYS_Projectile);
-            Velocity = (RepLaunchPos-Location)*2.f;
+            Velocity = normal(RepLaunchPos - Location) * LaunchSpeed;
             if( Level.NetMode!=NM_Client )
                 SetTimer(0.5,false);
         }
@@ -462,29 +432,31 @@ state Destroying
 
 defaultproperties
 {
-     Speed=5000.000000
-     MaxSpeed=8000.000000
-     Damage=500
-     DamageRadius=400 // 500
-     MomentumTransfer=75000.000000
-     MyDamageType=Class'KFMod.DamTypePipeBomb'
-     ImpactSound=SoundGroup'KF_GrenadeSnd.Nade_Explode_1'
-     DisintegrateSound=Sound'Inf_Weapons.panzerfaust60.faust_explode_distant02'
-     bNetTemporary=False
-     bAlwaysRelevant=True
-     bSkipActorPropertyReplication=True
-     Physics=PHYS_Falling
-     LifeSpan=0.000000
-     Mesh=SkeletalMesh'ScrnWeaponPack_A.HopMineM'
-     DrawScale=0.6
-     AmbientGlow=25
-     bUnlit=False
-     TransientSoundVolume=2.000000
-     TransientSoundRadius=350.000000
-     bBounce=True
-     bFixedRotationDir=True
-     MinSpread=150
-     CollisionRadius=8.000000
-     CollisionHeight=3.000000
-     bProjTarget=True
+    Func=class'HopMineFunc'
+    Speed=5000.000000
+    MaxSpeed=8000.000000
+    LaunchSpeed=3000.0
+    Damage=500
+    DamageRadius=400 // 500
+    MomentumTransfer=75000.000000
+    MyDamageType=Class'KFMod.DamTypePipeBomb'
+    ImpactSound=SoundGroup'KF_GrenadeSnd.Nade_Explode_1'
+    DisintegrateSound=Sound'Inf_Weapons.panzerfaust60.faust_explode_distant02'
+    bNetTemporary=False
+    bAlwaysRelevant=True
+    bSkipActorPropertyReplication=True
+    Physics=PHYS_Falling
+    LifeSpan=0.000000
+    Mesh=SkeletalMesh'ScrnWeaponPack_A.HopMineM'
+    DrawScale=0.6
+    AmbientGlow=25
+    bUnlit=False
+    TransientSoundVolume=2.000000
+    TransientSoundRadius=350.000000
+    bBounce=True
+    bFixedRotationDir=True
+    MinSpread=150
+    CollisionRadius=8.000000
+    CollisionHeight=3.000000
+    bProjTarget=True
 }

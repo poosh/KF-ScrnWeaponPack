@@ -1,128 +1,37 @@
-class MTS255Rocket extends SPGrenadeProjectile;
+class MTS255Rocket extends ScrnRocketProjectile;
 
-var()         float         StraightFlightTime;          // How long the projectile and flies straight
-var         bool         bOutOfPropellant;            // Projectile is out of propellant
-var     bool                bDud;
-
-replication
-{
-    reliable if(Role == ROLE_Authority)
-        bDud;
-}
-
-simulated function Tick( float DeltaTime )
-{
-    SetRotation(Rotator(Normal(Velocity)));
-
-    if( !bOutOfPropellant ){
-        if ( StraightFlightTime > 0 )
-            StraightFlightTime -= DeltaTime;
-        else
-            bOutOfPropellant = true;
-    }
-
-    if(  bOutOfPropellant && Physics != PHYS_Falling )
-         SetPhysics(PHYS_Falling);
-}
-
-simulated function HitWall( vector HitNormal, actor Wall )
-{
-    if( Instigator != none )
-    {
-        OrigLoc = Instigator.Location;
-    }
-    if( !bDud && ((VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0)) )
-    {
-        bDud = true;
-        LifeSpan=1.0;
-        Velocity = vect(0,0,0);
-        SetPhysics(PHYS_Falling);
-    }
-
-    if( !bDud )
-    {
-        super(Projectile).HitWall(HitNormal,Wall);
-    }
-}
-
-simulated function Explode(vector HitLocation, vector HitNormal)
-{
-    bHasExploded = True;
-
-    // Don't explode if this is a dud
-    if( bDud )
-    {
-        Velocity = vect(0,0,0);
-        LifeSpan=1.0;
-        SetPhysics(PHYS_Falling);
-        return;
-    }
-
-    super.Explode(HitLocation, HitNormal);
-}
-
-simulated function ProcessTouch(Actor Other, Vector HitLocation)
-{
-    // Don't let it hit this player, or blow up on another player
-    if ( Other == none || Other == Instigator || Other.Base == Instigator )
-        return;
-
-    // Don't collide with bullet whip attachments
-    if( KFBulletWhipAttachment(Other) != none )
-    {
-        return;
-    }
-
-    // Don't allow hits on poeple on the same team
-    if( KFHumanPawn(Other) != none && Instigator != none
-        && KFHumanPawn(Other).PlayerReplicationInfo.Team.TeamIndex == Instigator.PlayerReplicationInfo.Team.TeamIndex )
-    {
-        return;
-    }
-
-    // Use the instigator's location if it exists. This fixes issues with
-    // the original location of the projectile being really far away from
-    // the real Origloc due to it taking a couple of milliseconds to
-    // replicate the location to the client and the first replicated location has
-    // already moved quite a bit.
-    if( Instigator != none )
-    {
-        OrigLoc = Instigator.Location;
-    }
-
-    if( !bDud && ((VSizeSquared(Location - OrigLoc) < ArmDistSquared) || OrigLoc == vect(0,0,0)) )
-    {
-        if( Role == ROLE_Authority )
-        {
-            AmbientSound=none;
-            PlaySound(Sound'ProjectileSounds.PTRD_deflect04',,2.0);
-            Other.TakeDamage( ImpactDamage, Instigator, HitLocation, Normal(Velocity), ImpactDamageType );
-        }
-        bDud = true;
-        Velocity = vect(0,0,0);
-        LifeSpan=1.0;
-        SetPhysics(PHYS_Falling);
-    }
-
-    if( !bDud )
-    {
-       Explode(HitLocation,Normal(HitLocation-Other.Location));
-    }
-}
 
 defaultproperties
 {
-    Speed=5000
-    MaxSpeed=7500
-    StraightFlightTime=0.5
-    TossZ=0
+    ImpactDamageType=Class'KFMod.DamTypeSPGrenadeImpact'
+    ImpactDamage=200
 
-    DrawScale=0.5
-
-    ArmDistSquared=62500
+    // DamTypeSPGrenade is used to deal x1.25 damage to FP
+    MyDamageType=Class'KFMod.DamTypeSPGrenade'
     Damage=260
     DamageRadius=300
+    ArmDistSquared=62500
 
-    bBounce=False
-    Physics=PHYS_Projectile
+    Speed=5000
+    MaxSpeed=7500
+
+    LightType=LT_Steady
+    LightHue=21
+    LightSaturation=64
+    LightBrightness=128.000000
+    LightRadius=4.000000
+    LightCone=16
+    bDynamicLight=True
+
+    DrawType=DT_StaticMesh
+    StaticMeshRef="KF_IJC_Summer_Weps.SPGrenade_proj"
+    DrawScale=0.5
+
+    SmokeTrailClass=Class'ReducedGrenadeTrail'
+    ExplosionClass=Class'KFMod.SPGrenadeExplosion'
+    ExplosionDecal=Class'KFMod.KFScorchMark'
+    ExplosionSoundRef="KF_GrenadeSnd.Nade_Explode_1"
+    AmbientSoundRef="KF_IJC_HalloweenSnd.KF_FlarePistol_Projectile_Loop"
+    DisintegrateSoundRef="Inf_Weapons.faust_explode_distant02"
+    ImpactSoundRef="KF_GrenadeSnd.Nade_HitSurf"
 }
