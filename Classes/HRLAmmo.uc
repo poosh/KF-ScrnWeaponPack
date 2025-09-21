@@ -4,7 +4,7 @@ class HRLAmmo extends KFAmmunition;
 
 defaultproperties
 {
-     AmmoPickupAmount=5
+     AmmoPickupAmount=4
      MaxAmmo=20
      PickupClass=class'HRLAmmoPickup'
      IconMaterial=Texture'KillingFloorHUD.Generic.HUD'
