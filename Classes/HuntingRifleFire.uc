@@ -140,38 +140,38 @@ event ModeDoFire()
 
 defaultproperties
 {
-     FireSoundRef="ScrnWeaponPack_SND.BDHR.awp1_mono"
-     StereoFireSoundRef="ScrnWeaponPack_SND.BDHR.awp1_stereo"
-     NoAmmoSoundRef="KF_RifleSnd.Rifle_DryFire"
+    StereoFireSoundRef="ScrnWeaponPack_SND.BDHR.awp1_stereo"
+    FireSoundRef="ScrnWeaponPack_SND.BDHR.awp1_mono"
+    NoAmmoSoundRef="KF_RifleSnd.Rifle_DryFire"
 
-     FireAimedAnim="Fire_Iron"
-     RecoilRate=0.100000
-     maxVerticalRecoilAngle=800
-     maxHorizontalRecoilAngle=250
-     DamageType=class'DamTypeHuntingRifle'
-     DamageMin=190
-     DamageMax=220
-     Momentum=18000.000000
-     bWaitForRelease=True
-     bModeExclusive=False
-     bAttachSmokeEmitter=True
-     TransientSoundVolume=1.800000
-     FireLoopAnim=
-     FireEndAnim=
-     FireForce="ShockRifleFire"
-     FireRate=1.900000
-     AmmoClass=class'HuntingRifleAmmo'
-     AmmoPerFire=1
-     ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
-     ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
-     ShakeRotTime=2.000000
-     ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
-     ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scope
-     ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
-     ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scope
-     ShakeOffsetTime=2.000000
-     BotRefireRate=0.650000
-     FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
-     aimerror=0.000000
-     Spread=0.007000
+    FireAimedAnim="Fire_Iron"
+    RecoilRate=0.100000
+    maxVerticalRecoilAngle=800
+    maxHorizontalRecoilAngle=250
+    DamageType=class'DamTypeHuntingRifle'
+    DamageMin=190
+    DamageMax=220
+    Momentum=18000.000000
+    bWaitForRelease=True
+    bModeExclusive=False
+    bAttachSmokeEmitter=True
+    TransientSoundVolume=2.800000
+    FireLoopAnim=
+    FireEndAnim=
+    FireForce="ShockRifleFire"
+    FireRate=1.900000
+    AmmoClass=class'HuntingRifleAmmo'
+    AmmoPerFire=1
+    ShakeRotMag=(X=100.000000,Y=100.000000,Z=500.000000)
+    ShakeRotRate=(X=10000.000000,Y=10000.000000,Z=10000.000000)
+    ShakeRotTime=2.000000
+    ShakeOffsetMag=(X=0.000000,Y=0.000000,Z=0.000000)
+    ScopedShakeOffsetMag=(X=3.000000,Y=0.000000,Z=0.000000) //faked recoil for 3d scope
+    ShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000)
+    ScopedShakeOffsetRate=(X=1000.000000,Y=1000.000000,Z=1000.000000) //faked recoil for 3d scope
+    ShakeOffsetTime=2.000000
+    BotRefireRate=0.650000
+    FlashEmitterClass=Class'ROEffects.MuzzleFlash1stKar'
+    aimerror=0.000000
+    Spread=0.007000
 }

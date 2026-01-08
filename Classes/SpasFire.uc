@@ -77,8 +77,8 @@ simulated function bool AllowFire()
 
 defaultproperties
 {
-     FireSoundRef="KF_PumpSGSnd.SG_Fire"
-     StereoFireSoundRef="KF_PumpSGSnd.SG_FireST"
+     FireSoundRef="ScrnWeaponPack_SND.spas.Spas12-Fire-M"
+     StereoFireSoundRef="ScrnWeaponPack_SND.spas.Spas12-Fire-ST"
      NoAmmoSoundRef="KF_PumpSGSnd.SG_DryFire"
      
      KickMomentum=(X=-85.000000,Z=15.000000)

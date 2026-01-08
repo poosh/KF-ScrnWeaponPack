@@ -2,6 +2,7 @@ class CZ805MFire extends KFFire;
 
 defaultproperties
 {
+     StereoFireSoundRef="ScrnWeaponPack_SND.cz805.Firecz805bST"
      FireSoundRef="ScrnWeaponPack_SND.cz805.Firecz805b"
      NoAmmoSoundRef="KF_SCARSnd.SCAR_DryFire"
 
@@ -17,7 +18,7 @@ defaultproperties
      DamageMax=41
      Momentum=12500.000000
      bPawnRapidFireAnim=True
-     TransientSoundVolume=1.800000
+     TransientSoundVolume=2.200000
      FireLoopAnim="Fire"
      TweenTime=0.025000
      FireForce="AssaultRifleFire"

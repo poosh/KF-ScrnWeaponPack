@@ -4,17 +4,18 @@ defaultproperties
 {
     bSharedAmmoPool=False
     OriginalMaxAmmo=56
-    
+
     MagCapacity=8
     ReloadRate=3.133000
     ReloadAnim="Reload"
-    ReloadShortAnim="Reload"
-    ReloadShortRate=2.15      
-    
+    //ReloadShortAnim="Reload"
+    ReloadShortAnim="Reload_Short"
+    ReloadShortRate=2.15
+
     ReloadAnimRate=1.000000
     WeaponReloadAnim="Reload_AK47"
-    
-    Weight=8.000000
+
+    Weight=8
     bHasAimingMode=True
     IdleAimAnim="Iron_Idle"
     StandardDisplayFOV=65.000000
@@ -45,11 +46,11 @@ defaultproperties
     InventoryGroup=4
     GroupOffset=10
     PickupClass=class'Saiga12cPickup'
-    PlayerViewOffset=(X=10.000000,Y=8.000000,Z=-4.000000)
-    BobDamping=4.000000
+    PlayerViewOffset=(X=18.000000,Y=22.000000,Z=-11.000000)
+    BobDamping=6.000000
     AttachmentClass=class'Saiga12cAttachment'
     IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
     ItemName="Saiga-12s SE"
-    DrawScale=0.850000
+    DrawScale=1.000000
     TransientSoundVolume=1.250000
 }

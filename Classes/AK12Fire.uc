@@ -163,8 +163,8 @@ state FireBurst
 
 defaultproperties
 {
+    StereoFireSoundRef="ScrnWeaponPack_SND.AK12.AK12_shotST"
     FireSoundRef="ScrnWeaponPack_SND.AK12.AK12_shot"
-    StereoFireSoundRef="ScrnWeaponPack_SND.AK12.AK12_shot"
     NoAmmoSoundRef="ScrnWeaponPack_SND.AK12.AK12_empty"
 
     FireAimedAnim="Fire_Iron"

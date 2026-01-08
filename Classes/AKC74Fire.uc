@@ -19,7 +19,7 @@ defaultproperties
      DamageMax=38
      Momentum=9500.000000
      bPawnRapidFireAnim=True
-     TransientSoundVolume=1.800000
+     TransientSoundVolume=2.000000
      FireLoopAnim="Fire"
      TweenTime=0.025000
      FireForce="AssaultRifleFire"

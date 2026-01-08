@@ -3,7 +3,7 @@ class SVDFire extends SVDSFire;
 
 defaultproperties
 {
-     StereoFireSoundRef="ScrnWeaponPack_SND.SVD.SVD_shot"
+     StereoFireSoundRef="ScrnWeaponPack_SND.SVD.SVD_shotST"
      FireSoundRef="ScrnWeaponPack_SND.SVD.SVD_shot"
      NoAmmoSoundRef="ScrnWeaponPack_SND.SVD.SVD_empty"
      TransientSoundVolume=3.800000

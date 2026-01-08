@@ -45,14 +45,17 @@ defaultproperties
     KickMomentum=(X=-95.000000,Z=25.000000)
     maxVerticalRecoilAngle=1300
     maxHorizontalRecoilAngle=700
-    FireAimedAnim="Fire"
+    //FireAimedAnim="Fire"
+    FireAimedAnim="Fire_Iron"
+    StereoFireSound=none
+    FireSound=none
     FireSoundRef="ScrnWeaponPack_SND.saiga.shot_mono"
     StereoFireSoundRef="ScrnWeaponPack_SND.saiga.shot_stereo"
     NoAmmoSoundRef="ScrnWeaponPack_SND.saiga.Saiga_empty"
     ProjPerFire=6 // 5
     bModeExclusive=False
     bAttachSmokeEmitter=True
-    TransientSoundVolume=2.000000
+    TransientSoundVolume=2.500000
     TransientSoundRadius=500.000000
     FireRate=0.50
     FireAnimRate=1.52  // framerate: 19/25

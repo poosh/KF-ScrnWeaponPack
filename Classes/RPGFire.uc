@@ -91,7 +91,7 @@ defaultproperties
 
     KickMomentum=(X=-45.000000,Z=25.000000)
     ProjSpawnOffset=(X=50.000000,Z=0) //doesn't seem to do anything, since it should be 0 when fired while aimed
-    TransientSoundVolume=1.8
+    TransientSoundVolume=2.5
     FireAnim="AimFire"
     FireLastAnim="Fire"
     FireAnimRate=0.94

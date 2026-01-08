@@ -3,6 +3,8 @@
 //=============================================================================
 class ColtFire extends ScrnFire;
 
+var float DamMultFP;
+
 function AdjustZedDamage(KFMonster Zed, out float Damage)
 {
     // FP must have only 25% damage resistance against AP rounds.
@@ -10,7 +12,7 @@ function AdjustZedDamage(KFMonster Zed, out float Damage)
     // Boost the damage to 150%, so it remains at 75% after halving in the FP code.
     // Adjusted to 160% to make 6 headhots decapitate 6p HoE FP
     if (Zed.IsA('ZombieFleshpound') || Zed.IsA('FemaleFP')) {
-        Damage *= 1.6;
+        Damage *= DamMultFP;
     }
 }
 
@@ -30,10 +32,11 @@ defaultproperties
     maxHorizontalRecoilAngle=500 //50
     DamageType=class'DamTypeColt'
     DamageMax=350
+    DamMultFP=1.6
     Momentum=10000.000000
     bWaitForRelease=True
     bAttachSmokeEmitter=True
-    TransientSoundVolume=2.00 // 2.5
+    TransientSoundVolume=2.25 // 2.5
     TransientSoundRadius=150 // 400
     FireAnimRate=1.50000 //synced better with fire animation
     TweenTime=0.025000

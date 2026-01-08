@@ -63,6 +63,14 @@ simulated function HandleRecoil(float Rec)
 
 defaultproperties
 {
+    // For some reason KF forgets the StereoFireSound exists and the extension of this class has a unique firing sound
+    // so define the FireSoundRefs again
+    FireSound=none
+    StereoFireSound=none
+    FireSoundRef="ScrnWeaponPack_SND.spas.Spas12-Fire-M"
+    StereoFireSoundRef="ScrnWeaponPack_SND.spas.Spas12-Fire-ST"
+    
+    NoAmmoSoundRef="KF_PumpSGSnd.SG_DryFire"
     KickMomentum=(X=-45.000000,Z=10.000000) //Pump action is (X=-85.000000,Z=15.000000)
     maxVerticalRecoilAngle=750
     maxHorizontalRecoilAngle=500

@@ -3,7 +3,7 @@
 // Whisky's Colt Python
 // Balance job by PooSH
 //==================================================
-class Colt extends KFWeapon;
+class Colt extends ScrnRevolver;
 
 var float ReloadMulti;
 var float BulletUnloadRate; // how long does it takes to unload empty bullets

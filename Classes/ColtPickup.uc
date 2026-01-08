@@ -1,7 +1,7 @@
 //==================================================
 // Colt Python Pickup.
 //==================================================
-class ColtPickup extends KFWeaponPickup;
+class ColtPickup extends ScrnRevolverPickup;
 
 defaultproperties
 {

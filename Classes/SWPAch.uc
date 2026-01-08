@@ -178,8 +178,8 @@ defaultproperties
     AchDefs(30)=(id="MTS255",DisplayName="Shotgun that SHOOTS ROCKETS!",Description="Kill 255 zeds with MTs-255",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=255,DataSize=8)
     AchDefs(31)=(id="MTS255_FP",DisplayName="A New Toy For a Big Boy",Description="Kill %c Fleshpouds with MTs-255",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=50,DataSize=6)
     AchDefs(32)=(id="MTS255_CR",DisplayName="Taste a rocket, arachnoid baby!",Description="Hit and blow up a Crawler in midair with MTs-255 rocket",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=1,DataSize=1)
-    AchDefs(33)=(id="Colt",DisplayName="Elephant Pistol",Description="Kill %c Sirens or Husks with Colt .50 xAE",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=60,DataSize=6)
-    AchDefs(34)=(id="Colt_SC",DisplayName="Sniper's Assist",Description="Headshot %c stuned Scrakes with Colt .50 xAE",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=30,DataSize=5)
+    AchDefs(33)=(id="Colt",DisplayName="Elephant Pistol",Description="Kill %c Sirens or Husks with a .50 Revolver",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=60,DataSize=6)
+    AchDefs(34)=(id="Colt_SC",DisplayName="Sniper's Assist",Description="Headshot %c stuned Scrakes with .50 Revolver",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=30,DataSize=5)
     AchDefs(35)=(id="MedicPistol_250",DisplayName="Overcharge",Description="Overcharge teammate's health up to 250hp",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=1,DataSize=1)
     AchDefs(36)=(id="MedicPistol_Crawler",DisplayName="Overkill vol.X: Overheal",Description="Overheal %c crawlers to make them explode",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=15,DataSize=4)
     AchDefs(37)=(id="MedicPistol_Bloat",DisplayName="Overcharged Fat",Description="Overheal Bloat to make him to explode",Icon=Texture'ScrnAch_T.Achievements.Checked',MaxProgress=1,DataSize=1)
@@ -258,8 +258,8 @@ defaultproperties
     Description30="Kill 255 zeds with MTs-255"
     Description31="Kill %c Fleshpouds with MTs-255"
     Description32="Hit and blow up a Crawler in midair with MTs-255 rocket"
-    Description33="Kill %c Sirens or Husks with Colt .50 xAE"
-    Description34="Headshot %c stuned Scrakes with Colt .50 xAE"
+    Description33="Kill %c Sirens or Husks with .50 Revolver"
+    Description34="Headshot %c stuned Scrakes with .50 Revolver"
     Description35="Overcharge teammate's health up to 250hp"
     Description36="Overheal %c crawlers to make them explode"
     Description37="Overheal Bloat to make him to explode"
