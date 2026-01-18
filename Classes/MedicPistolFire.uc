@@ -103,7 +103,7 @@ function DoTrace(Vector Start, Rotator Dir)
             if ( HitPawn != none )
             {
                 if ( HitPawn.Health > 0 ) {
-                    MedicPistol(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
+                    ScrnCustomMedicGun(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
                     HealPawn(HitPawn);
                     break;
                 }
@@ -139,7 +139,7 @@ function DoTrace(Vector Start, Rotator Dir)
                 // DAMAGE & HEAL
                 Other.TakeDamage(int(HitDamage), Instigator, HitLocation, Momentum*X, DamageType);
                 if ( Monster != none && !Monster.bDecapitated && Monster.Health > 0 ) {
-                    MedicPistol(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
+                    ScrnCustomMedicGun(Instigator.Weapon).HitHealTarget(HitLocation, Rotator(-HitNormal));
                     Monster.Health += int(HitDamage * class<KFWeaponDamageType>(DamageType).default.HeadShotDamageMult);
                     if ( Monster.Health > 2 * Monster.HealthMax ) {
                         Monster.TakeDamage(Monster.Health * 10, Instigator, Monster.Location, vect(0,0,1), class'DamTypeMedicOvercharge' );
@@ -200,9 +200,6 @@ function HealPawn(KFPawn Healed)
     if (Healed.Health > 250) {
         class'ScrnAchCtrl'.static.Ach2Pawn(Instigator, 'MedicPistol_250', 1);
     }
-
-    // Replaced by ScrnHealMessage
-    // MedicPistol(Instigator.Weapon).ClientSuccessfulHeal(Healed.PlayerReplicationInfo);
 }
 
 

@@ -1,5 +1,4 @@
-class MedicPistol extends KFWeapon
-    config(user);
+class MedicPistol extends ScrnCustomMedicGun;
 
 
 var const   class<ScrnLocalLaserDot>    LaserDotClass;
@@ -8,12 +7,6 @@ var         ScrnLocalLaserDot           LaserDot;             // The first perso
 var()       class<InventoryAttachment>  LaserAttachmentClass;      // First person laser attachment class
 var         Actor                       LaserAttachment; // First person laser attachment
 var         byte                        LaserType;
-
-var transient Vector HealLocation, ClientHealLocation;
-var transient Rotator HealRotation;
-
-var Sound HealSound;
-var string HealSoundRef;
 
 var name ReloadShortAnim;
 var float ReloadShortRate;
@@ -25,50 +18,6 @@ replication
 {
     reliable if(Role < ROLE_Authority)
         ServerSetLaserType;
-
-     reliable if( Role == ROLE_Authority )
-        ClientSuccessfulHeal;
-
-    reliable if( bNetDirty && Role == ROLE_Authority )
-        HealRotation, HealLocation;
-}
-
-//=============================================================================
-// Dynamic Asset Load
-//=============================================================================
-static function PreloadAssets(Inventory Inv, optional bool bSkipRefCount)
-{
-    local MedicPistol W;
-
-    super.PreloadAssets(Inv, bSkipRefCount);
-
-    default.HealSound = sound(DynamicLoadObject(default.HealSoundRef, class'Sound', true));
-
-    if ( W != none ) {
-        W.HealSound = default.HealSound;
-    }
-}
-
-static function bool UnloadAssets()
-{
-    if ( super.UnloadAssets() )
-    {
-        default.HealSound = none;
-    }
-
-    return true;
-}
-
-//=============================================================================
-// Functions
-//=============================================================================
-
-simulated function PostNetReceive()
-{
-    if ( Role < ROLE_Authority && ClientHealLocation != HealLocation ) {
-        ClientHealLocation = HealLocation;
-        HitHealTarget(HealLocation, HealRotation);
-    }
 }
 
 simulated function Fire(float f)
@@ -313,8 +262,6 @@ simulated function TurnOffLaser()
         LaserDot.Destroy();
 }
 
-
-
 // Set the new fire mode on the server
 function ServerSetLaserType(byte NewLaserType)
 {
@@ -322,7 +269,6 @@ function ServerSetLaserType(byte NewLaserType)
     if ( ScrnLaserWeaponAttachment(ThirdPersonActor) != none )
         ScrnLaserWeaponAttachment(ThirdPersonActor).SetLaserType(LaserType);
 }
-
 
 simulated function RenderOverlays( Canvas Canvas )
 {
@@ -421,32 +367,8 @@ exec function SwitchModes()
 }
 
 
-simulated function ClientSuccessfulHeal(PlayerReplicationInfo HealedPRI)
-{
-    if( PlayerController(Instigator.Controller) != none )
-        PlayerController(Instigator.controller).ClientMessage(class'KFMod.MP7MMedicGun'.default.SuccessfulHealMessage $ HealedPRI.PlayerName, 'CriticalEvent');
-}
-
-simulated function HitHealTarget(vector HitLocation, rotator HitRotation)
-{
-    HealLocation = HitLocation;
-    HealRotation = HitRotation;
-
-    if( Role == ROLE_Authority ) {
-       NetUpdateTime = Level.TimeSeconds - 1;
-    }
-
-    PlaySound(HealSound,,2.0);
-
-    if ( EffectIsRelevant(Location,false) )
-    {
-        Spawn(Class'KFMod.HealingFX',,, HitLocation, HitRotation);
-    }
-}
-
 defaultproperties
 {
-    HealSoundRef="KF_MP7Snd.MP7_DartImpact"
     HudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_UnSelected"
     SelectedHudImageRef="ScrnWeaponPack_T.MedicPistol.HUD_Single_Selected"
     SelectSoundRef="KF_9MMSnd.9mm_Select"
