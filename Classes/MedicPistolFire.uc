@@ -181,19 +181,17 @@ function HealPawn(KFPawn Healed)
         return;
 
     HealPotency = 1.0;
-
     PRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
     if ( PRI != none && PRI.ClientVeteranSkill != none )
         HealPotency = PRI.ClientVeteranSkill.Static.GetHealPotency(PRI);
-    HealSum = HealAmount * HealPotency;
 
     if ( Healed.Controller != none )
         Healed.Controller.ShakeView(ShakeRotMag, ShakeRotRate, ShakeRotTime, ShakeOffsetMag, ShakeOffsetRate, ShakeOffsetTime);
 
     if ( ScrnHumanPawn(Healed) != none )
-        ScrnHumanPawn(Healed).TakeHealing(ScrnHumanPawn(Instigator), HealSum, HealPotency, KFWeapon(Instigator.Weapon));
+        ScrnHumanPawn(Healed).TakeHealingEx(ScrnHumanPawn(Instigator), 0, HealSum, KFWeapon(Instigator.Weapon), true);
     else
-        Healed.GiveHealth(HealSum, Healed.HealthMax);
+        class'ScrnHumanPawn'.static.HealLegacyPawn(Healed, Instigator, HealSum);
 
     // instantly raise player health
     Healed.Health += int(HealBoost * HealPotency);
@@ -201,7 +199,6 @@ function HealPawn(KFPawn Healed)
         class'ScrnAchCtrl'.static.Ach2Pawn(Instigator, 'MedicPistol_250', 1);
     }
 }
-
 
 
 defaultproperties
