@@ -175,7 +175,7 @@ function DoTrace(Vector Start, Rotator Dir)
 function HealPawn(KFPawn Healed)
 {
     local KFPlayerReplicationInfo PRI;
-    local float HealPotency, HealSum;
+    local float HealPotency;
 
     if ( Healed.Health <= 0 )
         return;
@@ -189,9 +189,9 @@ function HealPawn(KFPawn Healed)
         Healed.Controller.ShakeView(ShakeRotMag, ShakeRotRate, ShakeRotTime, ShakeOffsetMag, ShakeOffsetRate, ShakeOffsetTime);
 
     if ( ScrnHumanPawn(Healed) != none )
-        ScrnHumanPawn(Healed).TakeHealingEx(ScrnHumanPawn(Instigator), 0, HealSum, KFWeapon(Instigator.Weapon), true);
+        ScrnHumanPawn(Healed).TakeHealingEx(ScrnHumanPawn(Instigator), 0, HealAmount, KFWeapon(Instigator.Weapon), true);
     else
-        class'ScrnHumanPawn'.static.HealLegacyPawn(Healed, Instigator, HealSum);
+        class'ScrnHumanPawn'.static.HealLegacyPawn(Healed, Instigator, HealAmount);
 
     // instantly raise player health
     Healed.Health += int(HealBoost * HealPotency);
