@@ -536,6 +536,6 @@ defaultproperties
      BobDamping=5.000000
      AttachmentClass=class'CZ805MAttachment'
      IconCoords=(X1=245,Y1=39,X2=329,Y2=79)
-     ItemName="CZ-805M Medic/Assault Rifle SE"
+     ItemName="CZ-805M Medic Rifle SE"
      TransientSoundVolume=1.250000
 }

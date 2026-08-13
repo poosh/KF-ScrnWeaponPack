@@ -5,7 +5,7 @@ class ColtFire extends ScrnFire;
 
 var float DamMultFP;
 
-function AdjustZedDamage(KFMonster Zed, out float Damage)
+function int AdjustZedDamage(KFMonster Zed, Vector ray, int Damage)
 {
     // FP must have only 25% damage resistance against AP rounds.
     // However, FP does the AP check via "HeadShotDamageMult >= 1.5", which is not our case.
@@ -14,6 +14,7 @@ function AdjustZedDamage(KFMonster Zed, out float Damage)
     if (Zed.IsA('ZombieFleshpound') || Zed.IsA('FemaleFP')) {
         Damage *= DamMultFP;
     }
+    return Damage;
 }
 
 

@@ -1,4 +1,4 @@
-class VALDTFire extends KFFire;
+class VALDTFire extends ScrnFire;
 
 defaultproperties
 {
@@ -16,7 +16,6 @@ defaultproperties
     bAccuracyBonusForSemiAuto=True
     bRandomPitchFireSound=False
     DamageType=class'DamTypeVALDT'
-    DamageMin=65
     DamageMax=75
     Momentum=18500.000000
     bPawnRapidFireAnim=True

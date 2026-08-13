@@ -278,7 +278,6 @@ simulated function RenderOverlays( Canvas Canvas )
     local Actor Other;
     local vector X,Y,Z;
     local coords C;
-    local KFFire KFM;
     local array<Actor> HitActors;
 
     if (Instigator == None)
@@ -299,8 +298,6 @@ simulated function RenderOverlays( Canvas Canvas )
 
     SetLocation( Instigator.Location + Instigator.CalcDrawOffset(self) );
     SetRotation( Instigator.GetViewRotation() + ZoomRotInterp);
-
-    KFM = KFFire(FireMode[0]);
 
     // Handle drawing the laser dot
     if ( LaserDot != None )

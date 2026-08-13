@@ -1,4 +1,4 @@
-class AKC74Fire extends KFFire;
+class AKC74Fire extends ScrnFire;
 
 defaultproperties
 {
@@ -15,7 +15,6 @@ defaultproperties
      StereoFireSoundRef="ScrnWeaponPack_SND.AK74.akc74_shoot_stereo"
      NoAmmoSoundRef="ScrnWeaponPack_SND.AK74.akc74__empty"
      DamageType=class'DamTypeAK74AssaultRifle'
-     DamageMin=38
      DamageMax=38
      Momentum=9500.000000
      bPawnRapidFireAnim=True

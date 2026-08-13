@@ -1,4 +1,4 @@
-class CZ805MFire extends KFFire;
+class CZ805MFire extends ScrnFire;
 
 defaultproperties
 {

@@ -32,7 +32,7 @@ function ServerChangeFireModeEx(byte NewFireModeEx)
     FireMode[0].bWaitForRelease = NewFireModeEx == 1;
 }
 
-    simulated function bool StartFire(int Mode)
+simulated function bool StartFire(int Mode)
 {
     if ( FireModeEx <= 1 || Mode != 0 )
         return super.StartFire(Mode);
